@@ -10,20 +10,21 @@ Summary:さくらVPSを契約した時のHowto．
 
 さくらVPSの[512プラン](http://vps.sakura.ad.jp/specification/)を契約した．  
 月額635円でとてもやすい．  
-クレジットカードで登録すると2週間無料お試しができる．(初期費用で約2000円位持ってかれる．)  
+クレジットカードで登録すると2週間無料お試しができる．  
+(初期費用で約2000円位持ってかれる．)  
 
 ## 初期設定
 コントロールパネルで契約したサーバを起動した後，自分のPCのterminalでSSH接続．  
-```Bash
+```bash
 $ ssh root@{サーバのIPアドレス}
 ```
 yum update をする  
-```Bash
+```bash
 $ yum update
 ```
 すると，いきなりエラーを吐かれるので  
 clean up してから update　する  
-```Bash
+```bash
 $ yum clean up
 $ yum update
 ```
@@ -32,27 +33,27 @@ $ yum update
 
 ### 日本語化
 一応，日本語化しておく．  
-```Bash
+```bash
 $ vim /etc/sysconfig/i18n
 ```
-```Bash:/etc/sysconfig/i18n
+```bash
 LANG="ja_JP.UTF-8"
 SYSFONT="latarcyrheb-sun16"
 ```
 
 ### 作業用ユーザの登録
 作業用ユーザの登録をする．  
-```Bash
+```bash
 $ useradd {新しいユーザの名前}
 $ passwd {useraddしたユーザの名前}
 ```
 作業用ユーザに sudo 権限を与える．  
 (userをwheelグループに入れるように変更)  
-```Bash
+```bash
 $ usermod -G wheel {useraddしたユーザの名前}
 ```
 wheelグループがsudoコマンドを使えるようにする．  
-```Bash
+```bash
 $ visudo
 ```
 %wheel  ALL=(ALL)  ALLの行を以下のように変更  
@@ -63,65 +64,66 @@ $ visudo
 ```
 
 ### 鍵認証
-さくら側で.sshフォルダを作っておく  
-```Bash:sakura
+##### さくら側
+.sshフォルダを作っておく  
+```bash
 $ mkdir ~/.ssh
 $ chmod 700 ~/.ssh
 ```
-
+##### 自分のPC側
 自分のPCで鍵作成．  
 (パスフレーズなど聞かれるのでデフォルトのままでok)
 筆者はSSH先ごとに鍵を変えてるので名前を変えた．  
-```Bash:PC
+```bash
 $ ssh-keygen -t rsa
 Enter file in which to save the key : id_rsa.sakura
 Enter passphrase :
 ```
 
 ちゃんとできてるか確認．  
-```Bash:PC
+```bash
 $ ls -a ~/.ssh
 id_rsa.sakura   id_rsa.sakura.pub
 ```
 できてる．  
 パーミッションを変えておく．  
-```Bash:PC
+```bash
 $ chmod 600 id_rsa.sakura.pub
 ```
 SSH接続の時にいちいちIPアドレスを書くのが面倒どうなので  
 configに登録しておく．
-```Bash:PC
+```bash
 $ cd ~/.ssh
 $ vim config
 ```
-```Bash:config
+```bash
 Host sakura
   HostName {さくらのIPアドレス}
   User {useraddしたユーザの名前}
 ```
 これで  
-```Bash
+```bash
 $ ssh sakura
 ```
 でつなげるようになる．  
 
 pubの方をさくらVPSに転送．  
 転送時にauthorized_keysに名前変更．  
-```Bash:PC
+```bash
 $ scp ~/.ssh/id_rsa.sakura.pub sakura:~/.ssh/authorized_keys
 ```
 さくら側で確認．  
-```Bash:sakura
+```bash
 $ ls -a ~/.ssh
 authorized_keys
 ```
 ok．  
 
 configに鍵を登録しておく．
-```Bash:PC
+```bash
 $ vim ~/.ssh/config
 ```
-```Bash:config
+```bash
 Host sakura
   HostName {さくらのIPアドレス}
   User {useraddしたユーザの名前}
@@ -138,20 +140,20 @@ Host sakura
 
 ##### さくら側
 rootにスイッチ
-```Bash:sakura
+```bash
 $ sudo -s
 ```
 SSH設定をいじっていく．  
 SSHの設定は /etc/ssh/ssh_config
 先にバックアップをとる．  
-```Bash:sakura
+```bash
 $ cp /etc/ssh/ssh_config /etc/ssh/ssh_config.org
 ```
-```Bash:sakura
+```bash
 $ vim /etc/ssh/ssh_config
 ```
 以下の3つを変更．
-```Bash:/etc/ssh/ssh_config
+```bash
 #Port 22
 ↓
 Port {任意の番号}
@@ -165,17 +167,17 @@ PasswordAuthentication no
 PermitRootLogin no
 ```
 変更を反映させる．  
-```Bash:sakura
+```bash
 $ service sshd restart
 ```
 
 
-##### 自分のPC  
+##### 自分のPC
 configにportを登録する．
-```Bash:PC
+```bash
 $ vim ~/.ssh/config
 ```
-```Bash:config
+```bash
 Host sakura
   HostName {さくらのIPアドレス}
   User {useraddしたユーザの名前}
@@ -187,11 +189,11 @@ Host sakura
 
 ### FireWall(iptables)の設定
 /etc/sysconfig/iptablesをいじる．  
-```Bash:sakura
+```bash
 $ vim /etc/sysconfig/iptables
 ```
 以下をコピペでも可．  
-```Bash:/etc/sysconfig/iptables
+```bash
 *filter
 :INPUT     DROP    [0:0]
 :FORWARD   DROP    [0:0]
@@ -211,12 +213,12 @@ COMMIT
 筆者はこんな感じ．  
 
 設定を反映させる．
-```Bash:sakura
+```bash
 $ service iptables start
 ```
 okが出たらok．  
 
 設定を確認するためのコマンド
-```Bash:sakura
+```bash
 $ iptables -L
 ```

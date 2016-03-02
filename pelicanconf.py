@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 AUTHOR = 'lapis_zero09'
 SITENAME = '題未定'
 SITEURL = 'http://www.lapis-zero09.xyz'
+# SITEURL = 'http://localhost:8000'
 TIMEZONE = 'Asia/Tokyo'
 DEFAULT_LANG = 'ja'
 PATH = 'content'
@@ -28,7 +29,7 @@ LINKS = (('Pelican', 'http://getpelican.com/'),
 
 # Social widget
 SOCIAL = (
-    ('github', 'https://github.com/lapis_zero09.github.io/'),
+    ('github', 'https://github.com/Shandy-ko'),
     ('twitter-square', 'https://twitter.com/lapis_zero09'),
     ('gift', 'http://www.amazon.co.jp/registry/wishlist/2TLPKVEIT5D9B'),
 )
