@@ -2,7 +2,7 @@ Title: さくらVPSを契約した話
 Date: 2016-03-02 22:00
 Category: さくらVPS
 Tags: さくらVPS, ssh, yum
-Slug: first-post
+Slug: first
 Author: lapis_zero09
 Summary:さくらVPSを契約した時のHowto．
 
@@ -31,7 +31,7 @@ $ yum update
 うまくいきました．  
 時間がかかったので screen の中で回したほうがいいかも  
 
-### 日本語化
+## 日本語化
 一応，日本語化しておく．  
 ```bash
 $ vim /etc/sysconfig/i18n
@@ -41,7 +41,7 @@ LANG="ja_JP.UTF-8"
 SYSFONT="latarcyrheb-sun16"
 ```
 
-### 作業用ユーザの登録
+## 作業用ユーザの登録
 作業用ユーザの登録をする．  
 ```bash
 $ useradd {新しいユーザの名前}
@@ -63,14 +63,14 @@ $ visudo
 %wheel       ALL=(ALL)      ALL
 ```
 
-### 鍵認証
-##### さくら側
+## 鍵認証
+### さくら側
 .sshフォルダを作っておく  
 ```bash
 $ mkdir ~/.ssh
 $ chmod 700 ~/.ssh
 ```
-##### 自分のPC側
+### 自分のPC側
 自分のPCで鍵作成．  
 (パスフレーズなど聞かれるのでデフォルトのままでok)
 筆者はSSH先ごとに鍵を変えてるので名前を変えた．  
@@ -130,7 +130,7 @@ Host sakura
   IdentityFile ~/.ssh/id_rsa.sakura
 ```
 
-### SSH設定
+## SSH設定
 セキュリティを高めるために以下を実行．  
 - ポート番号の変更
   - デフォルトの22から任意の番号に変更
@@ -138,7 +138,7 @@ Host sakura
 - パスワードログインの禁止
 - rootログインの禁止
 
-##### さくら側
+### さくら側
 rootにスイッチ
 ```bash
 $ sudo -s
@@ -172,7 +172,7 @@ $ service sshd restart
 ```
 
 
-##### 自分のPC
+### 自分のPC
 configにportを登録する．
 ```bash
 $ vim ~/.ssh/config
@@ -187,7 +187,7 @@ Host sakura
 
 接続できたらok．  
 
-### FireWall(iptables)の設定
+## FireWall(iptables)の設定
 /etc/sysconfig/iptablesをいじる．  
 ```bash
 $ vim /etc/sysconfig/iptables
@@ -222,3 +222,7 @@ okが出たらok．
 ```bash
 $ iptables -L
 ```
+
+
+
+[Nginxをインストールした話](https://www.lapis-zero09.xyz/second.html)

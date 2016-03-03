@@ -96,7 +96,7 @@ $ yum update
 
 <p>うまくいきました．<br />
 時間がかかったので screen の中で回したほうがいいかも  </p>
-<h3>日本語化</h3>
+<h2>日本語化</h2>
 <p>一応，日本語化しておく．  </p>
 <div class="highlight"><pre><span></span>$ vim /etc/sysconfig/i18n
 </pre></div>
@@ -107,7 +107,7 @@ $ yum update
 </pre></div>
 
 
-<h3>作業用ユーザの登録</h3>
+<h2>作業用ユーザの登録</h2>
 <p>作業用ユーザの登録をする．  </p>
 <div class="highlight"><pre><span></span>$ useradd <span class="o">{</span>新しいユーザの名前<span class="o">}</span>
 $ passwd <span class="o">{</span>useraddしたユーザの名前<span class="o">}</span>
@@ -132,15 +132,15 @@ $ passwd <span class="o">{</span>useraddしたユーザの名前<span class="o">
 </pre></div>
 
 
-<h3>鍵認証</h3>
-<h5>さくら側</h5>
+<h2>鍵認証</h2>
+<h3>さくら側</h3>
 <p>.sshフォルダを作っておく  </p>
 <div class="highlight"><pre><span></span>$ mkdir ~/.ssh
 $ chmod <span class="m">700</span> ~/.ssh
 </pre></div>
 
 
-<h5>自分のPC側</h5>
+<h3>自分のPC側</h3>
 <p>自分のPCで鍵作成．<br />
 (パスフレーズなど聞かれるのでデフォルトのままでok)
 筆者はSSH先ごとに鍵を変えてるので名前を変えた．  </p>
@@ -206,14 +206,14 @@ authorized_keys
 </pre></div>
 
 
-<h3>SSH設定</h3>
+<h2>SSH設定</h2>
 <p>セキュリティを高めるために以下を実行．<br />
 - ポート番号の変更
   - デフォルトの22から任意の番号に変更
   - 指定できる範囲は1024~65535
 - パスワードログインの禁止
 - rootログインの禁止</p>
-<h5>さくら側</h5>
+<h3>さくら側</h3>
 <p>rootにスイッチ</p>
 <div class="highlight"><pre><span></span>$ sudo -s
 </pre></div>
@@ -250,7 +250,7 @@ PermitRootLogin no
 </pre></div>
 
 
-<h5>自分のPC</h5>
+<h3>自分のPC</h3>
 <p>configにportを登録する．</p>
 <div class="highlight"><pre><span></span>$ vim ~/.ssh/config
 </pre></div>
@@ -265,7 +265,7 @@ PermitRootLogin no
 
 
 <p>接続できたらok．  </p>
-<h3>FireWall(iptables)の設定</h3>
+<h2>FireWall(iptables)の設定</h2>
 <p>/etc/sysconfig/iptablesをいじる．  </p>
 <div class="highlight"><pre><span></span>$ vim /etc/sysconfig/iptables
 </pre></div>
@@ -300,6 +300,9 @@ COMMIT
 <p>設定を確認するためのコマンド</p>
 <div class="highlight"><pre><span></span>$ iptables -L
 </pre></div>
+
+
+<p><a href="https://www.lapis-zero09.xyz/second.html">Nginxをインストールした話</a></p>
             <a href="#" class="go-top">Go Top</a>
 <footer class="footer">
     <p>&copy; lapis_zero09 &ndash;
