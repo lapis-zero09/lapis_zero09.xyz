@@ -1,7 +1,7 @@
 Title: さくらVPSにNginx1.9系をインストールした話
 Date: 2016-03-03 22:00
 Category: さくらVPS
-Tags: さくらVPS, Nginx, SSL,
+Tags: さくらVPS, Nginx
 Slug: second
 Author: lapis_zero09
 Summary:さくらVPSに最新のNginxをインストールした時のHowto．
@@ -13,7 +13,7 @@ Summary:さくらVPSに最新のNginxをインストールした時のHowto．
   - [ここ](http://qiita.com/lapis_zero09/items/a77db6bbeb5fa83742a6)か[ここ](https://www.lapis-zero09.xyz/first.html)の初期設定が終わってる状態．
   - OSは標準のCentOS 6.7
 
-さくらVPSにインストースされているOSを確認するコマンドは  
+さくらVPSにインストールされているOSを確認するコマンドは  
 
 ```bash
 $ cat /etc/redhat-release
@@ -297,3 +297,8 @@ nginx          	0:off	1:off	2:on	3:on	4:on	5:on	6:off
 
 
 後は `/usr/local/nginx/conf/nginx.conf` を好きなようにいじる．
+
+[さくらVPSにお名前.comで契約したドメインを関連付けた話](https://www.lapis-zero09.xyz/third.html)
+[NginxをHTTP/2対応にした話](https://www.lapis-zero09.xyz/forth.html)
+
+追記：公式あるっぽい http://nginx.org/packages/mainline/centos/6/x86_64/RPMS/
