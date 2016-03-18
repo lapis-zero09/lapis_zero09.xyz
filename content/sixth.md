@@ -8,8 +8,8 @@ Summary: TeXのPATHが勝手に通ってくれないので自分で通した時�
 
 # El CapitanにTeXを入れる
 
-Homebrew経由でもTeX本家からpkgを落としてきても，TeX関連のPATHが通らないのでやったこと
-※本当なら勝手にPATH が通るはず?
+Homebrew経由でもTeX本家からpkgを落としてきても，TeX関連のPATHが通らないのでやったこと  
+※本当なら勝手にPATH が通るはず??  
 
 ## Ghostscriptのインストール
 
@@ -19,26 +19,26 @@ $ brew install ghostscript
 
 ## MacTeXのインストール
 
-[MacTeX](https://tug.org/mactex/mactex-download.html)　から，MacTeX.pkgをダウンロード．
-ファイルのダウンロードが始まらず，
-"mactex-download..."のテキストが表示された場合，
-"ftp://"で始まるURLをアドレスフィールドに直接コピペ．
+[MacTeX](https://tug.org/mactex/mactex-download.html)　から，MacTeX.pkgをダウンロード．  
+ファイルのダウンロードが始まらず，  
+"mactex-download..."のテキストが表示された場合，  
+"ftp://"で始まるURLをアドレスフィールドに直接コピペ．  
 
-"インストールの種類"で"カスタマイズ"をクリック．
-"カスタムインストール"でGhostscriptのチェックを外して
-インストールをクリック．
+"インストールの種類"で"カスタマイズ"をクリック．  
+"カスタムインストール"でGhostscriptのチェックを外して  
+インストールをクリック．  
 
 
 ## PATHを通してやる
 
-`zshrc` か `bashrc` に以下を記載．
+`zshrc` か `bashrc` に以下を記載．  
 
 ```
 export PATH="/usr/local/texlive/2015/bin/x86_64-darwin/":$PATH
 ```
 
 
-`zshrc` か `bashrc` 書いた方をリロード．
+`zshrc` か `bashrc` 書いた方をリロード．  
 
 ```
 $ source ~/.zshrc
@@ -52,4 +52,4 @@ $ sudo tlmgr update --self --all
 
 
 
-以上．
+以上．  

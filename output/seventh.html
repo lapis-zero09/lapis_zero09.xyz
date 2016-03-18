@@ -6,12 +6,13 @@
     <meta name="description" content="題未定, ">
 
 
-        <title>all posts // 題未定 // </title>
+        <title>TeXshopのcolor schemeを変更したときの話 // 題未定 // </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="theme/css/pure.css">
+    <link rel="stylesheet" href="https://www.lapis-zero09.xyz/theme/css/pygments.css">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>
@@ -23,6 +24,12 @@
       ga('create', 'UA-74593186-1', 'auto');
       ga('send', 'pageview');
 
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
     </script>
 </head>
 
@@ -55,44 +62,68 @@
                 </div>
             </div>
         </div>
-    <div class="pure-u-1">
+    <div class="pure-u">
         <div class="content">
-            <h1 class="content-subhead">All posts</h1>
-                <div class="archive-item">
-                    <h5 class="archive-date">2016</h5>
-                    <h4 class="archive-date">18 3月</h4>
-                    <div class="archive-post"><a href="seventh.html">TeXshopのcolor schemeを変更したときの話</a></div>
-                </div>
-                <div class="archive-item">
-                    <h5 class="archive-date">2016</h5>
-                    <h4 class="archive-date">15 3月</h4>
-                    <div class="archive-post"><a href="sixth.html">TeXを入れたときの話</a></div>
-                </div>
-                <div class="archive-item">
-                    <h5 class="archive-date">2016</h5>
-                    <h4 class="archive-date">04 3月</h4>
-                    <div class="archive-post"><a href="fifth.html">一人暮らしの寂しさを紛らわす彼女(bot)を作った話</a></div>
-                </div>
-                <div class="archive-item">
-                    <h5 class="archive-date">2016</h5>
-                    <h4 class="archive-date">03 3月</h4>
-                    <div class="archive-post"><a href="forth.html">NginxをHTTP/2対応にした話</a></div>
-                </div>
-                <div class="archive-item">
-                    <h5 class="archive-date">2016</h5>
-                    <h4 class="archive-date">03 3月</h4>
-                    <div class="archive-post"><a href="third.html">さくらVPSにお名前.comで契約したドメインを関連付けた話</a></div>
-                </div>
-                <div class="archive-item">
-                    <h5 class="archive-date">2016</h5>
-                    <h4 class="archive-date">03 3月</h4>
-                    <div class="archive-post"><a href="second.html">さくらVPSにNginx1.9系をインストールした話</a></div>
-                </div>
-                <div class="archive-item">
-                    <h5 class="archive-date">2016</h5>
-                    <h4 class="archive-date">02 3月</h4>
-                    <div class="archive-post"><a href="first.html">さくらVPSを契約した話</a></div>
-                </div>
+            <section class="post">
+                <header class="post-header">
+                    <h1>TeXshopのcolor schemeを変更したときの話</h1>
+                        <p class="post-meta">
+                            // under                                 <a class="post-category" href="https://www.lapis-zero09.xyz/tag/tex.html">TeX</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/el_capitan.html">El_Capitan</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/texshop.html">TeXshop</a>
+                        </p>
+                </header>
+            </section>
+            <h1>TeXshopのcolor schemeを変更する</h1>
+<p>デフォルトの白背景黒文字から変更する．  </p>
+<p>指定したいcolorのRGB値を"255"で割って，<br />
+その値を指定してやれば良い．  </p>
+<p>例えば，backgroundならこんな感じ．  </p>
+<div class="highlight"><pre><span></span># background = 39 40 34 (#272822)
+defaults write TeXShop background_R 0.15
+defaults write TeXShop background_G 0.16
+defaults write TeXShop background_B 0.13
+</pre></div>
+
+
+<p>これをshファイルとして保存・実行してやれば，
+設定が変わるはず．<br />
+※TeXshopの再起動が必要．</p>
+<p>monokai, safari_night, solarized dark lightの例を，<br />
+<a href="https://gist.github.com/lapis-zero09/7f973b2d80d2486510f9">gist</a>に記す．  </p>
+<p>戻したい時は，以下を保存・実行．  </p>
+<div class="highlight"><pre><span></span>defaults write TeXShop background_R 1.0
+defaults write TeXShop background_G 1.0
+defaults write TeXShop background_B 1.0
+
+defaults write TeXShop commandred 0.0
+defaults write TeXShop commandgreen 0.0
+defaults write TeXShop commandblue 1.0
+
+defaults write TeXShop commentred 1.0
+defaults write TeXShop commentgreen 0.0
+defaults write TeXShop commentblue 0.0
+
+defaults write TeXShop foreground_R 0.00
+defaults write TeXShop foreground_G 0.00
+defaults write TeXShop foreground_B 0.00
+
+defaults write TeXShop indexred 1.00
+defaults write TeXShop indexgreen 1.00
+defaults write TeXShop indexblue 0.00
+
+defaults write TeXShop insertionpoint_R 0.00
+defaults write TeXShop insertionpoint_G 0.00
+defaults write TeXShop insertionpoint_B 0.00
+
+defaults write TeXShop markerred 0.02
+defaults write TeXShop markergreen 0.51
+defaults write TeXShop markerblue 0.13
+</pre></div>
+
+
+<p>以上．  </p>
+            <a href="#" class="go-top">Go Top</a>
 <footer class="footer">
     <p>&copy; lapis_zero09 &ndash;
         Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
