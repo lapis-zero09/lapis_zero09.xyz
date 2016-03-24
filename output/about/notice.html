@@ -1,16 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="題未定, ">
 
-        <title>題未定 // </title>
+
+        <title>About | 題未定 //  </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="theme/css/pure.css">
+
+    <!--  -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://bootflat.github.io/bootflat/css/bootflat.css">
+    <!--  -->
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>
@@ -23,11 +29,9 @@
       ga('send', 'pageview');
 
     </script>
-
 </head>
 
 <body>
-  <canvas id="canvas" width="960" height="500"></canvas>
     <div class="pure-g-r" id="layout">
         <div class="sidebar pure-u">
             <div class="cover-img" style="background: none repeat scroll 0% 0% #3D4F5D">
@@ -56,48 +60,39 @@
                 </div>
             </div>
         </div>
-    <div class="pure-u">
-        <div class="content">
-            <!-- A wrapper for all the blog posts -->
-            <div class="posts">
-                <h1 class="content-subhead">
-                            Index Page
-                </h1>
-                <section class="post">
-                  <header class="post-header">
-                    <h3>
-                      <a class="post-title" href="https://www.lapis-zero09.xyz/about/about.html">About me</a>
-                    </h3>
-                  </header>
-                </section>
-                <section class="post">
-                  <header class="post-header">
-                    <h3>
-                      <a class="post-title" href="https://www.lapis-zero09.xyz/index.html">POSTS</a>
-                    </h3>
-                  </header>
-                </section>
-                <section class="post">
-                  <header class="post-header">
-                    <h3>
-                      <a class="post-title" href="https://www.lapis-zero09.xyz/about/notice.html">Notice</a>
-                    </h3>
-                  </header>
-                </section>
+  <div class="pure-u-1">
+    <div class="content">
+<!--  -->
+<!--  -->
+          <h1 class="content-subhead">Notice</h1>
+          <h3>記事にするまでもない気付きをメモしていく</h3>
+          <div class="timeline row">
+            <dl>
 
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-<footer class="footer">
-    <p>&copy; lapis_zero09 &ndash;
-        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
-        for <a href="http://blog.getpelican.com/">Pelican</a>
-    </p>
-</footer>            </div>
-        </div>
+            <dd class="pos-left clearfix">
+                <div class="circ"></div>
+                <div class="time">Apr.</div>
+                <div class="events">
+                    <div class="events-body">
+                    <h4 class="events-heading">zshのサスペンド</h4>
+                    <p><a href="https://gist.github.com/lapis-zero09/839413c55d48a7563596">here</a></p>
+                    </div>
+                </div>
+            </dd>
+
+
+            </dl>
+          </div>
     </div>
+
+    <footer class="foot">
+        <p>&copy; lapis_zero09 &ndash;
+            Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+            for <a href="http://blog.getpelican.com/">Pelican</a>
+        </p>
+    </footer>
+  </div>
+
     </div>
     <script>
         var $top = $('.go-top');
@@ -123,11 +118,6 @@
             event.preventDefault();
         });
     </script>
-
-
-    <script src="//d3js.org/d3-timer.v0.3.min.js"></script>
-    <script src="//d3js.org/d3-ease.v0.7.min.js"></script>
-    <script src="isometric.js"></script>
 
 </body>
 </html>
