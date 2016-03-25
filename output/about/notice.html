@@ -69,10 +69,77 @@
           <div class="timeline row">
             <dl>
 
+            <dd class="pos-right clearfix">
+                <div class="circ"></div>
+                <div class="events">
+                    <div class="events-body">
+                      <h4 class="events-heading">git commitをやり直したい時</h4>
+                      <p>$ git commit --amend</p>
+                      <p>or</p>
+                      <p>$ git reset --soft</p>
+                    </div>
+                </div>
+            </dd>
 
             <dd class="pos-left clearfix">
                 <div class="circ"></div>
-                <div class="time">Apr.</div>
+                <div class="events">
+                    <div class="events-body">
+                      <h4 class="events-heading">pydotのエラー</h4>
+                      <p>>>> import pylearn2</p>
+                      <p>Couldn't import dot_parser, loading of dot files will not be possible.</p>
+                      <p>とか出た時の対処</p>
+                      <p>$ pip uninstall pydot</p>
+                      <p>$ pip uninstall pyparsing</p>
+                      <p>$ pip install -Iv https://pypi.python.org/packages/source/p/pyparsing/pyparsing-1.5.7.tar.gz#md5=9be0fcdcc595199c646ab317c1d9a709</p>
+                      <p>$ pip install pydot</p>
+
+                    </div>
+                </div>
+            </dd>
+
+
+            <dd class="pos-right clearfix">
+                <div class="circ"></div>
+                <div class="events">
+                    <div class="events-body">
+                      <h4 class="events-heading">Theanoのfunction given</h4>
+                      <p>given内で代入する場合，代入する側と歳入される側の型宣言が同じでないとダメ</p>
+                      <p>型が違うもの同士の演算は可能</p>
+                    </div>
+                </div>
+            </dd>
+
+
+
+            <dd class="pos-left clearfix">
+                <div class="circ"></div>
+                <div class="events">
+                    <div class="events-body">
+                      <h4 class="events-heading">theanoのインストール</h4>
+                    <p>gitでなくてpip installでいける</p>
+                    </div>
+                </div>
+            </dd>
+
+
+
+            <dd class="pos-right clearfix">
+                <div class="circ"></div>
+                <div class="events">
+                    <div class="events-body">
+                      <h4 class="events-heading">conda envを有効化する</h4>
+                      <p>$ source activate {env name}</p>
+                      <p>$ source deactive #無効化</p>
+                      <p>$ conda create -n {env name} python=3. anaconda #新しい環境作成</p>
+                      <p>pyenvでも切り替え可</p>
+                    </div>
+                </div>
+            </dd>
+
+
+            <dd class="pos-left clearfix">
+                <div class="circ"></div>
                 <div class="events">
                     <div class="events-body">
                     <h4 class="events-heading">コマンドからサスペンドさせる</h4>
@@ -85,10 +152,8 @@
             </dd>
 
 
-
             <dd class="pos-right clearfix">
                 <div class="circ"></div>
-                <div class="time">Apr.</div>
                 <div class="events">
                     <div class="events-body">
                       <h4 class="events-heading">sudoにpassを渡す</h4>
@@ -102,7 +167,6 @@
 
             <dd class="pos-left clearfix">
                 <div class="circ"></div>
-                <div class="time">Apr.</div>
                 <div class="events">
                     <div class="events-body">
                     <h4 class="events-heading">zshのサスペンド</h4>
