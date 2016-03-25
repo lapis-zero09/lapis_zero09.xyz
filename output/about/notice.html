@@ -69,6 +69,37 @@
           <div class="timeline row">
             <dl>
 
+
+            <dd class="pos-left clearfix">
+                <div class="circ"></div>
+                <div class="time">Apr.</div>
+                <div class="events">
+                    <div class="events-body">
+                    <h4 class="events-heading">コマンドからサスペンドさせる</h4>
+                    <p>$ sudo shutdown -s now</p>
+                    <p>or</p>
+                    <p>$ pmset sleepnow</p>
+                    <p>$ sudo shutdown -h now #強制終了</p>
+                    </div>
+                </div>
+            </dd>
+
+
+
+            <dd class="pos-right clearfix">
+                <div class="circ"></div>
+                <div class="time">Apr.</div>
+                <div class="events">
+                    <div class="events-body">
+                      <h4 class="events-heading">sudoにpassを渡す</h4>
+                      <p>sudoに-Sを付けると標準入力からパスワードを読む</p>
+                      <p>$ printf "password: "</p>
+                      <p>$ read password</p>
+                      <p>$ ex)echo "$password" | sudo -S command</p>
+                    </div>
+                </div>
+            </dd>
+
             <dd class="pos-left clearfix">
                 <div class="circ"></div>
                 <div class="time">Apr.</div>
