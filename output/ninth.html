@@ -6,12 +6,13 @@
     <meta name="description" content="題未定, ">
 
 
-        <title>all posts // 題未定 // </title>
+        <title>git commit時のエラーについて // 題未定 // </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="theme/css/pure.css">
+    <link rel="stylesheet" href="https://www.lapis-zero09.xyz/theme/css/pygments.css">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>
@@ -23,6 +24,12 @@
       ga('create', 'UA-74593186-1', 'auto');
       ga('send', 'pageview');
 
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
     </script>
 </head>
 
@@ -55,54 +62,46 @@
                 </div>
             </div>
         </div>
-    <div class="pure-u-1">
+    <div class="pure-u">
         <div class="content">
-            <h1 class="content-subhead">All posts</h1>
-                <div class="archive-item">
-                    <h5 class="archive-date">2016</h5>
-                    <h4 class="archive-date">28 3月</h4>
-                    <div class="archive-post"><a href="ninth.html">git commit時のエラーについて</a></div>
-                </div>
-                <div class="archive-item">
-                    <h5 class="archive-date">2016</h5>
-                    <h4 class="archive-date">23 3月</h4>
-                    <div class="archive-post"><a href="eighth.html">jupyter notebookのカラースキームについて</a></div>
-                </div>
-                <div class="archive-item">
-                    <h5 class="archive-date">2016</h5>
-                    <h4 class="archive-date">18 3月</h4>
-                    <div class="archive-post"><a href="seventh.html">TeXshopのcolor schemeを変更したときの話</a></div>
-                </div>
-                <div class="archive-item">
-                    <h5 class="archive-date">2016</h5>
-                    <h4 class="archive-date">15 3月</h4>
-                    <div class="archive-post"><a href="sixth.html">TeXを入れたときの話</a></div>
-                </div>
-                <div class="archive-item">
-                    <h5 class="archive-date">2016</h5>
-                    <h4 class="archive-date">04 3月</h4>
-                    <div class="archive-post"><a href="fifth.html">一人暮らしの寂しさを紛らわす彼女(bot)を作った話</a></div>
-                </div>
-                <div class="archive-item">
-                    <h5 class="archive-date">2016</h5>
-                    <h4 class="archive-date">03 3月</h4>
-                    <div class="archive-post"><a href="forth.html">NginxをHTTP/2対応にした話</a></div>
-                </div>
-                <div class="archive-item">
-                    <h5 class="archive-date">2016</h5>
-                    <h4 class="archive-date">03 3月</h4>
-                    <div class="archive-post"><a href="third.html">さくらVPSにお名前.comで契約したドメインを関連付けた話</a></div>
-                </div>
-                <div class="archive-item">
-                    <h5 class="archive-date">2016</h5>
-                    <h4 class="archive-date">03 3月</h4>
-                    <div class="archive-post"><a href="second.html">さくらVPSにNginx1.9系をインストールした話</a></div>
-                </div>
-                <div class="archive-item">
-                    <h5 class="archive-date">2016</h5>
-                    <h4 class="archive-date">02 3月</h4>
-                    <div class="archive-post"><a href="first.html">さくらVPSを契約した話</a></div>
-                </div>
+            <section class="post">
+                <header class="post-header">
+                    <h1>git commit時のエラーについて</h1>
+                        <p class="post-meta">
+                            // under                                 <a class="post-category" href="https://www.lapis-zero09.xyz/tag/git.html">git</a>
+                        </p>
+                </header>
+            </section>
+            <h1>git commit</h1>
+<p>今まではできてたのにある日から<br />
+<code>git commit</code> をviでした時に以下のようなエラーが出る．</p>
+<div class="highlight"><pre><span></span><span class="c">% git commit -a</span>
+<span class="n">error</span><span class="p">:</span> <span class="n">There</span> <span class="n">was</span> <span class="n">a</span> <span class="n">problem</span> <span class="n">with</span> <span class="n">the</span> <span class="n">editor</span> <span class="s">&#39;vi&#39;</span><span class="p">.</span>
+<span class="n">Please</span> <span class="n">supply</span> <span class="n">the</span> <span class="n">message</span> <span class="n">using</span> <span class="n">either</span> <span class="o">-</span><span class="n">m</span> <span class="n">or</span> <span class="o">-</span><span class="n">F</span> <span class="n">option</span><span class="p">.</span>
+</pre></div>
+
+
+<p>gitconfigを確認する．</p>
+<div class="highlight"><pre><span></span>$ cat ~/.gitconfig
+</pre></div>
+
+
+<p>[core]タグの中のeditorの設定を見る．<br />
+vimのパスを確認．  </p>
+<div class="highlight"><pre><span></span><span class="c">% which vim</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">vim</span>
+</pre></div>
+
+
+<p>以下コマンドでエディタをvimに設定．  </p>
+<div class="highlight"><pre><span></span>$ git config --global core.editor /usr/local/bin/vim
+</pre></div>
+
+
+<p>gitconfigを確認して，<br />
+[core]タグのeditorが変わっていればok．  </p>
+<p>以上．</p>
+            <a href="#" class="go-top">Go Top</a>
 <footer class="footer">
     <p>&copy; lapis_zero09 &ndash;
         Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
