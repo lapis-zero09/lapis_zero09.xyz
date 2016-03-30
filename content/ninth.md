@@ -12,7 +12,7 @@ Summary: git commitでエラーが出る時のHowto．
 `git commit` をviでした時に以下のようなエラーが出る．
 
 ```
-% git commit -a
+$ git commit -a
 error: There was a problem with the editor 'vi'.
 Please supply the message using either -m or -F option.
 ```
@@ -28,7 +28,7 @@ $ cat ~/.gitconfig
 vimのパスを確認．  
 
 ```
-% which vim
+$ which vim
 /usr/local/bin/vim
 ```
 
