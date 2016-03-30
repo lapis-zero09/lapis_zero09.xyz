@@ -75,9 +75,9 @@
             <h1>git commit</h1>
 <p>今まではできてたのにある日から<br />
 <code>git commit</code> をviでした時に以下のようなエラーが出る．</p>
-<div class="highlight"><pre><span></span><span class="c">% git commit -a</span>
-<span class="n">error</span><span class="p">:</span> <span class="n">There</span> <span class="n">was</span> <span class="n">a</span> <span class="n">problem</span> <span class="n">with</span> <span class="n">the</span> <span class="n">editor</span> <span class="s">&#39;vi&#39;</span><span class="p">.</span>
-<span class="n">Please</span> <span class="n">supply</span> <span class="n">the</span> <span class="n">message</span> <span class="n">using</span> <span class="n">either</span> <span class="o">-</span><span class="n">m</span> <span class="n">or</span> <span class="o">-</span><span class="n">F</span> <span class="n">option</span><span class="p">.</span>
+<div class="highlight"><pre><span></span>$ git commit -a
+error: There was a problem with the editor <span class="s1">&#39;vi&#39;</span>.
+Please supply the message using either -m or -F option.
 </pre></div>
 
 
@@ -88,8 +88,8 @@
 
 <p>[core]タグの中のeditorの設定を見る．<br />
 vimのパスを確認．  </p>
-<div class="highlight"><pre><span></span><span class="c">% which vim</span>
-<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">vim</span>
+<div class="highlight"><pre><span></span>$ which vim
+/usr/local/bin/vim
 </pre></div>
 
 
