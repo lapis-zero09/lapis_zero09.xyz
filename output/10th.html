@@ -6,12 +6,13 @@
     <meta name="description" content="題未定, ">
 
 
-        <title>git tag // 題未定 // </title>
+        <title>pullreq送るときのメモ // 題未定 // </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="theme/css/pure.css">
+    <link rel="stylesheet" href="https://www.lapis-zero09.xyz/theme/css/pygments.css">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>
@@ -23,6 +24,12 @@
       ga('create', 'UA-74593186-1', 'auto');
       ga('send', 'pageview');
 
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
     </script>
 </head>
 
@@ -57,44 +64,58 @@
         </div>
     <div class="pure-u">
         <div class="content">
-            <!-- A wrapper for all the blog posts -->
-            <div class="posts">
-                <h1 class="content-subhead">
-Posts tagged 'git'                </h1>
-                    <section class="post">
-                        <header class="post-header">
-                            <h3><a class="post-title" href="https://www.lapis-zero09.xyz/10th.html">pullreq送るときのメモ</a></h3>
-                            <p class="post-meta"><p>pull reqestのキホン．</p></p>
-                            <p class="post-meta">
-                                in <a href="https://www.lapis-zero09.xyz/category/git.html">git</a> &middot; 火 05 4月 2016
-                            </p>
-                        </header>
-                    </section>
-                    <section class="post">
-                        <header class="post-header">
-                            <h3><a class="post-title" href="https://www.lapis-zero09.xyz/ninth.html">git commit時のエラーについて</a></h3>
-                            <p class="post-meta"><p>git commitでエラーが出る時のHowto．</p></p>
-                            <p class="post-meta">
-                                in <a href="https://www.lapis-zero09.xyz/category/git.html">git</a> &middot; 月 28 3月 2016
-                            </p>
-                        </header>
-                    </section>
-<div class="pagination-wrapper content-subhead">
-    <div class="pagination">
-        <div class="pagination-left">
-                &nbsp;
-        </div>
-        <span>Page 1 / 1</span>
-        <div class="pagination-right">
-        </div>
-    </div>
-</div><footer class="footer">
+            <section class="post">
+                <header class="post-header">
+                    <h1>pullreq送るときのメモ</h1>
+                        <p class="post-meta">
+                            // under                                 <a class="post-category" href="https://www.lapis-zero09.xyz/tag/git.html">git</a>
+                        </p>
+                </header>
+            </section>
+            <h1>pull request</h1>
+<h2>元のリポジトリをfork</h2>
+<p>元リポジトリにアクセスして <code>fork</code> ボタンを押す．  </p>
+<h2>forkしたリポジトリをclone</h2>
+<p>作業ディレクトリで以下を実行．  </p>
+<div class="highlight"><pre><span></span>$ git clone <span class="o">{</span>git address<span class="o">}</span>
+</pre></div>
+
+
+<h2>ブランチをきる</h2>
+<p>cloneしたリポジトリに入ってブランチをきる．  </p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> <span class="o">{</span>cloneしたリポジトリ名<span class="o">}</span>
+$ git checkout -b <span class="o">{</span>任意のブランチ名<span class="o">}</span>
+</pre></div>
+
+
+<p>以下で確認．  </p>
+<div class="highlight"><pre><span></span>$ git branch -v
+</pre></div>
+
+
+<h2>編集</h2>
+<p>お好きに編集．  </p>
+<p>( <code>git status</code> でファイルの状態確認)  </p>
+<p>( <code>git diff</code> で変更箇所確認)  </p>
+<h2>commit</h2>
+<p>コメントは一行目に概要、改行をあけて3行目から詳細の内容を書く  </p>
+<p>( <code>git remote -v</code> でどこにpushするか確認)  </p>
+<h2>push</h2>
+<div class="highlight"><pre><span></span>$ git push origin <span class="o">{</span>きったブランチ名<span class="o">}</span>
+</pre></div>
+
+
+<h2>pullreq</h2>
+<p>fork元のリポジトリの <code>Compare &amp; pull request</code> ボタンを押す．  </p>
+<p>あとは道なり．  </p>
+<p>以上．  </p>
+            <a href="#" class="go-top">Go Top</a>
+<footer class="footer">
     <p>&copy; lapis_zero09 &ndash;
         Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
         for <a href="http://blog.getpelican.com/">Pelican</a>
     </p>
-</footer>            </div>
-        </div>
+</footer>        </div>
     </div>
     </div>
     <script>
