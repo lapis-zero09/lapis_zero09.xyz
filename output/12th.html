@@ -6,12 +6,13 @@
     <meta name="description" content="題未定, ">
 
 
-        <title>All Tags | 題未定 //  </title>
+        <title>bundle install エラーが出るとき // 題未定 // </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="theme/css/pure.css">
+    <link rel="stylesheet" href="https://www.lapis-zero09.xyz/theme/css/pygments.css">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>
@@ -23,6 +24,12 @@
       ga('create', 'UA-74593186-1', 'auto');
       ga('send', 'pageview');
 
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
     </script>
 </head>
 
@@ -55,43 +62,65 @@
                 </div>
             </div>
         </div>
-  <div class="pure-u-1">
-    <div class="content">
-      <h1 class="content-subhead">All Tags</h1>
-      <ul>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>bundle install エラーが出るとき</h1>
+                        <p class="post-meta">
+                            // under                                 <a class="post-category" href="https://www.lapis-zero09.xyz/tag/ruby.html">ruby</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/el_capitan.html">El_Capitan</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/rails.html">rails</a>
+                        </p>
+                </header>
+            </section>
+            <h1>bundle install</h1>
+<p>Ubuntu14.04でrails 環境を整えていると<br />
+<code>gem therubyracer</code>を入れろと怒られる．  </p>
+<div class="highlight"><pre><span></span>$ vim Gemfile
+</pre></div>
 
-          <li><a href="https://www.lapis-zero09.xyz/tag/bot.html">bot</a> (1) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/css.html">css</a> (1) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/docomoapi.html">docomoAPI</a> (1) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/el_capitan.html">El_Capitan</a> (4) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/git.html">git</a> (2) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/http2.html">http2</a> (1) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/ipython.html">ipython</a> (1) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/ipython4x.html">ipython4.x</a> (1) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/jupyter.html">jupyter</a> (1) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/le-tian-api.html">楽天API</a> (1) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/letsencrypt.html">Let'sEncrypt</a> (1) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/nginx.html">Nginx</a> (3) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/python.html">python</a> (1) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/rails.html">rails</a> (1) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/ruby.html">ruby</a> (2) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/sakuravps.html">さくらVPS</a> (4) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/ssh.html">ssh</a> (1) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/study.html">study</a> (1) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/tex.html">TeX</a> (3) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/texshop.html">TeXshop</a> (1) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/tls.html">tls</a> (1) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/twitter.html">Twitter</a> (1) </li>
-          <li><a href="https://www.lapis-zero09.xyz/tag/yum.html">yum</a> (1) </li>
+
+<p>で以下の行をコメントアウト  </p>
+<div class="highlight"><pre><span></span>gem &#39;therubyracer&#39;, platforms: :ruby
+</pre></div>
+
+
+<p>そして<code>bundle install</code>  </p>
+<p>しかし，エラー．．．</p>
+<div class="highlight"><pre><span></span>Installing therubyracer 0.12.2 with native extensions
+
+Gem::Ext::BuildError: ERROR: Failed to build gem native extension.
+</pre></div>
+
+
+<p>とか出る．</p>
+<p>そこで，  </p>
+<div class="highlight"><pre><span></span>$ gem uninstall libv8
+$ gem uninstall therubyracer
+$ brew rm v8
+$ brew tap homebrew/dupes
+$ brew install apple-gcc42
+$ brew tap homebrew/versions
+$ brew install v8-315
+$ brew link --force v8-315
+$ gem install libv8 -- --with-system-v8
+$ gem install therubyracer
+$ bundle config --local build.libv8 --with-cxx<span class="o">=</span>/usr/local/bin/g++-4.2
+$ bundle install
+</pre></div>
+
+
+<p>ok</p>
+<p>以上．</p>
+            <a href="#" class="go-top">Go Top</a>
 <footer class="footer">
     <p>&copy; lapis_zero09 &ndash;
         Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
         for <a href="http://blog.getpelican.com/">Pelican</a>
     </p>
-</footer>
-      </ul>
+</footer>        </div>
     </div>
-  </div>
     </div>
     <script>
         var $top = $('.go-top');
