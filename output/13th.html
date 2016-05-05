@@ -6,12 +6,13 @@
     <meta name="description" content="題未定, ">
 
 
-        <title>rails tag // 題未定 // </title>
+        <title>Permissionについて // 題未定 // </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="theme/css/pure.css">
+    <link rel="stylesheet" href="https://www.lapis-zero09.xyz/theme/css/pygments.css">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>
@@ -23,6 +24,12 @@
       ga('create', 'UA-74593186-1', 'auto');
       ga('send', 'pageview');
 
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
     </script>
 </head>
 
@@ -57,35 +64,47 @@
         </div>
     <div class="pure-u">
         <div class="content">
-            <!-- A wrapper for all the blog posts -->
-            <div class="posts">
-                <h1 class="content-subhead">
-Posts tagged 'rails'                </h1>
-                    <section class="post">
-                        <header class="post-header">
-                            <h3><a class="post-title" href="https://www.lapis-zero09.xyz/12th.html">bundle install エラーが出るとき</a></h3>
-                            <p class="post-meta"><p>Genfileでtherubyracerをコメントアウトしてbundle installしたときにエラーが出たときの対処．</p></p>
-                            <p class="post-meta">
-                                in <a href="https://www.lapis-zero09.xyz/category/rails.html">rails</a> &middot; 月 25 4月 2016
-                            </p>
-                        </header>
-                    </section>
-<div class="pagination-wrapper content-subhead">
-    <div class="pagination">
-        <div class="pagination-left">
-                &nbsp;
-        </div>
-        <span>Page 1 / 1</span>
-        <div class="pagination-right">
-        </div>
-    </div>
-</div><footer class="footer">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Permissionについて</h1>
+                        <p class="post-meta">
+                            // under                                 <a class="post-category" href="https://www.lapis-zero09.xyz/tag/security.html">security</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/el_capitan.html">El_Capitan</a>
+                        </p>
+                </header>
+            </section>
+            <h1>Permission</h1>
+<p>いつか，  </p>
+<p>忘れたときのために  </p>
+<h3>r,w,xについて</h3>
+<ul>
+<li>r   4   読むことが可能（Read）</li>
+<li>w   2   書くことが可能（Write）</li>
+<li>x   1   実行が可能（eXecute）</li>
+<li>-   0   なにもできない</li>
+</ul>
+<h3>Examples</h3>
+<ul>
+<li>777（rwxrwxrwx）  CGIスクリプトから操作するディレクトリ</li>
+<li>755（rwxr-xr-x）  CGIスクリプトや通常のディレクトリなど</li>
+<li>666（rw-rw-rw-）  データ記録など読み書き可能なファイル</li>
+<li>644（rw-r--r-）   読むだけのファイル、HTMLやテキスト cssと画像ファイルもこれでok</li>
+</ul>
+<h3>3列の内訳</h3>
+<p><strong>ユーザー(User)</strong>
+  - ファイルやディレクトリの所有者、本人のこと</p>
+<p><strong>グループ(Group)</strong>
+  - UNIXのシステムの利用者、本人が所属するグループ全員</p>
+<p><strong>その他(Other)</strong>
+  - システムの利用者でもない、第三者のこと</p>
+<p>以上．</p>
+            <a href="#" class="go-top">Go Top</a>
+<footer class="footer">
     <p>&copy; lapis_zero09 &ndash;
         Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
         for <a href="http://blog.getpelican.com/">Pelican</a>
     </p>
-</footer>            </div>
-        </div>
+</footer>        </div>
     </div>
     </div>
     <script>
