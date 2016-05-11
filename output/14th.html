@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="題未定, ">
+
+
+        <title>WEBセキュリティ // 題未定 // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="theme/css/pure.css">
+    <link rel="stylesheet" href="https://www.lapis-zero09.xyz/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-74593186-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+    <div class="pure-g-r" id="layout">
+        <div class="sidebar pure-u">
+            <div class="cover-img" style="background: none repeat scroll 0% 0% #3D4F5D">
+                <div class="cover-body">
+                    <header class="header">
+                        <hgroup>
+                            <a href="https://www.lapis-zero09.xyz/about/about.html"><img class="avatar" src="./img/profile.jpg"></a>
+                            <h1 class="brand-main"><a href="https://www.lapis-zero09.xyz">題未定</a></h1>
+                            <p class="tagline"></p>
+                                <p class="social">
+                                    <a href="https://github.com/lapis-zero09">
+                                        <i class="fa fa-github fa-3x"></i>
+                                    </a>
+                                    <a href="https://twitter.com/lapis_zero09">
+                                        <i class="fa fa-twitter-square fa-3x"></i>
+                                    </a>
+                                    <a href="http://www.amazon.co.jp/registry/wishlist/2TLPKVEIT5D9B?sort=priority&view=null">
+                                        <i class="fa fa-gift fa-3x"></i>
+                                    </a>
+                                    <a href="http://qiita.com/lapis_zero09">
+                                        <i class="fa fa-search fa-3x"></i>
+                                    </a>
+                                </p>
+                        </hgroup>
+                    </header>
+                </div>
+            </div>
+        </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>WEBセキュリティ</h1>
+                        <p class="post-meta">
+                            // under                                 <a class="post-category" href="https://www.lapis-zero09.xyz/tag/security.html">security</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/el_capitan.html">El_Capitan</a>
+                        </p>
+                </header>
+            </section>
+            <h1>WEBセキュリティ</h1>
+<p><a href="http://www.amazon.co.jp/%E6%83%85%E5%A0%B1%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E5%85%A5%E9%96%80-%E7%AC%AC3%E7%89%88-%EF%A8%9E%E5%AE%A4-%E8%8B%B1%E5%A4%AA%E9%83%8E/dp/4766421655/ref=pd_sim_14_3?ie=UTF8&amp;dpID=51L1j2RYMNL&amp;dpSrc=sims&amp;preST=_AC_UL160_SR113%2C160_&amp;refRID=1MW1F8KA1HKMPSYHV7FN">羽室 英太郎．情報セキュリティ入門．第3版，東京，慶應義塾大学出版会，2014，379p．</a></p>
+<h2>1.webサイトのセキュリティとは</h2>
+<h3>非武装地帯</h3>
+<h4>数年前まで</h4>
+<p>-&gt;攻撃が内部まで侵入しないよう非武装地域(DMS:DeMilitarixed Zone)を設けていた<br />
+  (ここに外部公開用のサーバなどを設置し，内部LANとファイアウォールによって隔離する)  </p>
+<p>といった物理的方式が一般的だった．  </p>
+<p>攻撃：サーバやOSを狙ったもの</p>
+<h4>現在</h4>
+<p>様々なサービスのポータルとなった今，個人情報などのデータベースとの密接な連携  </p>
+<p>-&gt;webを経由するサービスを処理するwebアプリへの攻撃  </p>
+<p>--&gt;webサイトへの脅威の中心</p>
+<h3>脅威への対策</h3>
+<ul>
+<li>入力データの確認</li>
+<li>アクセスコントロール</li>
+<li>セッション管理</li>
+<li>エラー処理</li>
+</ul>
+<p>-&gt;個々のwebサイト毎に行い，webアプリケーション全体で十分なチェックが行われていなければ，ファイアウォールすり抜けられる可能性  </p>
+<p>対策として</p>
+<ul>
+<li>攻撃手法や脅威の理解</li>
+<li>WAF(webアプリケーション・ファイアウォール)の導入</li>
+<li>適切なセッション管理</li>
+<li>認証技術の高度化</li>
+</ul>
+<h3>体制の構築</h3>
+<p>脅威の直接の対象-&gt;webアプリ<br />
+クラッカーの狙い-&gt;データベース  </p>
+<p>セキュリティ=技術的=企業の営利活動に比較して瑣末なのでは(?)</p>
+<h3>サイト全体のセキュリティ</h3>
+<p>情報セキュリティポリシーの策定<br />
+それに伴って．．基づく体制の確保，対策推進  </p>
+<p>-&gt;サイバー攻撃・ウイルス・DoS攻撃(意図的脅威)，自然災害(環境的脅威)，アウトソーシングなど事業形態の変化に伴う構造的な脅威(非意図的要因)を考慮  </p>
+<h2>2.webアプリケーションとは</h2>
+<h3>利用環境</h3>
+<p>端末側のOSの影響を受けない(クロスプラットフォーム)ブラウザとインターネット接続環境が必要</p>
+<h3>webアプリの高速化</h3>
+<p>WEB2.0 -&gt; WEB3.0  </p>
+<p>セマンティック・ウェブ(Semantic Web:webページに有意性を持たせることによる効率化)  </p>
+<p>マッシュアップ(各種webサービスの融合)  </p>
+<p>-&gt;webページを華麗に彩るだけでなく様々なアプリやクラウドサービスの提供の高度化  </p>
+<p>-&gt;プログラミング技術などの複雑化  </p>
+<p>基本：webアプリの開発-&gt;MVC(Model-View-Controller)フレームワーク  </p>
+<p>最近：Ajax(Asynchronous JavaScript + XML)やHTML5，DOM(Document Object Model)  </p>
+<h3>セッションとは</h3>
+<p>セッション：ユーザがリクエストした内容に対応するサーバがリプライを送る一連の流れ  </p>
+<p>e.g.  ~~~~~~~~~<br />
+ユーザ：ネットショッピングにおいてログイン(id + pass)，注文，支払い手段，届け先-&gt;リクエスト<br />
+サーバ：リクエスト<br />
+~~~~~~~~  </p>
+<h3>ウェブアプリが狙われるのは</h3>
+<p>セッションをユーザごとに区別するために番号を付して管理  </p>
+<p>-&gt;セッション管理が定型的なら攻撃対象に</p>
+<h2>3.webに対する攻撃の進化</h2>
+<h3>攻撃対象・手法の進化</h3>
+<p>現在の攻撃手法
+- 従来型のサーバに対する攻撃手法
+  - セッションハイジャック，SQLiなどwebアプリの設定ミスや不具合を利用
+- 会社のサーバを攻撃-&gt;ターゲットのサーバに侵入
+  - 難攻不落のサーバに侵入するよりは．．制作会社や保守管理用コンソールをウイルスに感染させ，ターゲットに侵入</p>
+<p>-&gt;踏み台にしたりクロスサイトからツールを持ってきたり．．etc.<br />
+--&gt;一般ユーザに実行させるスクリプトを潜ませておいて，誘導されたユーザに攻撃させる<br />
+---&gt;ユーザのクッキーやアカウント情報を抜き取ることも可能  </p>
+<h3>検索エンジンの活用</h3>
+<p>大手検索エンジンを利用して，セキュリティ技術情報を収集したり，脆弱性を有するサイトを抽出する<br />
+-&gt;Googleハッキングなど<br />
+--&gt;見つけたサイトにマルウェアなどをばら撒き，サーバに侵入してバックドアを仕掛けたり，用意したマルウェアの本体を入れたり．<br />
+ボットネットもこのような手法を用いてボット化したものが多い  </p>
+<h2>4.セッション管理とは</h2>
+            <a href="#" class="go-top">Go Top</a>
+<footer class="footer">
+    <p>&copy; lapis_zero09 &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+    </div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+
+</body>
+</html>
