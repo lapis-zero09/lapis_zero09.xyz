@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="題未定, ">
+
+
+        <title>kali linux インストール // 題未定 // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="theme/css/pure.css">
+    <link rel="stylesheet" href="https://www.lapis-zero09.xyz/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-74593186-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+    <div class="pure-g-r" id="layout">
+        <div class="sidebar pure-u">
+            <div class="cover-img" style="background: none repeat scroll 0% 0% #3D4F5D">
+                <div class="cover-body">
+                    <header class="header">
+                        <hgroup>
+                            <a href="https://www.lapis-zero09.xyz/about/about.html"><img class="avatar" src="./img/profile.jpg"></a>
+                            <h1 class="brand-main"><a href="https://www.lapis-zero09.xyz">題未定</a></h1>
+                            <p class="tagline"></p>
+                                <p class="social">
+                                    <a href="https://github.com/lapis-zero09">
+                                        <i class="fa fa-github fa-3x"></i>
+                                    </a>
+                                    <a href="https://twitter.com/lapis_zero09">
+                                        <i class="fa fa-twitter-square fa-3x"></i>
+                                    </a>
+                                    <a href="http://www.amazon.co.jp/registry/wishlist/2TLPKVEIT5D9B?sort=priority&view=null">
+                                        <i class="fa fa-gift fa-3x"></i>
+                                    </a>
+                                    <a href="http://qiita.com/lapis_zero09">
+                                        <i class="fa fa-search fa-3x"></i>
+                                    </a>
+                                </p>
+                        </hgroup>
+                    </header>
+                </div>
+            </div>
+        </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>kali linux インストール</h1>
+                        <p class="post-meta">
+                            // under                                 <a class="post-category" href="https://www.lapis-zero09.xyz/tag/security.html">security</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/el_capitan.html">El_Capitan</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/kali_linux.html">kali_linux</a>
+                        </p>
+                </header>
+            </section>
+            <h1>kali linux</h1>
+<p>悪用しない<br />
+大いなる力には〜〜ってやつ  </p>
+<h2>kali linux isoファイルのダウンロード</h2>
+<ul>
+<li>
+<p>公式サイト - https://www.kali.org/downloads/</p>
+</li>
+<li>
+<p>ミラーリスト - http://docs.kali.org/community/kali-linux-mirrors</p>
+</li>
+</ul>
+<p>からkali linux 64bitをダウンロードする．<br />
+ミラーサイトの場合は，amd64が64bit  </p>
+<p>sha1sumを確認してマッチするかちゃんと確かめる．  </p>
+<div class="highlight"><pre><span></span># openssl sha1sum {kaliのisoファイル}
+</pre></div>
+
+
+<h2>USBブート</h2>
+<p>今回はUSBからブートする方法  </p>
+<h3>dmgに変換</h3>
+<p>kaliのisoイメージをdmgに変換．<br />
+kaliのisoがあるディレクトリで  </p>
+<div class="highlight"><pre><span></span># hdiutil convert -format UDRW -o kali.dmg kali-linux-2016.1-amd64.iso
+</pre></div>
+
+
+<h3>USBのアンマウント</h3>
+<p>まず，USBのデバイスパスの確認<br />
+USBをささない状態で以下を実行  </p>
+<div class="highlight"><pre><span></span># diskutil
+</pre></div>
+
+
+<p>USBをさした状態で上記を実行  </p>
+<p>この時，新たに認識されたデバイスがUSBなので<br />
+diskN の N　の部分をよく覚えておく．  </p>
+<p>以下で，USBをアンマウントする  </p>
+<div class="highlight"><pre><span></span># diskutil unmountDisk /dev/diskN
+</pre></div>
+
+
+<h3>USBに書き込む</h3>
+<p>以下でUSBに書き込み(結構時間かかる)  </p>
+<div class="highlight"><pre><span></span># sudo dd if=kali.dmg of=/dev/diskN bs=1m
+</pre></div>
+
+
+<p>ここでパス違えるともれなく<strong>死ぬ</strong>  </p>
+<p>書き込みが終わったら以下のコマンドでUSBを取り出す．  </p>
+<div class="highlight"><pre><span></span># diskutil eject /dev/diskN
+</pre></div>
+
+
+<h2>起動</h2>
+<p>USBを挿してインストールするPCを起動．  </p>
+<p>Thinkpadでは起動メディアを選択できるのでF12キーを押しながら起動．  </p>
+<p>この時うまく認識されなかったらBIOSの起動メディア順序を変えてみる(やり方は省略)  </p>
+<p>それでもダメならUSB書き込みのプロセスをもう一度．  </p>
+<p>うまくいったら</p>
+<h3>kali 2.0 sanaの場合</h3>
+<ol>
+<li>Graphicalinstall を選択してEnter</li>
+<li>言語の選択-&gt;「Japanese - 日本語」</li>
+<li>国を選択-&gt;「日本」</li>
+<li>キーボードを選択-&gt;「英語」(自分の環境に合わせて)</li>
+<li>ネットワークの選択-&gt;デフォルトでok</li>
+<li>ドメイン名-&gt;「localhost」</li>
+<li>パスワード設定-&gt;任意のパスワード</li>
+<li>ディスクのパーティショニング-&gt;「ディスク全体」-&gt;USBじゃないHDDを選択-&gt;「すべての．．．」-&gt;「パーティショニングの終了とディスクへの変更の書き込み」-&gt;「はい」</li>
+<li>ネットワークミラー-&gt;「はい」</li>
+<li>プロキシ-&gt;デフォルトでok</li>
+<li>GRUBブートローダ-&gt;「はい」</li>
+<li>デバイスの変換-&gt;「/dev/sda」</li>
+<li>「続ける」を選択</li>
+</ol>
+<p>-&gt;勝手に再起動-&gt;ユーザ:root，パスワードでログイン  </p>
+<p>ログインできたら成功  </p>
+<h3>kali rolling edition の場合</h3>
+<p>言語を日本語にしてインストールすると <code>apt-get update upgrade</code> 後に環境が壊れるバグ(?)が起きたので初期言語を英語にしといて後で日本語に設定する．  </p>
+<ol>
+<li>Graphicalinstall を選択してEnter</li>
+<li>言語の選択-&gt;「English」(?)</li>
+<li>国を選択-&gt;「日本」</li>
+<li>キーボードを選択-&gt;「英語」(自分の環境に合わせて)</li>
+<li>ネットワークの選択-&gt;デフォルトでok</li>
+<li>ドメイン名-&gt;「localhost」</li>
+<li>パスワード設定-&gt;任意のパスワード</li>
+<li>ディスクのパーティショニング-&gt;「ディスク全体」-&gt;USBじゃないHDDを選択-&gt;「すべての．．．」-&gt;「パーティショニングの終了とディスクへの変更の書き込み」-&gt;「はい」</li>
+<li>ネットワークミラー-&gt;「はい」</li>
+<li>プロキシ-&gt;デフォルトでok</li>
+<li>GRUBブートローダ-&gt;「はい」</li>
+<li>デバイスの変換-&gt;「/dev/sda」</li>
+<li>「続ける」を選択</li>
+</ol>
+<p>-&gt;勝手に再起動-&gt;ユーザ:root，パスワードでログイン  </p>
+<div class="highlight"><pre><span></span>$ dpkg-reconfigure locales
+</pre></div>
+
+
+<p>スペースで <code>ja-JP.UTF-8 UTF-8</code> を選択-&gt;エンター</p>
+<div class="highlight"><pre><span></span>$ reboot
+</pre></div>
+
+
+<p>ログインできて日本語になってれば成功  </p>
+<h3>こっからsanaもrollingも一緒</h3>
+<p>http://docs.kali.org/general-use/kali-linux-sources-list-repositories に従って，</p>
+<div class="highlight"><pre><span></span>$ vim /etc/apt/sources.list
+</pre></div>
+
+
+<p>以下を記載</p>
+<div class="highlight"><pre><span></span><span class="k">deb</span> <span class="s">http://http.kali.org/kali</span> <span class="kp">kali-rolling</span> <span class="kp">main</span> <span class="kp">contrib</span> <span class="kp">non-free</span>
+<span class="c"># For source package access, uncomment the following line</span>
+<span class="k">deb-src</span> <span class="s">http://http.kali.org/kali</span> <span class="kp">kali-rolling</span> <span class="kp">main</span> <span class="kp">contrib</span> <span class="kp">non-free</span>
+</pre></div>
+
+
+<p>以下を実行</p>
+<div class="highlight"><pre><span></span>$ apt-get update
+$ apt-get dist-upgrade
+</pre></div>
+
+
+<p>upgradeの方がうまくできなかったら</p>
+<div class="highlight"><pre><span></span>$ apt-get dist-upgrade --fix-missing
+</pre></div>
+
+
+<p>途中で日本語表記が崩れますがすぐに直る  </p>
+<p>直らなければ．．．  </p>
+<h2>日本語入力環境</h2>
+<p>以下を実行</p>
+<p>```
+$ apt-get install uim uim-anthy
+$ reboot #再起動
+````</p>
+<p>以上．</p>
+            <a href="#" class="go-top">Go Top</a>
+<footer class="footer">
+    <p>&copy; lapis_zero09 &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+    </div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+
+</body>
+</html>
