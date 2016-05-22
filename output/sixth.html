@@ -6,12 +6,13 @@
     <meta name="description" content="題未定, ">
 
 
-        <title>debian tag // 題未定 // </title>
+        <title>TeXを入れたときの話 // 題未定 // </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="theme/css/pure.css">
+    <link rel="stylesheet" href="https://www.lapis-zero09.xyz/theme/css/pygments.css">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>
@@ -23,6 +24,12 @@
       ga('create', 'UA-74593186-1', 'auto');
       ga('send', 'pageview');
 
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
     </script>
 </head>
 
@@ -57,44 +64,77 @@
         </div>
     <div class="pure-u">
         <div class="content">
-            <!-- A wrapper for all the blog posts -->
-            <div class="posts">
-                <h1 class="content-subhead">
-Posts tagged 'debian'                </h1>
-                    <section class="post">
-                        <header class="post-header">
-                            <h3><a class="post-title" href="https://www.lapis-zero09.xyz/17th.html">debianにVirtual Boxをインストール</a></h3>
-                            <p class="post-meta"><p>kali linux rolling edにvirtualboxを入れるときに躓いたこと．</p></p>
-                            <p class="post-meta">
-                                in <a href="https://www.lapis-zero09.xyz/category/security.html">security</a> &middot; 土 21 5月 2016
-                            </p>
-                        </header>
-                    </section>
-                    <section class="post">
-                        <header class="post-header">
-                            <h3><a class="post-title" href="https://www.lapis-zero09.xyz/16th.html">kali linux日本語環境</a></h3>
-                            <p class="post-meta"><p>kali linux日本語入力環境がおかしくなった時の対処法．</p></p>
-                            <p class="post-meta">
-                                in <a href="https://www.lapis-zero09.xyz/category/security.html">security</a> &middot; 金 20 5月 2016
-                            </p>
-                        </header>
-                    </section>
-<div class="pagination-wrapper content-subhead">
-    <div class="pagination">
-        <div class="pagination-left">
-                &nbsp;
-        </div>
-        <span>Page 1 / 1</span>
-        <div class="pagination-right">
-        </div>
-    </div>
-</div><footer class="footer">
+            <section class="post">
+                <header class="post-header">
+                    <h1>TeXを入れたときの話</h1>
+                        <p class="post-meta">
+                            // under                                 <a class="post-category" href="https://www.lapis-zero09.xyz/tag/tex.html">TeX</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/el_capitan.html">El_Capitan</a>
+                        </p>
+                </header>
+            </section>
+            <h1>El CapitanにTeXを入れる</h1>
+<p>Homebrew経由でもTeX本家からpkgを落としてきても，TeX関連のPATHが通らないのでやったこと<br />
+※本当なら勝手にPATH が通るはず??  </p>
+<h2>Ghostscriptのインストール</h2>
+<div class="highlight"><pre><span></span>$ brew install ghostscript
+</pre></div>
+
+
+<h2>MacTeXのインストール</h2>
+<p><a href="https://tug.org/mactex/mactex-download.html">MacTeX</a>　から，MacTeX.pkgをダウンロード．<br />
+ファイルのダウンロードが始まらず，<br />
+"mactex-download..."のテキストが表示された場合，<br />
+"ftp://"で始まるURLをアドレスフィールドに直接コピペ．  </p>
+<p>"インストールの種類"で"カスタマイズ"をクリック．<br />
+"カスタムインストール"でGhostscriptのチェックを外して<br />
+インストールをクリック．  </p>
+<h2>PATHを通してやる</h2>
+<p><code>zshrc</code> か <code>bashrc</code> に以下を記載．  </p>
+<div class="highlight"><pre><span></span><span class="x">export PATH=&quot;/usr/local/texlive/2015/bin/x86_64-darwin/&quot;:</span><span class="p">$</span><span class="nv">PATH</span><span class="x"></span>
+</pre></div>
+
+
+<p><code>zshrc</code> か <code>bashrc</code> 書いた方をリロード．  </p>
+<div class="highlight"><pre><span></span>$ <span class="nb">source</span> ~/.zshrc
+</pre></div>
+
+
+<h2>TeX Liveのアップデート</h2>
+<div class="highlight"><pre><span></span>$ sudo tlmgr update --self --all
+</pre></div>
+
+
+<h2>日本語環境構築</h2>
+<div class="highlight"><pre><span></span>$ sudo tlmgr install collection-langjapanese
+</pre></div>
+
+
+<h3>ヒラギノフォント埋め込み</h3>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /usr/local/texlive/2015/texmf-dist/scripts/cjk-gs-integrate
+$ sudo perl cjk-gs-integrate.pl --link-texmf --force
+$ sudo mktexlsr
+$ sudo kanji-config-updmap-sys hiragino-elcapitan-pron 
+</pre></div>
+
+
+<h2>ソースコードを埋め込めるようにする</h2>
+<p><a href="https://osdn.jp/projects/mytexpert/downloads/26068/jlisting.sty.bz2/">https://osdn.jp/projects/mytexpert/downloads/26068/jlisting.sty.bz2/</a>
+からjlisting.sty をダウンロードしてくる．</p>
+<div class="highlight"><pre><span></span>$ sudo mv jlisting.sty /usr/local/texlive/2015/texmf-dist/tex/latex/listings/
+$ sudo chmod +r /usr/local/texlive/2015/texmf-dist/tex/latex/listings/jlisting.sty
+$ sudo mktexlsr
+</pre></div>
+
+
+<p>以上．  </p>
+            <a href="#" class="go-top">Go Top</a>
+<footer class="footer">
     <p>&copy; lapis_zero09 &ndash;
         Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
         for <a href="http://blog.getpelican.com/">Pelican</a>
     </p>
-</footer>            </div>
-        </div>
+</footer>        </div>
     </div>
     </div>
     <script>

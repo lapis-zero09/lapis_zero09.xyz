@@ -6,12 +6,13 @@
     <meta name="description" content="題未定, ">
 
 
-        <title>debian tag // 題未定 // </title>
+        <title>git commit時のエラーについて // 題未定 // </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="theme/css/pure.css">
+    <link rel="stylesheet" href="https://www.lapis-zero09.xyz/theme/css/pygments.css">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>
@@ -23,6 +24,12 @@
       ga('create', 'UA-74593186-1', 'auto');
       ga('send', 'pageview');
 
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
     </script>
 </head>
 
@@ -57,44 +64,50 @@
         </div>
     <div class="pure-u">
         <div class="content">
-            <!-- A wrapper for all the blog posts -->
-            <div class="posts">
-                <h1 class="content-subhead">
-Posts tagged 'debian'                </h1>
-                    <section class="post">
-                        <header class="post-header">
-                            <h3><a class="post-title" href="https://www.lapis-zero09.xyz/17th.html">debianにVirtual Boxをインストール</a></h3>
-                            <p class="post-meta"><p>kali linux rolling edにvirtualboxを入れるときに躓いたこと．</p></p>
-                            <p class="post-meta">
-                                in <a href="https://www.lapis-zero09.xyz/category/security.html">security</a> &middot; 土 21 5月 2016
-                            </p>
-                        </header>
-                    </section>
-                    <section class="post">
-                        <header class="post-header">
-                            <h3><a class="post-title" href="https://www.lapis-zero09.xyz/16th.html">kali linux日本語環境</a></h3>
-                            <p class="post-meta"><p>kali linux日本語入力環境がおかしくなった時の対処法．</p></p>
-                            <p class="post-meta">
-                                in <a href="https://www.lapis-zero09.xyz/category/security.html">security</a> &middot; 金 20 5月 2016
-                            </p>
-                        </header>
-                    </section>
-<div class="pagination-wrapper content-subhead">
-    <div class="pagination">
-        <div class="pagination-left">
-                &nbsp;
-        </div>
-        <span>Page 1 / 1</span>
-        <div class="pagination-right">
-        </div>
-    </div>
-</div><footer class="footer">
+            <section class="post">
+                <header class="post-header">
+                    <h1>git commit時のエラーについて</h1>
+                        <p class="post-meta">
+                            // under                                 <a class="post-category" href="https://www.lapis-zero09.xyz/tag/git.html">git</a>
+                        </p>
+                </header>
+            </section>
+            <h1>git commit</h1>
+<p>今まではできてたのにある日から<br />
+<code>git commit</code> をviでした時に以下のようなエラーが出る．</p>
+<div class="highlight"><pre><span></span>$ git commit -a
+error: There was a problem with the editor <span class="s1">&#39;vi&#39;</span>.
+Please supply the message using either -m or -F option.
+</pre></div>
+
+
+<p>gitconfigを確認する．</p>
+<div class="highlight"><pre><span></span>$ cat ~/.gitconfig
+</pre></div>
+
+
+<p>[core]タグの中のeditorの設定を見る．<br />
+vimのパスを確認．  </p>
+<div class="highlight"><pre><span></span>$ which vim
+/usr/local/bin/vim
+</pre></div>
+
+
+<p>以下コマンドでエディタをvimに設定．  </p>
+<div class="highlight"><pre><span></span>$ git config --global core.editor /usr/local/bin/vim
+</pre></div>
+
+
+<p>gitconfigを確認して，<br />
+[core]タグのeditorが変わっていればok．  </p>
+<p>以上．</p>
+            <a href="#" class="go-top">Go Top</a>
+<footer class="footer">
     <p>&copy; lapis_zero09 &ndash;
         Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
         for <a href="http://blog.getpelican.com/">Pelican</a>
     </p>
-</footer>            </div>
-        </div>
+</footer>        </div>
     </div>
     </div>
     <script>

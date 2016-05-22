@@ -114,7 +114,13 @@ anthyしかうまく動かないっぽい.  </p>
 </pre></div>
 
 
-<p>それぞれで出てきたパッケージに対し，<code>apt-get purge</code> を実行．  </p>
+<p>それぞれで出てきたパッケージに対し，<code>apt-get purge</code> を実行．<br />
+めんどい人は以下で</p>
+<div class="highlight"><pre><span></span># apt-get purge `apt list | grep -G &quot;uim\|anthy&quot; | cut -d&quot;/&quot; -f1 | xargs echo`
+# apt autoremove
+</pre></div>
+
+
 <p>そして，以下を実行．  </p>
 <div class="highlight"><pre><span></span># apt autoremove
 # reboot

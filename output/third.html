@@ -6,12 +6,13 @@
     <meta name="description" content="題未定, ">
 
 
-        <title>debian tag // 題未定 // </title>
+        <title>さくらVPSにお名前.comで契約したドメインを関連付けた話 // 題未定 // </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="theme/css/pure.css">
+    <link rel="stylesheet" href="https://www.lapis-zero09.xyz/theme/css/pygments.css">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>
@@ -23,6 +24,12 @@
       ga('create', 'UA-74593186-1', 'auto');
       ga('send', 'pageview');
 
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
     </script>
 </head>
 
@@ -57,44 +64,55 @@
         </div>
     <div class="pure-u">
         <div class="content">
-            <!-- A wrapper for all the blog posts -->
-            <div class="posts">
-                <h1 class="content-subhead">
-Posts tagged 'debian'                </h1>
-                    <section class="post">
-                        <header class="post-header">
-                            <h3><a class="post-title" href="https://www.lapis-zero09.xyz/17th.html">debianにVirtual Boxをインストール</a></h3>
-                            <p class="post-meta"><p>kali linux rolling edにvirtualboxを入れるときに躓いたこと．</p></p>
-                            <p class="post-meta">
-                                in <a href="https://www.lapis-zero09.xyz/category/security.html">security</a> &middot; 土 21 5月 2016
-                            </p>
-                        </header>
-                    </section>
-                    <section class="post">
-                        <header class="post-header">
-                            <h3><a class="post-title" href="https://www.lapis-zero09.xyz/16th.html">kali linux日本語環境</a></h3>
-                            <p class="post-meta"><p>kali linux日本語入力環境がおかしくなった時の対処法．</p></p>
-                            <p class="post-meta">
-                                in <a href="https://www.lapis-zero09.xyz/category/security.html">security</a> &middot; 金 20 5月 2016
-                            </p>
-                        </header>
-                    </section>
-<div class="pagination-wrapper content-subhead">
-    <div class="pagination">
-        <div class="pagination-left">
-                &nbsp;
-        </div>
-        <span>Page 1 / 1</span>
-        <div class="pagination-right">
-        </div>
-    </div>
-</div><footer class="footer">
+            <section class="post">
+                <header class="post-header">
+                    <h1>さくらVPSにお名前.comで契約したドメインを関連付けた話</h1>
+                        <p class="post-meta">
+                            // under                                 <a class="post-category" href="https://www.lapis-zero09.xyz/tag/sakuravps.html">さくらVPS</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/nginx.html">Nginx</a>
+                        </p>
+                </header>
+            </section>
+            <h1>さくらVSP</h1>
+<h2>対象</h2>
+<ul>
+<li>Nginxのインストールが終わってる状態．</li>
+<li>お名前.comでドメイン取得済み</li>
+</ul>
+<h2>ドメインを関連付ける</h2>
+<p><a href="http://www.onamae.com/navi/domain.html">ドメインNavi</a>にアクセスしてログイン．  </p>
+<p>"ネームサーバーの設定"項目から"DNS関連機能の設定"をクリック．<br />
+<img alt="犬" src="./img/third-1.png" /></p>
+<p>関連付けたいドメインにチェックを入れて，<br />
+"次へ進む"をクリック．  </p>
+<p>"DNSレコード設定を利用する"の"設定する"をクリック．  </p>
+<p>"ホスト名"欄に"www"と書く．<br />
+"VALUE"欄にIPアドレスを入れる．<br />
+その他はいじらずに追加ボタンをクリック．　</p>
+<p>一番下の"DNSレコード設定用ネームサーバー変更確認"欄にチェックを入れて，<br />
+"確認画面に進む"をクリック．</p>
+<p>後はなりゆきに任せる．</p>
+<h2>Nginx側の設定</h2>
+<p><code>nginx.conf</code> をいじる．<br />
+<code>server_name</code>  の後にドメインを追加する．</p>
+<div class="highlight"><pre><span></span>server <span class="o">{</span>
+    ~省略~
+    server_name  www.<span class="o">{</span>契約したドメイン<span class="o">}</span><span class="p">;</span>
+    ~省略~
+<span class="o">}</span>
+</pre></div>
+
+
+<p>これで <code>www.{契約したドメイン}</code> にアクセスしてNginxの初期ページが現れれば成功．</p>
+<p>※<a href="http://www.onamae.com/navi/domain.html">ドメインNavi</a>での設定から時間が経ってないと反映されない場合もあるので10分くらい待ってみるのが重要</p>
+<p><a href="https://www.lapis-zero09.xyz/forth.html">NginxをHTTP/2対応にした話</a></p>
+            <a href="#" class="go-top">Go Top</a>
+<footer class="footer">
     <p>&copy; lapis_zero09 &ndash;
         Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
         for <a href="http://blog.getpelican.com/">Pelican</a>
     </p>
-</footer>            </div>
-        </div>
+</footer>        </div>
     </div>
     </div>
     <script>
