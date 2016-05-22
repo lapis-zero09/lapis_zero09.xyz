@@ -4,7 +4,7 @@ Category: TeX
 Tags: TeX, El_Capitan
 Slug: sixth
 Author: lapis_zero09
-Summary: TeXのPATHが勝手に通ってくれないので自分で通した時のHowto．
+Summary: El_CapitanにTeXを入れる時のHowto．
 
 # El CapitanにTeXを入れる
 
