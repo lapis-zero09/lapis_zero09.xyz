@@ -50,6 +50,32 @@ $ source ~/.zshrc
 $ sudo tlmgr update --self --all
 ```
 
+## 日本語環境構築
+
+```
+$ sudo tlmgr install collection-langjapanese
+```
+
+### ヒラギノフォント埋め込み
+
+```
+$ cd /usr/local/texlive/2015/texmf-dist/scripts/cjk-gs-integrate
+$ sudo perl cjk-gs-integrate.pl --link-texmf --force
+$ sudo mktexlsr
+$ sudo kanji-config-updmap-sys hiragino-elcapitan-pron 
+```
+
+
+## ソースコードを埋め込めるようにする
+
+[https://osdn.jp/projects/mytexpert/downloads/26068/jlisting.sty.bz2/](https://osdn.jp/projects/mytexpert/downloads/26068/jlisting.sty.bz2/)
+からjlisting.sty をダウンロードしてくる．
+
+```
+$ sudo mv jlisting.sty /usr/local/texlive/2015/texmf-dist/tex/latex/listings/
+$ sudo chmod +r /usr/local/texlive/2015/texmf-dist/tex/latex/listings/jlisting.sty
+$ sudo mktexlsr
+```
 
 
 以上．  
