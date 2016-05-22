@@ -275,6 +275,35 @@
 </pre></div>
 
 
+<p>「参考文献」という文字を変えたい時，<br />
+プリアンブルにrenewcommandを追記  </p>
+<div class="highlight"><pre><span></span><span class="k">\documentclass</span><span class="na">[dvipdfmx]</span><span class="nb">{</span>jsarticle<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>graphicx,here<span class="nb">}</span>
+<span class="k">\renewcommand</span><span class="nb">{</span><span class="k">\refname</span><span class="nb">}{</span>new<span class="nb">_</span>name<span class="nb">}</span>
+</pre></div>
+
+
+<h2>ソースコードの付与</h2>
+<div class="highlight"><pre><span></span><span class="k">\documentclass</span><span class="na">[dvipdfmx]</span><span class="nb">{</span>jsarticle<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>graphicx,listings,jlisting<span class="nb">}</span>
+
+<span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
+
+
+# コードを取り込む
+<span class="k">\lstinputlisting</span><span class="na">[caption=report,label=report,numbers=left,frame=shadowbox]</span><span class="nb">{</span>test.py<span class="nb">}</span>
+
+
+# コードを記述する
+<span class="k">\begin</span><span class="nb">{</span>lstlisting<span class="nb">}</span>[caption=report,label=report]
+  ソースコード
+<span class="k">\end</span><span class="nb">{</span>lstlisting<span class="nb">}</span>
+
+
+<span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
+</pre></div>
+
+
 <p>以上．</p>
             <a href="#" class="go-top">Go Top</a>
 <footer class="footer">
