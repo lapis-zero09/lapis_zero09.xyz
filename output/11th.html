@@ -301,6 +301,23 @@
 
 
 <span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
+
+# 編集テンプレート
+
+<span class="k">\lstset</span><span class="nb">{</span><span class="c">%listings の表示設定</span>
+breaklines = true,<span class="c">%自動で折り返す</span>
+tabsize = 2,<span class="c">%tabsize</span>
+frame=shadowbox,<span class="c">%枠を上下左右に表示する</span>
+basicstyle = <span class="k">\scriptsize</span>,<span class="c">%\footnotesize,</span>
+showstringspaces=false,<span class="c">%文字列中のスペースをちゃんと&quot; &quot;と表示(デフォルトは文字列中のスペースは可視設定)</span>
+numbers=left,<span class="c">%行番号を左に</span>
+framexleftmargin=6mm,<span class="c">%行番号をフレーム内に</span>
+numberstyle=<span class="k">\scriptsize</span>,<span class="c">%行番号のサイズ</span>
+stepnumber=1,<span class="c">%1行おきに行番号を</span>
+numbersep=1zw,<span class="c">%ソースと行番号の間隔</span>
+language = <span class="nb">}</span><span class="c">%言語設定</span>
+
+<span class="k">\renewcommand</span><span class="nb">{</span><span class="k">\thelstnumber</span><span class="nb">}{</span><span class="k">\arabic</span><span class="nb">{</span>lstnumber<span class="nb">}</span>:<span class="nb">}</span> <span class="c">%行番号の表示形式変更番号の後に:をつける。前に付けたい場合はnumberstyleに書く</span>
 </pre></div>
 
 
