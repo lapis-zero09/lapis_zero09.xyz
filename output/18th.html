@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="題未定, ">
+
+
+        <title>brew doctor, pyenv // 題未定 // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="theme/css/pure.css">
+    <link rel="stylesheet" href="https://www.lapis-zero09.xyz/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-74593186-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+    <div class="pure-g-r" id="layout">
+        <div class="sidebar pure-u">
+            <div class="cover-img" style="background: none repeat scroll 0% 0% #3D4F5D">
+                <div class="cover-body">
+                    <header class="header">
+                        <hgroup>
+                            <a href="https://www.lapis-zero09.xyz/about/about.html"><img class="avatar" src="./img/profile.jpg"></a>
+                            <h1 class="brand-main"><a href="https://www.lapis-zero09.xyz">題未定</a></h1>
+                            <p class="tagline"></p>
+                                <p class="social">
+                                    <a href="https://github.com/lapis-zero09">
+                                        <i class="fa fa-github fa-3x"></i>
+                                    </a>
+                                    <a href="https://twitter.com/lapis_zero09">
+                                        <i class="fa fa-twitter-square fa-3x"></i>
+                                    </a>
+                                    <a href="http://www.amazon.co.jp/registry/wishlist/2TLPKVEIT5D9B?sort=priority&view=null">
+                                        <i class="fa fa-gift fa-3x"></i>
+                                    </a>
+                                    <a href="http://qiita.com/lapis_zero09">
+                                        <i class="fa fa-search fa-3x"></i>
+                                    </a>
+                                </p>
+                        </hgroup>
+                    </header>
+                </div>
+            </div>
+        </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>brew doctor, pyenv</h1>
+                        <p class="post-meta">
+                            // under                                 <a class="post-category" href="https://www.lapis-zero09.xyz/tag/brew.html">brew</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/pyenv.html">pyenv</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/el_capitan.html">El_Capitan</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/zsh.html">zsh</a>
+                        </p>
+                </header>
+            </section>
+            <h1>brew doctor</h1>
+<p>pyenvを入れた後で久々に(おい)brew doctorをすると<br />
+pyenvに関するWarningを吐いた．  </p>
+<div class="highlight"><pre><span></span># brew doctor
+
+Warning: &quot;config&quot; scripts exist outside your system or Homebrew directories.
+`./configure` scripts often look for *-config scripts to determine if
+software packages are installed, and what additional flags to use when
+compiling and linking.
+
+Having additional scripts in your path can confuse software installed via
+Homebrew if the config script overrides a system or Homebrew provided
+script of the same name. We found the following &quot;config&quot; scripts:
+    /Users/KonoShinsaku/.pyenv/shims/curl-config
+    /Users/KonoShinsaku/.pyenv/shims/freetype-config
+    /Users/KonoShinsaku/.pyenv/shims/libdynd-config
+    /Users/KonoShinsaku/.pyenv/shims/libpng-config
+    /Users/KonoShinsaku/.pyenv/shims/libpng16-config
+    /Users/KonoShinsaku/.pyenv/shims/python-config
+    /Users/KonoShinsaku/.pyenv/shims/python2-config
+    /Users/KonoShinsaku/.pyenv/shims/python2.7-config
+    /Users/KonoShinsaku/.pyenv/shims/python3-config
+    /Users/KonoShinsaku/.pyenv/shims/python3.4-config
+    /Users/KonoShinsaku/.pyenv/shims/python3.4m-config
+    /Users/KonoShinsaku/.pyenv/shims/python3.5-config
+    /Users/KonoShinsaku/.pyenv/shims/python3.5m-config
+    /Users/KonoShinsaku/.pyenv/shims/xml2-config
+    /Users/KonoShinsaku/.pyenv/shims/xslt-config
+</pre></div>
+
+
+<p>PATHが通ってるところにconfigっていうファイルがあると./configureスクリプトが<br />
+自分の設定ファイルを勘違いしてしまうかも<br />
+らしい  </p>
+<p>PATHから外すとpyenvが使えなくなるので<br />
+brewを実行するときだけ該当のパスを外す．  </p>
+<p>zshrcに以下を記載．  </p>
+<div class="highlight"><pre><span></span># vim ~/.zshrc
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>alias brew=&quot;env PATH=<span class="cp">${</span><span class="n">PATH</span><span class="o">/</span>\<span class="o">/</span><span class="n">Users</span>\<span class="o">/</span><span class="p">{</span><span class="n">user_name</span><span class="cp">}</span>\/\.phpenv\/shims:/} brew&quot;
+</pre></div>
+
+
+<p>再読み込みをして，  </p>
+<div class="highlight"><pre><span></span># source ~/.zshrc
+</pre></div>
+
+
+<p>brew doctor</p>
+<div class="highlight"><pre><span></span># brew doctor
+Your system is ready to brew.
+</pre></div>
+
+
+<p>ok  </p>
+<p>以上．</p>
+            <a href="#" class="go-top">Go Top</a>
+<footer class="footer">
+    <p>&copy; lapis_zero09 &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+    </div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+
+</body>
+</html>
