@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="題未定, ">
+
+
+        <title>railsの認証 // 題未定 // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="theme/css/pure.css">
+    <link rel="stylesheet" href="https://www.lapis-zero09.xyz/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-74593186-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+    <div class="pure-g-r" id="layout">
+        <div class="sidebar pure-u">
+            <div class="cover-img" style="background: none repeat scroll 0% 0% #3D4F5D">
+                <div class="cover-body">
+                    <header class="header">
+                        <hgroup>
+                            <a href="https://www.lapis-zero09.xyz/about/about.html"><img class="avatar" src="./img/profile.jpg"></a>
+                            <h1 class="brand-main"><a href="https://www.lapis-zero09.xyz">題未定</a></h1>
+                            <p class="tagline"></p>
+                                <p class="social">
+                                    <a href="https://github.com/lapis-zero09">
+                                        <i class="fa fa-github fa-3x"></i>
+                                    </a>
+                                    <a href="https://twitter.com/lapis_zero09">
+                                        <i class="fa fa-twitter-square fa-3x"></i>
+                                    </a>
+                                    <a href="http://www.amazon.co.jp/registry/wishlist/2TLPKVEIT5D9B?sort=priority&view=null">
+                                        <i class="fa fa-gift fa-3x"></i>
+                                    </a>
+                                    <a href="http://qiita.com/lapis_zero09">
+                                        <i class="fa fa-search fa-3x"></i>
+                                    </a>
+                                </p>
+                        </hgroup>
+                    </header>
+                </div>
+            </div>
+        </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>railsの認証</h1>
+                        <p class="post-meta">
+                            // under                                 <a class="post-category" href="https://www.lapis-zero09.xyz/tag/rails.html">rails</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/ruby.html">ruby</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/basic.html">basic</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/md5.html">md5</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/security.html">security</a>
+                        </p>
+                </header>
+            </section>
+            <h1>rails</h1>
+<p>railsを使ってないチームはhtpasswdでパスワードファイル作って，.htaccessでやってた．</p>
+<p>railsを使ってたので，authenticate_or_request_with_http_basicを使って終わり．</p>
+<p>適当なcontrollerに以下を記述．</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> ...<span class="n">Controller</span> &lt; ...::<span class="n">Base</span>
+
+  <span class="n">before_filter</span> :<span class="n">basic</span>
+
+  <span class="c c-Singleline"># （略）</span>
+
+  <span class="n">private</span>
+  <span class="n">def</span> <span class="n">basic</span>
+    <span class="n">authenticate_or_request_with_http_basic</span> <span class="k">do</span> |<span class="n">user</span>, <span class="nb">pass</span>|
+      <span class="n">user</span> == <span class="s">&#39;user&#39;</span> &amp;&amp; <span class="nb">pass</span> == <span class="s">&#39;pass&#39;</span>
+    <span class="nb">end</span>
+  <span class="nb">end</span>
+<span class="nb">end</span>
+</pre></div>
+
+
+<p>でもこれだと一切暗号化してないので．．．な人は以下で簡単に暗号化
+(以下もmd5なのでセキュアとは言えない)</p>
+<div class="highlight"><pre><span></span>require &#39;digest&#39;
+
+ class AdminController &lt; ApplicationController
+  before_filter :authenticate
+
+  def authenticate
+    authenticate_or_request_with_http_basic(&#39;Administration&#39;) do |username, password|
+      md5_of_password = Digest::MD5.hexdigest(password)
+      username == &#39;admin&#39; &amp;&amp; md5_of_password == &#39;5ebe2294ecd0e0f08eab7690d2a6ee69&#39;
+    end
+  end
+end
+</pre></div>
+
+
+<p>参照：<a href="http://apidock.com/rails/ActionController/HttpAuthentication/Basic/ControllerMethods/authenticate_or_request_with_http_basic">http://apidock.com/rails/ActionController/HttpAuthentication/Basic/ControllerMethods/authenticate_or_request_with_http_basic</a></p>
+<p>以上．</p>
+            <a href="#" class="go-top">Go Top</a>
+<footer class="footer">
+    <p>&copy; lapis_zero09 &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+    </div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+
+</body>
+</html>

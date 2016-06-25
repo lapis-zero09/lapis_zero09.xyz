@@ -321,6 +321,25 @@ language = <span class="nb">}</span><span class="c">%言語設定</span>
 </pre></div>
 
 
+<h2>数式でベクトルを表す</h2>
+<div class="highlight"><pre><span></span><span class="err">\</span><span class="n">def</span><span class="err">\</span><span class="n">vector</span><span class="err">#</span><span class="mi">1</span><span class="p">{</span><span class="err">\</span><span class="n">mbox</span><span class="p">{</span><span class="err">\</span><span class="n">boldmath</span> <span class="err">$#</span><span class="mi">1</span><span class="err">$</span><span class="p">}}</span>
+
+<span class="err">\</span><span class="n">begin</span><span class="p">{</span><span class="n">document</span><span class="p">}</span>
+
+<span class="o">%</span><span class="err">太文字</span>
+<span class="err">\</span><span class="n">mathbf</span><span class="p">{</span><span class="n">a</span><span class="p">}</span><span class="o">+</span><span class="err">\</span><span class="n">mathbf</span><span class="p">{</span><span class="n">b</span><span class="p">}</span><span class="o">+</span><span class="err">\</span><span class="n">mathbf</span><span class="p">{</span><span class="n">c</span><span class="p">}</span>
+
+<span class="o">%</span><span class="err">イタリック太文字</span>
+<span class="err">\</span><span class="n">mbox</span><span class="p">{</span><span class="err">\</span><span class="n">boldmath</span> <span class="n">$a</span><span class="err">$</span><span class="p">}</span><span class="o">+</span><span class="err">\</span><span class="n">mbox</span><span class="p">{</span><span class="err">\</span><span class="n">boldmath</span> <span class="n">$b</span><span class="err">$</span><span class="p">}</span><span class="o">+</span><span class="err">\</span><span class="n">mbox</span><span class="p">{</span><span class="err">\</span><span class="n">boldmath</span> <span class="n">$c</span><span class="err">$</span><span class="p">}</span>
+<span class="nf">%or</span>
+<span class="err">$\</span><span class="n">vector</span><span class="p">{</span><span class="n">a</span><span class="p">}</span><span class="o">+</span><span class="err">\</span><span class="n">vector</span><span class="p">{</span><span class="n">b</span><span class="p">}</span><span class="o">+</span><span class="err">\</span><span class="n">vector</span><span class="p">{</span><span class="n">c</span><span class="p">}</span><span class="err">$</span>
+
+<span class="err">\</span><span class="n">mathbf</span><span class="p">{</span><span class="err">\</span><span class="n">hat</span><span class="p">{</span><span class="n">x</span><span class="p">}}</span><span class="o">+</span><span class="err">\</span><span class="n">mathbf</span><span class="p">{</span><span class="err">\</span><span class="n">hat</span><span class="p">{</span><span class="n">y</span><span class="p">}}</span><span class="o">+</span><span class="err">\</span><span class="n">mathbf</span><span class="p">{</span><span class="err">\</span><span class="n">hat</span><span class="p">{</span><span class="n">z</span><span class="p">}}</span> <span class="o">%</span><span class="err">単位ベクトル</span><span class="p">(</span><span class="err">ハット</span><span class="p">)</span>
+
+<span class="err">\</span><span class="n">end</span><span class="p">{</span><span class="n">document</span><span class="p">}</span>
+</pre></div>
+
+
 <p>以上．</p>
             <a href="#" class="go-top">Go Top</a>
 <footer class="footer">
