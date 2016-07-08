@@ -6,12 +6,13 @@
     <meta name="description" content="題未定, ">
 
 
-        <title>さくらVPS category // 題未定 // </title>
+        <title>さくらVPSに最新Nginxをインストール // 題未定 // </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="theme/css/pure.css">
+    <link rel="stylesheet" href="https://www.lapis-zero09.xyz/theme/css/pygments.css">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>
@@ -23,6 +24,12 @@
       ga('create', 'UA-74593186-1', 'auto');
       ga('send', 'pageview');
 
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
     </script>
 </head>
 
@@ -57,62 +64,67 @@
         </div>
     <div class="pure-u">
         <div class="content">
-            <!-- A wrapper for all the blog posts -->
-            <div class="posts">
-                <h1 class="content-subhead">
-Posts in 'さくらVPS'                </h1>
-                    <section class="post">
-                        <header class="post-header">
-                            <h3><a class="post-title" href="https://www.lapis-zero09.xyz/22th.html">さくらVPSに最新Nginxをインストール</a></h3>
-                            <p class="post-meta"><p>さくらVPSに最新のNginxをインストールした時のHowto．</p></p>
-                            <p class="post-meta">
-                                in <a href="https://www.lapis-zero09.xyz/category/sakuravps.html">さくらVPS</a> &middot; 金 08 7月 2016
-                            </p>
-                        </header>
-                    </section>
-                    <section class="post">
-                        <header class="post-header">
-                            <h3><a class="post-title" href="https://www.lapis-zero09.xyz/third.html">さくらVPSにお名前.comで契約したドメインを関連付けた話</a></h3>
-                            <p class="post-meta"><p>さくらVPSにお名前.comで契約したドメインを関連付けた時のHowto．</p></p>
-                            <p class="post-meta">
-                                in <a href="https://www.lapis-zero09.xyz/category/sakuravps.html">さくらVPS</a> &middot; 木 03 3月 2016
-                            </p>
-                        </header>
-                    </section>
-                    <section class="post">
-                        <header class="post-header">
-                            <h3><a class="post-title" href="https://www.lapis-zero09.xyz/second.html">さくらVPSにNginx1.9系をインストールした話</a></h3>
-                            <p class="post-meta"><p>さくらVPSに最新のNginxをインストールした時のHowto．</p></p>
-                            <p class="post-meta">
-                                in <a href="https://www.lapis-zero09.xyz/category/sakuravps.html">さくらVPS</a> &middot; 木 03 3月 2016
-                            </p>
-                        </header>
-                    </section>
-                    <section class="post">
-                        <header class="post-header">
-                            <h3><a class="post-title" href="https://www.lapis-zero09.xyz/first.html">さくらVPSを契約した話</a></h3>
-                            <p class="post-meta"><p>さくらVPSを契約した時のHowto．</p></p>
-                            <p class="post-meta">
-                                in <a href="https://www.lapis-zero09.xyz/category/sakuravps.html">さくらVPS</a> &middot; 水 02 3月 2016
-                            </p>
-                        </header>
-                    </section>
-<div class="pagination-wrapper content-subhead">
-    <div class="pagination">
-        <div class="pagination-left">
-                &nbsp;
-        </div>
-        <span>Page 1 / 1</span>
-        <div class="pagination-right">
-        </div>
-    </div>
-</div><footer class="footer">
+            <section class="post">
+                <header class="post-header">
+                    <h1>さくらVPSに最新Nginxをインストール</h1>
+                        <p class="post-meta">
+                            // under                                 <a class="post-category" href="https://www.lapis-zero09.xyz/tag/sakuravps.html">さくらVPS</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/nginx.html">Nginx</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/openssl.html">openssl</a>
+                        </p>
+                </header>
+            </section>
+            <h1>Nginx</h1>
+<h2>openssl</h2>
+<p><a href="https://www.lapis-zero09.xyz/second.html">こちら</a>でNginxをインストールする場合，<br />
+openssl1.0.2に脆弱性(<a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-2107">CVE-2016-2107</a>, <a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-2105">CVE-2016-2105</a>, <a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-2106">CVE-2016-2106</a>, <a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-2109">CVE-2016-2109</a>, <a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-2176">CVE-2016-2176</a>)が判明し，
+opensslのversionをあげることが推奨される．  </p>
+<p>ここではyumを用いて最新Nginxをインストールする</p>
+<h2>Nginxのビルド</h2>
+<div class="highlight"><pre><span></span>$ yum info nginx
+</pre></div>
+
+
+<p>でインストールされるNginxのversionが低い場合，<br />
+以下のコマンドでNginxのリポジトリを追加してやる．</p>
+<div class="highlight"><pre><span></span>$ sudo rpm -ivh http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+</pre></div>
+
+
+<p>nginx.repoが/etc/yum.repos.d/配下につくられる.  </p>
+<p>その内容は以下  </p>
+<div class="highlight"><pre><span></span><span class="err">#</span><span class="x"> nginx.repo</span>
+
+<span class="x">[nginx]</span>
+<span class="x">name=nginx repo</span>
+<span class="x">baseurl=http://nginx.org/packages/centos/6/</span><span class="p">$</span><span class="nv">basearch</span><span class="x">/</span>
+<span class="x">gpgcheck=0</span>
+<span class="x">enabled=0</span>
+</pre></div>
+
+
+<p>ここでenabledを以下のように変更する．  </p>
+<div class="highlight"><pre><span></span>#enabled=0
+
+enabled=1
+</pre></div>
+
+
+<p>ここでyum infoするとversionが最新のものになってるはず．  </p>
+<p>そして，Nginxをインストール</p>
+<div class="highlight"><pre><span></span>$ sudo yum -y install nginx
+</pre></div>
+
+
+<p>Nginxの設定はここ(https://www.lapis-zero09.xyz/forth.html)  </p>
+<p>※上記ではnginx.conf本体をいじっているがconf.dの中のconfファイルをいじるのもあり</p>
+            <a href="#" class="go-top">Go Top</a>
+<footer class="footer">
     <p>&copy; lapis_zero09 &ndash;
         Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
         for <a href="http://blog.getpelican.com/">Pelican</a>
     </p>
-</footer>            </div>
-        </div>
+</footer>        </div>
     </div>
     </div>
     <script>
