@@ -1,8 +1,8 @@
 Title: TeXを入れたときの話
 Date: 2016-03-15 22:00
-Category: TeX 
+Category: TeX
 Tags: TeX, El_Capitan
-Slug: sixth
+Slug: 6th
 Author: lapis_zero09
 Summary: El_CapitanにTeXを入れる時のHowto．
 
@@ -62,7 +62,7 @@ $ sudo tlmgr install collection-langjapanese
 $ cd /usr/local/texlive/2015/texmf-dist/scripts/cjk-gs-integrate
 $ sudo perl cjk-gs-integrate.pl --link-texmf --force
 $ sudo mktexlsr
-$ sudo kanji-config-updmap-sys hiragino-elcapitan-pron 
+$ sudo kanji-config-updmap-sys hiragino-elcapitan-pron
 ```
 
 

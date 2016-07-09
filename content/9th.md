@@ -2,7 +2,7 @@ Title: git commit時のエラーについて
 Date: 2016-03-28 22:00
 Category: git
 Tags: git
-Slug: ninth
+Slug: 9th
 Author: lapis_zero09
 Summary: git commitでエラーが出る時のHowto．
 
@@ -45,12 +45,3 @@ gitconfigを確認して，
 
 
 以上．
-
-
-
-
-
-
-
-
-
