@@ -99,7 +99,7 @@ server {
         server_name  www.{自分の契約しているドメイン};
         ~省略~
         ssl_certificate      /etc/letsencrypt/live/www.{自分の契約しているドメイン}/fullchain.pem;
-       ssl_certificate_key  /etc/letsencrypt/live/www.{自分の契約しているドメイン}/privkey.pem;
+        ssl_certificate_key  /etc/letsencrypt/live/www.{自分の契約しているドメイン}/privkey.pem;
 
         location / {
             root   /var/www;
