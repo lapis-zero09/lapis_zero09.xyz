@@ -2,7 +2,7 @@ Title: さくらVPSを契約した話
 Date: 2016-03-02 22:00
 Category: さくらVPS
 Tags: さくらVPS, ssh, yum
-Slug: first
+Slug: 1st
 Author: lapis_zero09
 Summary:さくらVPSを契約した時のHowto．
 
@@ -225,4 +225,4 @@ $ iptables -L
 
 
 
-[Nginxをインストールした話](https://www.lapis-zero09.xyz/second.html)
+[Nginxをインストールした話](https://www.lapis-zero09.xyz/2nd.html)

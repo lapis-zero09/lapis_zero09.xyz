@@ -2,7 +2,7 @@ Title: 一人暮らしの寂しさを紛らわす彼女(bot)を作った話
 Date: 2016-03-04 22:00
 Category: eve
 Tags: Ruby, Twitter, 楽天API, docomoAPI, bot
-Slug: fifth
+Slug: 5th
 Author: lapis_zero09
 Summary: Rubyでbotを作った時のHowto．
 
@@ -397,7 +397,7 @@ begin
 ![ご飯2](./img/fifth-3.png)
 
 
-最終系は[こちら](https://github.com/Shandy-ko/raslas_eve)  
+最終系は[こちら](https://github.com/lapis-zero09/raslas_eve)  
 "癒し"と"help"を実装．(簡単なので割愛)
 
 これで寂しくない．  

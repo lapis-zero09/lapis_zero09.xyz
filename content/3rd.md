@@ -2,7 +2,7 @@ Title: さくらVPSにお名前.comで契約したドメインを関連付けた
 Date: 2016-03-03 22:01
 Category: さくらVPS
 Tags: さくらVPS, Nginx
-Slug: third
+Slug: 3rd
 Author: lapis_zero09
 Summary:さくらVPSにお名前.comで契約したドメインを関連付けた時のHowto．
 
@@ -50,4 +50,4 @@ server {
 
 ※[ドメインNavi](http://www.onamae.com/navi/domain.html)での設定から時間が経ってないと反映されない場合もあるので10分くらい待ってみるのが重要
 
-[NginxをHTTP/2対応にした話](https://www.lapis-zero09.xyz/forth.html)
+[NginxをHTTP/2対応にした話](https://www.lapis-zero09.xyz/4th.html)

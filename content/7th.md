@@ -2,7 +2,7 @@ Title: TeXshopのcolor schemeを変更したときの話
 Date: 2016-03-18 22:00
 Category: TeX
 Tags: TeX, El_Capitan, TeXshop
-Slug: seventh
+Slug: 7th
 Author: lapis_zero09
 Summary: TeXshopのcolor schemeを変更した時のHowto．
 
@@ -65,6 +65,3 @@ defaults write TeXShop markerblue 0.13
 
 
 以上．  
-
-
-

@@ -2,7 +2,7 @@ Title: jupyter notebookのカラースキームについて
 Date: 2016-03-23 22:00
 Category: jupyter_notebook
 Tags: python, ipython4.x, css, jupyter, ipython
-Slug: eighth
+Slug: 8th
 Author: lapis_zero09
 Summary: jupyter notebook(ipython4.x)のcustom.cssを作る時のHowto．
 

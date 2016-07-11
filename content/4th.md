@@ -2,7 +2,7 @@ Title: NginxをHTTP/2対応にした話
 Date: 2016-03-03 22:01
 Category: Nginx
 Tags: さくらVPS, Nginx, http2, tls, Let'sEncrypt
-Slug: forth
+Slug: 4th
 Author: lapis_zero09
 Summary:NginxをHTTP/2対応にした時のHowto．
 
