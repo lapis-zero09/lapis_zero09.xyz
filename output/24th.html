@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="題未定, ">
+
+
+        <title>続・わかりやすいパターン認識 第2章 // 題未定 // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="theme/css/pure.css">
+    <link rel="stylesheet" href="https://www.lapis-zero09.xyz/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-74593186-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+    <div class="pure-g-r" id="layout">
+        <div class="sidebar pure-u">
+            <div class="cover-img" style="background: none repeat scroll 0% 0% #3D4F5D">
+                <div class="cover-body">
+                    <header class="header">
+                        <hgroup>
+                            <a href="https://www.lapis-zero09.xyz/about/about.html"><img class="avatar" src="./img/profile.jpg"></a>
+                            <h1 class="brand-main"><a href="https://www.lapis-zero09.xyz">題未定</a></h1>
+                            <p class="tagline"></p>
+                                <p class="social">
+                                    <a href="https://github.com/lapis-zero09">
+                                        <i class="fa fa-github fa-3x"></i>
+                                    </a>
+                                    <a href="https://twitter.com/lapis_zero09">
+                                        <i class="fa fa-twitter-square fa-3x"></i>
+                                    </a>
+                                    <a href="http://www.amazon.co.jp/registry/wishlist/2TLPKVEIT5D9B?sort=priority&view=null">
+                                        <i class="fa fa-gift fa-3x"></i>
+                                    </a>
+                                    <a href="http://qiita.com/lapis_zero09">
+                                        <i class="fa fa-search fa-3x"></i>
+                                    </a>
+                                </p>
+                        </hgroup>
+                    </header>
+                </div>
+            </div>
+        </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>続・わかりやすいパターン認識 第2章</h1>
+                        <p class="post-meta">
+                            // under                                 <a class="post-category" href="https://www.lapis-zero09.xyz/tag/ml.html">ML</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/study.html">study</a>
+                        </p>
+                </header>
+            </section>
+            <h1>続・わかりやすいパターン認識</h1>
+<h2>第1章 ベイズ統計学 復習</h2>
+<h3>ベイズの定理</h3>
+<p>結果(X)から原因(S)を探るための式</p>
+<ul>
+<li>P(X)・・・周辺確率</li>
+<li>P(X, S)・・・同時確率(複数の事象が組になって同時に生起する確率) P(X, S) = P(X|S)P(S)</li>
+<li>P(S|X)・・・条件付き確率(Xという条件下でSが発生する確率)</li>
+</ul>
+<p>後の例題のために・・・</p>
+<p><img alt="ベイズの定理" src="./img/24th-2.png" /></p>
+<!-- \begin{eqnarray*}
+  P(X) & = & \sum_{S}P(X,S)\\
+  P(X, S) & = & P(X|S)P(S)\\
+\mbox{よって，}\\
+  P(X) & = & \sum_{S}P(X|S)P(S)
+\end{eqnarray*} -->
+
+<h5>離散型確率変数についてのベイズの定理</h5>
+<p><img alt="ベイズの定理" src="./img/24th-1.png" /></p>
+<!-- \begin{eqnarray*}
+  P(S|X) & = & \frac{P(X, S)}{P(X)}\\
+         & = & \frac{P(X|S)}{P(X)}P(S)\\
+         & = & \frac{P(X|S)}{\sum_{S}P(S)P(X|S)}P(S)\\
+\end{eqnarray*} -->
+
+<h5>連続型確率変数についてのベイズの定理</h5>
+<p>上式のsigmaをintegralに</p>
+<h4>例題</h4>
+<div class="highlight"><pre><span></span>表面が白色のカードが4枚，黒色のカードが6枚ある．
+各カードは&quot;当たり&quot;，もしくは，&quot;外れ&quot;であり，&quot;当たり&quot;のカードの裏面には，
+「当」の文字が印刷され，&quot;外れ&quot;のカードの裏面には何も印刷されていない．
+&quot;当たり&quot;は白色のカードで2枚，黒色のカードで1枚含まれている．
+(1)これら10枚のカードから無作為に1枚取り出すとき，
+そのカードが&quot;当たり&quot;である確率を求めよ．
+(2)上記の取り出したカードを，表・裏とも見ずにそのままにしておく．
+その後，表の色が白であることを知ったとき，このカードが&quot;当たり&quot;である確率を求めよ．
+</pre></div>
+
+
+<p>10枚のカードから一枚を無作為に取り出したとき，そのカードが"当たり"である確率はP(S=当)</p>
+<p>P(S=当) = 3/10</p>
+<p>表の色が白であることを知ったとき，このカードが"当たり"である確率は条件付き確率P(S=当|X=白)に変化する．</p>
+<p>ベイズの定理より，</p>
+<p><img alt="例題1" src="./img/24th-ex1.png" /></p>
+<!-- \begin{eqnarray*}
+  P(S = \mbox{当}|X = \mbox{白}) & = & \frac{P(X = \mbox{白}|S = \mbox{当})P(S = \mbox{当})}{\sum_{S = \{\mbox{当，外}\}}P(S)P(X = \mbox{白}|S)}\\
+         & = & \frac{P(X = \mbox{白}|S = \mbox{当})P(S = \mbox{当})}{P(S = \mbox{当})P(X = \mbox{白}|S = \mbox{当}) + P(S = \mbox{外})P(X = \mbox{白}|S = \mbox{外})}\\
+         & = & \frac{(2/3) (3/10)}{(3/10) (2/3) + (7/10) (2/7)}\\
+         & = & 1/2
+\end{eqnarray*} -->
+
+<p>このとき，ベイズの定理の右辺のP(S)は，色の<strong>観測を行う前</strong>の"当たり"の確率であり，
+左辺のP(S|X)は<strong>観測後</strong>の"当たり"の確率．</p>
+<ul>
+<li>P(S) -&gt; 事前確率</li>
+<li>P(S|X) -&gt; 事後確率</li>
+</ul>
+<p>ベイズの定理は観測結果Xを得ることによって，「<strong>事前確率が事後確率に変化する</strong>」変換式と捉えることができる．</p>
+<h2>第2章 事前確率と事後確率</h2>
+<h3>例題[1]</h3>
+<div class="highlight"><pre><span></span>箱の中に，外見上は区別がつかない3種類のコインw1，w2，w3が大量に混ざっている．
+その含有率はπ1，π2，π3．
+これら3種類のコインを投げて表が出る確率はそれぞれθ1，θ2，θ3．
+この箱の中からコインを無造作に1枚取り出して投げたところ表が出たとする．
+(1)この結果より，そのコインがw1，w2，w3である確率を求めよ．
+(2)上記確率をπ1=0.1，π2=0.4，π3=0.5 かつ，θ1=0.8，θ2=0.6，θ3=0.3 の場合について計算せよ．
+</pre></div>
+
+
+<h4>(1)</h4>
+<p>結果X(コインを投げた結果)から原因S(コインの種類)を求める．</p>
+<p><img alt="例題2" src="./img/24th-ex2.png" /></p>
+<!-- \begin{eqnarray*}
+X & = &
+\begin{cases}
+\mbox{お} & \mbox{コインが表のとき}\\
+\mbox{う} &  \mbox{コインが裏のとき}
+\end{cases}\\
+S & = & w_i \ \  (i=1,2,3)
+\end{eqnarray*} -->
+
+<p>このとき，ベイズの定理より，</p>
+<p><img alt="例題2" src="./img/24th-ex3.png" /></p>
+<p>ここで，P(X)は，</p>
+<p><img alt="例題2" src="./img/24th-ex4.png" /></p>
+<!-- \begin{eqnarray*}
+%  P(S = w_i|X) & = & \frac{P(X|S = w_i)}{P(X)}P(S = w_i) \ \  (i=1,2,3)\\
+  P(X) & = & \sum_{i = 1}^{3}P(S = w_i)P(X|S = w_i) \ \  \mbox{(X = お，う)}\\
+\end{eqnarray*} -->
+
+<p>コインwがわかっているとき，そのコインを投げて表(X=お)の出る確率は与えられており，</p>
+<p><img alt="例題2" src="./img/24th-ex5.png" /></p>
+<!-- \begin{eqnarray*}
+  P(X = \mbox{お}|S = w_i) & = & \theta _i \ \  (i=1,2,3)\\
+  P(X = \mbox{う}|S = w_i) & = & 1 - \theta _i \ \  (i=1,2,3)\\
+\end{eqnarray*} -->
+
+<p>また，コインwの含有率について，</p>
+<p><img alt="例題2" src="./img/24th-ex6.png" /></p>
+<!-- \begin{eqnarray*}
+  P(S = w_i) & = & \pi _i \ \  (i=1,2,3)
+\end{eqnarray*} -->
+
+<p>これがコインを投げる前に得られている確率で，事前確率に相当．</p>
+<p>以上より，</p>
+<p><img alt="例題2" src="./img/24th-ex7.png" /></p>
+<!-- \begin{eqnarray*}
+  P(X = \mbox{お}) & = & \sum_{i = 1}^{3}P(S = w_i)P(X = \mbox{お}|S = w_i)\\
+                  & = & \sum_{i = 1}^{3} \pi _i \theta _i
+\end{eqnarray*} -->
+
+<p>これをベイズの定理の式に代入して，</p>
+<p><img alt="例題2" src="./img/24th-ex8.png" /></p>
+<!-- \begin{eqnarray*}
+  P(S = w_i|X = \mbox{お}) & = & \frac{P(X = \mbox{お}|S = w_i)}{P(X = \mbox{お})}P(S = w_i)\\
+  & = & \frac{\pi _i \theta _i}{\sum_{j = 1}^{3} \pi _j \theta _j} \ \  (i=1,2,3)\\
+\end{eqnarray*} -->
+
+<h4>(2)</h4>
+<p>与えられたそれぞれの値より，</p>
+<p>P(X=お) = 0.1x0.8 + 0.4x0.6 + 0.5x0.3 = 0.47</p>
+<p>よって，</p>
+<p>P(S = w1|X = お) = (0.1x0.8)/0.47 = 0.170</p>
+<p>P(S = w2|X = お) = (0.4x0.6)/0.47 = 0.511</p>
+<p>P(S = w3|X = お) = (0.5x0.3)/0.47 = 0.319</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="center">w1</th>
+<th>w2</th>
+<th align="right">w3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>事前確率P(S=wi)</td>
+<td align="center">0.100</td>
+<td>0.400</td>
+<td align="right">0.500</td>
+</tr>
+<tr>
+<td>事後確率P(S=wi&#124;X=お)</td>
+<td align="center">0.170</td>
+<td>0.511</td>
+<td align="right">0.319</td>
+</tr>
+</tbody>
+</table>
+<h3>例題[2]</h3>
+<div class="highlight"><pre><span></span>箱の中に，外見上は区別がつかない3種類のコインw1，w2，w3が大量に混ざっている．
+その含有率はπ1，π2，π3．
+これら3種類のコインを投げて表が出る確率はそれぞれθ1，θ2，θ3．
+この箱の中からコインを無造作に1枚取り出し，そのコインをn(n&gt;2)回投げたところ，観測結果x1x2・・・xt・・・xnが得られた．
+このとき，r(0 =&lt; r =&lt; n)回が表だった．
+この結果より，そのコインがw1，w2，w3である確率を求めよ．
+</pre></div>
+
+
+<p>コインをn回投げたときの観測結果を以下のように表す．</p>
+<p><img alt="例題2" src="./img/24th-ex9.png" /></p>
+<!-- \begin{eqnarray*}
+  x^{(n)} & = & x_1x_2\cdots x_t\cdots x_n\\
+  x_t & \in & \{\mbox{お，う}\} \ \  (t = 1,2,\cdots, n)
+\end{eqnarray*} -->
+
+<p>取り出したコインwについて観測結果xが得られる確率は各試行の独立性により，</p>
+<p><img alt="例題2" src="./img/24th-ex10.png" /></p>
+<!--
+\begin{eqnarray*}
+  P(X = x^{(n)}|S = w_i) & = & P(X=x_1|S=w_i)P(X=x_2|S=w_i)\cdots  P(X=x_n|S=w_i)\\
+  & = & {\theta _i}^{r}{(1 - \theta _i)}^{n-r}\\
+\mbox{よって，}\\
+  P(x^{(n)}) & = & \sum_{i = 1}^{3}P(S = w_i)P(X = x^{(n)}|S = w_i)\\
+                  & = & \sum_{i = 1}^{3} \pi _i {\theta _i}^{r}{(1 - \theta _i)}^{n-r}\\
+\mbox{ベイズの定理より，}\\
+  P(S = w_i|X = x^{(n)}) & = & \frac{P(X = x^{(n)}|S = w_i)}{P(X = x^{(n)})}P(S = w_i)\\
+  & = & \frac{\pi _i {\theta _i}^{r}{(1 - \theta _i)}^{n-r}}{\sum_{j = 1}^{3} \pi _j {\theta _j}^{r}{(1 - \theta _j)}^{n-r}
+} \ \  (i=1,2,3)\\
+\end{eqnarray*} -->
+
+<h3>ベイズ更新</h3>
+<p>上例題[2]ではコインをn回投げたときの事後確率を直接求めた．</p>
+<p>ここでは，ベイズの更新を用いて，逐次的に求めることを考える．</p>
+<p>コインを一回投げ，続けて同じコインをもう一度投げる．</p>
+<p>コインを一回投げたとき，ベイズの定理より，</p>
+<p><img alt="例題2" src="./img/24th-ex11.png" /></p>
+<!-- \begin{eqnarray*}
+  P(S = w_i|X = x_1) & = & \frac{P(X = x_1|S = w_i)}{P(X = x_1)}P(S = w_i)\\
+  & = & \frac{P(X = x_1|S = w_i)P(S = w_i)}{\sum_{j = 1}^{3} P(S = w_i)P(X = x_1|S = w_i)} \ \  (i=1,2,3)
+\end{eqnarray*} -->
+
+<p>同様に2回投げた後での事後確率は，</p>
+<p><img alt="例題2" src="./img/24th-ex12.png" /></p>
+<!-- \begin{eqnarray}
+  P(S = w_i|X = x_1x_2) & = & \frac{P(X = x_1x_2|S = w_i)}{P(X = x_1x_2)}P(S = w_i) \nonumber \\
+  & = & \frac{P(X = x_1x_2|S = w_i)P(S = w_i)}{\sum_{j = 1}^{3} P(S = w_j)P(X = x_1x_2|S = w_j)} \nonumber \\
+\\
+\mbox{各試行の独立性より，}\nonumber\\
+  P(X = x_1x_2|S = w_i) & = & P(X = x_1|S = w_i)P(X = x_2|S = w_i) \nonumber \\
+\\
+\mbox{コインを一回投げたときのベイズの定理から，}\nonumber \\
+  P(S = w_i|X = x_1) & = & \frac{P(X = x_1|S = w_i)}{P(X = x_1)}P(S = w_i) \nonumber \\
+  P(S = w_i|X = x_1)P(X = x_1) & = & P(X = x_1|S = w_i)P(S = w_i)\\
+\mbox{(2)を(1)に代入}\nonumber \\
+(1) & = & \frac{P(X = x_1|S = w_i)P(X = x_2|S = w_i)P(S = w_i)}{\sum_{j = 1}^{3} P(S = w_j)P(X = x_1|S = w_j)P(X = x_2|S = w_j)} \nonumber\\
+\\
+\mbox{(3)を(4)に代入}\nonumber \\
+(4) & = & \frac{P(X = x_1)P(S = w_i|X = x_1)P(X = x_2|S = w_i)}{P(X = x_1)\sum_{j = 1}^{3} P(S = w_j|X = x_1)P(X = x_2|S = w_j)} \nonumber \\
+    & = & \frac{P(X = x_2|S = w_i)P(S = w_i|X = x_1)}{\sum_{j = 1}^{3} P(S = w_j|X = x_1)P(X = x_2|S = w_j)} \nonumber
+\end{eqnarray} -->
+
+<p>この式は一回目のコインを投げた観測結果P(S=wi|X=x1)を利用して，事後確率P(S=Wi|X=x1x2)を求める形になっている．</p>
+<p>同様に，n回投げたとき，</p>
+<p><img alt="例題2" src="./img/24th-ex13.png" /></p>
+<!-- \begin{eqnarray*}
+  P(S = w_i|X = x^{(n)}) & = & \frac{P(X = x^{(n)}|S = w_i)}{P(X = x^{(n)})}P(S = w_i)\\
+  & = & \frac{P(X = x^{(n)}|S = w_i)P(S = w_i)}{\sum_{j = 1}^{3} P(S = w_j)P(X = x^{(n)}|S = w_j)}\\
+\\
+\mbox{各試行の独立性より，}\\
+  P(X = x^{(n)}|S = w_i) & = & P(X = x_n|S = w_i)P(X = x^{(n-1)}|S = w_i)\\
+\\
+\mbox{コインを(n-1)回投げたときのベイズの定理から，}\\
+  P(S = w_i|X = x^{(n-1)}) & = & \frac{P(X = x^{(n-1)}|S = w_i)}{P(X = x^{(n-1)})}P(S = w_i)\\
+  P(S = w_i|X = x^{(n-1)})P(X = x^{(n-1)}) & = & P(X = x^{(n-1)}|S = w_i)P(S = w_i)\\
+\mbox{よって，}\\
+ P(S = w_i|X = x^{(n)}) & = & \frac{P(x^{(n-1)})P(w_i|x^{(n-1)})P(x_n|w_i)}{P(x^{(n-1)})\sum_{j = 1}^{3} P(w_j|x^{(n-1)})P(x_n|w_j)}\\
+    & = & \frac{P(X = x_n|S = w_i)P(S = w_i|X = x^{(n-1)})}{\sum_{j = 1}^{3} P(S = w_j|X = x^{(n-1)})P(X = x_n|S = w_j)}
+\end{eqnarray*} -->
+
+<p>これにより，一般化ができ，コインをn回投げたときの事後確率P(S=wi|X=x(n))は，それまでに投げた(n-1)回のコインの観測結果に基づく事後確率P(S=wi|X=x(n-1))を事前確率としてみなし，ベイズの定理を適応すれば良いことがわかる．</p>
+<h3>Bern</h3>
+<p>上記のように，コインを何度も投げるなどといった同一条件で同じ試行を繰り返すとき，各回の試行は独立であり，他の試行に影響を与えない．</p>
+<p>このような試行をベルヌーイ試行という．
+一回の試行である事象が生起する確率がθであるとき，その試行をn回繰り返して事象がr回生起する確率Pn(r;θ)は，</p>
+<p><img alt="例題2" src="./img/24th-ex14.png" /></p>
+<!-- \begin{eqnarray*}
+  P_n(r;\theta) & = & _nC_r\theta ^r(1 - \theta)^{n-r}
+\end{eqnarray*} -->
+
+<p>この式で表されるrの分布は二項分布という．</p>
+<p>またn=1のとき，r=0，r=1となる確率がそれぞれθ，(1-θ)の離散型確率分布が得られる．これを特にベルヌーイ分布といい，Bern(r;θ)で示す．</p>
+            <a href="#" class="go-top">Go Top</a>
+<footer class="footer">
+    <p>&copy; lapis_zero09 &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+    </div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+
+</body>
+</html>
