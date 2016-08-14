@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="題未定, ">
+
+
+        <title>cowrieを設置した // 題未定 // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="theme/css/pure.css">
+    <link rel="stylesheet" href="https://www.lapis-zero09.xyz/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-74593186-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+    <div class="pure-g-r" id="layout">
+        <div class="sidebar pure-u">
+            <div class="cover-img" style="background: none repeat scroll 0% 0% #3D4F5D">
+                <div class="cover-body">
+                    <header class="header">
+                        <hgroup>
+                            <a href="https://www.lapis-zero09.xyz/about/about.html"><img class="avatar" src="./img/profile.jpg"></a>
+                            <h1 class="brand-main"><a href="https://www.lapis-zero09.xyz">題未定</a></h1>
+                            <p class="tagline"></p>
+                                <p class="social">
+                                    <a href="https://github.com/lapis-zero09">
+                                        <i class="fa fa-github fa-3x"></i>
+                                    </a>
+                                    <a href="https://twitter.com/lapis_zero09">
+                                        <i class="fa fa-twitter-square fa-3x"></i>
+                                    </a>
+                                    <a href="http://www.amazon.co.jp/registry/wishlist/2TLPKVEIT5D9B?sort=priority&view=null">
+                                        <i class="fa fa-gift fa-3x"></i>
+                                    </a>
+                                    <a href="http://qiita.com/lapis_zero09">
+                                        <i class="fa fa-search fa-3x"></i>
+                                    </a>
+                                </p>
+                        </hgroup>
+                    </header>
+                </div>
+            </div>
+        </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>cowrieを設置した</h1>
+                        <p class="post-meta">
+                            // under                                 <a class="post-category" href="https://www.lapis-zero09.xyz/tag/secrity.html">secrity</a>
+                                <a class="post-category" href="https://www.lapis-zero09.xyz/tag/study.html">study</a>
+                        </p>
+                </header>
+            </section>
+            <h1>cowrie</h1>
+<p><img alt="cowrie" src="https://github.com/micheloosterhof/cowrie" />はSSH型Honeypotの一種．</p>
+<p>前々からHoneypot設置したいと思っていたができていなかった．</p>
+<p>セキュリティ・キャンプで<img alt="junk" src="https://twitter.com/junk_coken" />さんにいろいろ教えてもらって，設置する決意．
+<img alt="ntddk" src="https://twitter.com/ntddk" />さんにも相談に乗ってもらった．．</p>
+<p>cowrieがいいっていう<img alt="junk" src="https://twitter.com/junk_coken" />さんの話は<img alt="ここ" src="http://junk-coken.hatenablog.com/entry/2016/06/30/040151" />にもので割愛．</p>
+<h2>cowrieインストール</h2>
+<h3>cowrie用設定</h3>
+<p>自分がcowrieを設置している環境はdebian ver8.5．</p>
+<p>以下コマンドで必要なものをインストール．</p>
+<div class="highlight"><pre><span></span># apt-get install git python-dev python-openssl openssh-server python-pyasn1 python-twisted
+</pre></div>
+
+
+<p>cowrieが22番ポートを使うので普段自分がsshするポートを指定できる範囲で変える．
+sshd_configのバックアップを取った上で書き換える．</p>
+<div class="highlight"><pre><span></span># vim /etc/ssh/sshd_config
+
+Port 22
+↓
+Port {任意の番号}
+</pre></div>
+
+
+<p>書式のテストをしていいようならsshd_configの再読み込み．</p>
+<div class="highlight"><pre><span></span># sshd -t
+# service sshd restart
+</pre></div>
+
+
+<p>cowrie設置用のユーザを作成し，22番ポートをcowrie用に設定．</p>
+<div class="highlight"><pre><span></span># adduser --disabled-password cowrie
+# iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 22 -j REDIRECT --to-port 2222
+</pre></div>
+
+
+<p>cowrieにユーザをスイッチ．</p>
+<div class="highlight"><pre><span></span># su cowrie
+$ cd
+</pre></div>
+
+
+<h3>cowrieのインストール</h3>
+<p>cowrieをダウンロード，設定ファイルを作る．</p>
+<div class="highlight"><pre><span></span>$ git clone https://github.com/cowrie/cowrie.git
+$ <span class="nb">cd</span> cowrie
+$ cp cowrie.cfg.dist cowrie.cfg
+</pre></div>
+
+
+<p>設定ファイルをいじる(ここではホスト名だけを変えた)．</p>
+<div class="highlight"><pre><span></span>$ vim cowrie.cfg
+
+<span class="nv">hostname</span> <span class="o">=</span> <span class="o">{</span>任意のホスト名<span class="o">}</span>
+</pre></div>
+
+
+<p>cowrieの設定ポートを直接22にしてauthbind使ってもいい．</p>
+<div class="highlight"><pre><span></span># apt-get install authbind
+# touch /etc/authbind/byport/22
+# chown cowrie /etc/authbind/byport/22
+# chmod 777 /etc/authbind/byport/22
+</pre></div>
+
+
+<p>cowrie/data内にあるuserdb.txtいじれば，
+攻撃者がログインできるユーザネームとパスワードのコンビを変えることができる．</p>
+<h3>cowrieの起動</h3>
+<p>下記コマンドで起動&amp;起動できたか確認．</p>
+<div class="highlight"><pre><span></span>$ ./start.sh
+
+
+$ cat cowrie.pid <span class="c1">#process</span>
+or
+$ netstat -antp <span class="p">|</span> grep 2222
+</pre></div>
+
+
+<h3>cowrieに接続してみる</h3>
+<p>cowrieにsshしてちゃんと動いているか確かめる．</p>
+<div class="highlight"><pre><span></span>$ ssh root@<span class="o">{</span>ipaddress<span class="o">}</span>
+</pre></div>
+
+
+<p>userdb.txtで指定したユーザネームとパスワードのコンビでログインできたらok．</p>
+<h3>cowrie側でlogの確認</h3>
+<p>自分のssh用に開けたポートでログインしたらlogを見る．</p>
+<div class="highlight"><pre><span></span>$ cat ~/cawrie/log/cowrie.log
+</pre></div>
+
+
+<p>攻撃者のipとか見える．</p>
+<p>cowrieを止める時はstop.shとか</p>
+<p>以上cowrieのインストール．</p>
+<h2>kippo-graphのインストール</h2>
+<p><img alt="kippo-graph" src="http://bruteforce.gr/kippo-graph" />はkippoで取れた攻撃者情報をいい感じに可視化してくれるやつ．</p>
+<p>cowrieでも使えるっぽいので使っていく．</p>
+<p>cowrieで取れたデータをMySQLに保存して，phpで表示するというもの．</p>
+<h3>MySQLのインストール</h3>
+<p>MySQLをインストール．</p>
+<div class="highlight"><pre><span></span># apt-get install mysql-server python-mysqldb
+</pre></div>
+
+
+<p>インストール途中でMySQLのrootのパスワードを聞かれるのでいい感じに設定．</p>
+<p>MySQLにcowrie用のユーザを追加と権限を設定．</p>
+<div class="highlight"><pre><span></span># mysql -u root -p #インストール途中に入力したrootパスワードを入力
+ mysql &gt; create user &#39;cowrie&#39;@&#39;localhost&#39; identified by &#39;{cowrieのパスワード任意で}&#39;;
+ mysql &gt; grant all on cowrie.* to &#39;cowrie&#39;@&#39;localhost&#39; identified by &#39;{cowrieのパスワード}&#39;;
+ mysql &gt; exit;
+</pre></div>
+
+
+<p>cowrieにスイッチして，データベースをいい感じにしていく．</p>
+<div class="highlight"><pre><span></span># su cowrie
+$ cd ~/cowrie/doc/sql/
+$ mysql -u cowrie -p
+ mysql &gt; create database cowrie;
+ mysql &gt; use cowrie;
+ mysql &gt; source mysql.sql;
+ mysql &gt; show tables;
++-----------------+
+| Tables_in_kippo |
++-----------------+
+| auth            |
+| clients         |
+| downloads       |
+| input           |
+| sensors         |
+| sessions        |
+| ttylog          |
++-----------------+
+7 rows in set (0.00 sec)
+
+ mysql &gt; exit;
+</pre></div>
+
+
+<p>cowrieのログの出力を今しがた作ったデータベースにガンガン入れていくように設定する．</p>
+<div class="highlight"><pre><span></span>$ vim ~/cowrie/cowrie.cfg
+
+~略~
+<span class="o">[</span>database_mysql<span class="o">]</span>
+<span class="nv">host</span> <span class="o">=</span> localhost
+<span class="nv">database</span> <span class="o">=</span> cowrie
+<span class="nv">username</span> <span class="o">=</span> cowrie
+<span class="nv">password</span> <span class="o">=</span> <span class="o">{</span>cowrieのパスワード<span class="o">}</span>
+<span class="nv">port</span> <span class="o">=</span> 3306
+~略~
+</pre></div>
+
+
+<h3>kippo-graphのインストール</h3>
+<div class="highlight"><pre><span></span># apt-get update &amp;&amp; apt-get install -y libapache2-mod-php5 php5-mysql php5-gd php5-curl
+# /etc/init.d/apache2 restart
+</pre></div>
+
+
+<p>最新版をダウンロードしてやる．
+(2016-08-15現在 Ver. 1.5.1)</p>
+<div class="highlight"><pre><span></span># cd /var/www
+# wget http://bruteforce.gr/wp-content/uploads/kippo-graph-1.5.1.tar.gz
+# openssl sha1 kippo-graph-1.5.1.tar.gz
+# tar zxvf kippo-graph-1.5.1.tar.gz
+# mv kippo-graph-1.5.1 kippo-graph
+# cd kippo-graph
+# chmod 777 generated-graphs
+# cp config.php.dist config.php
+# vim config.php
+
+~略~
+define(&#39;DB_HOST&#39;, &#39;localhost&#39;);
+define(&#39;DB_USER&#39;, &#39;cowrie&#39;);
+define(&#39;DB_PASS&#39;, &#39;{cowrieのパスワード}&#39;);
+define(&#39;DB_NAME&#39;, &#39;cowrie&#39;);
+define(&#39;DB_PORT&#39;, &#39;3306&#39;);
+~略~
+</pre></div>
+
+
+<p>ブラウザでhttp://{ipaddress}/kippo-graph/を見る．</p>
+<p><img alt="kippo-graph" src="./img/25th.png" /></p>
+            <a href="#" class="go-top">Go Top</a>
+<footer class="footer">
+    <p>&copy; lapis_zero09 &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+    </div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+
+</body>
+</html>
