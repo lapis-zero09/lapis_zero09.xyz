@@ -78,7 +78,7 @@
 <p>前々からHoneypot設置したいと思っていたができていなかった．</p>
 <p>セキュリティ・キャンプで<a href="https://twitter.com/junk_coken">junk</a>さんにいろいろ教えてもらって，設置する決意．</p>
 <p><a href="https://twitter.com/ntddk">ntddk</a>さんにも相談に乗ってもらった．．</p>
-<p>cowrieがいいっていう<a href="https://twitter.com/junk_coken">junk</a>さんの話は<a href="http://junk-coken.hatenablog.com/entry/2016/06/30/040151">ここ</a>にもので割愛．</p>
+<p>cowrieがいいっていう<a href="https://twitter.com/junk_coken">junk</a>さんの話は<a href="http://junk-coken.hatenablog.com/entry/2016/06/30/040151">ここ</a>にもあるので割愛．</p>
 <h2>cowrieインストール</h2>
 <h3>cowrie用設定</h3>
 <p>自分がcowrieを設置している環境はdebian ver8.5．</p>
@@ -87,8 +87,8 @@
 </pre></div>
 
 
-<p>cowrieが22番ポートを使うので普段自分がsshするポートを指定できる範囲で変える．
-sshd_configのバックアップを取った上で書き換える．</p>
+<p>cowrieが22番ポートを使うので普段自分がsshするポートを指定できる範囲で変える．</p>
+<p>sshd_configのバックアップを取った上で書き換える．</p>
 <div class="highlight"><pre><span></span># vim /etc/ssh/sshd_config
 
 Port 22
@@ -97,7 +97,7 @@ Port {任意の番号}
 </pre></div>
 
 
-<p>書式のテストをしていいようならsshd_configの再読み込み．</p>
+<p>書式のテストをして，いい感じならsshd_configの再読み込み．</p>
 <div class="highlight"><pre><span></span># sshd -t
 # service sshd restart
 </pre></div>
@@ -143,7 +143,6 @@ $ cp cowrie.cfg.dist cowrie.cfg
 <h3>cowrieの起動</h3>
 <p>下記コマンドで起動&amp;起動できたか確認．</p>
 <div class="highlight"><pre><span></span>$ ./start.sh
-
 
 $ cat cowrie.pid <span class="c1">#process</span>
 or
@@ -256,9 +255,9 @@ define(&#39;DB_PORT&#39;, &#39;3306&#39;);
 <p>ブラウザでhttp://{ipaddress}/kippo-graph/を見る．</p>
 <p><img alt="kippo-graph" src="./img/25th.png" /></p>
 <h2>余談</h2>
-<p>kippo-graphにはKIPPO-PLAYLOGという機能があり，
-攻撃者がログインしてから，ログアウトするまでの実行コマンドを
-可視化してくれる機能がある．</p>
+<p>kippo-graphにはKIPPO-PLAYLOGという機能があり，</p>
+<p>攻撃者がログインしてから，ログアウトするまでの実行コマンドを</p>
+<p>可視化してくれる機能がある．</p>
 <p>cowrieではバグで今んとこ(2016-08-15現在)使えないっぽい
 <a href="https://github.com/ikoniaris/kippo-graph/issues/44">https://github.com/ikoniaris/kippo-graph/issues/44</a></p>
 <p>スクリプトを実行すれば見れる．</p>
