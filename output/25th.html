@@ -74,11 +74,11 @@
                 </header>
             </section>
             <h1>cowrie</h1>
-<p><img alt="cowrie" src="https://github.com/micheloosterhof/cowrie" />はSSH型Honeypotの一種．</p>
+<p><a href="https://github.com/micheloosterhof/cowrie">cowrie</a>はSSH型Honeypotの一種．</p>
 <p>前々からHoneypot設置したいと思っていたができていなかった．</p>
-<p>セキュリティ・キャンプで<img alt="junk" src="https://twitter.com/junk_coken" />さんにいろいろ教えてもらって，設置する決意．
-<img alt="ntddk" src="https://twitter.com/ntddk" />さんにも相談に乗ってもらった．．</p>
-<p>cowrieがいいっていう<img alt="junk" src="https://twitter.com/junk_coken" />さんの話は<img alt="ここ" src="http://junk-coken.hatenablog.com/entry/2016/06/30/040151" />にもので割愛．</p>
+<p>セキュリティ・キャンプで<a href="https://twitter.com/junk_coken">junk</a>さんにいろいろ教えてもらって，設置する決意．</p>
+<p><a href="https://twitter.com/ntddk">ntddk</a>さんにも相談に乗ってもらった．．</p>
+<p>cowrieがいいっていう<a href="https://twitter.com/junk_coken">junk</a>さんの話は<a href="http://junk-coken.hatenablog.com/entry/2016/06/30/040151">ここ</a>にもので割愛．</p>
 <h2>cowrieインストール</h2>
 <h3>cowrie用設定</h3>
 <p>自分がcowrieを設置している環境はdebian ver8.5．</p>
@@ -168,7 +168,7 @@ $ netstat -antp <span class="p">|</span> grep 2222
 <p>cowrieを止める時はstop.shとか</p>
 <p>以上cowrieのインストール．</p>
 <h2>kippo-graphのインストール</h2>
-<p><img alt="kippo-graph" src="http://bruteforce.gr/kippo-graph" />はkippoで取れた攻撃者情報をいい感じに可視化してくれるやつ．</p>
+<p><a href="http://bruteforce.gr/kippo-graph">kippo-graph</a>はkippoで取れた攻撃者情報をいい感じに可視化してくれるやつ．</p>
 <p>cowrieでも使えるっぽいので使っていく．</p>
 <p>cowrieで取れたデータをMySQLに保存して，phpで表示するというもの．</p>
 <h3>MySQLのインストール</h3>
@@ -255,6 +255,20 @@ define(&#39;DB_PORT&#39;, &#39;3306&#39;);
 
 <p>ブラウザでhttp://{ipaddress}/kippo-graph/を見る．</p>
 <p><img alt="kippo-graph" src="./img/25th.png" /></p>
+<h2>余談</h2>
+<p>kippo-graphにはKIPPO-PLAYLOGという機能があり，
+攻撃者がログインしてから，ログアウトするまでの実行コマンドを
+可視化してくれる機能がある．</p>
+<p>cowrieではバグで今んとこ(2016-08-15現在)使えないっぽい
+<a href="https://github.com/ikoniaris/kippo-graph/issues/44">https://github.com/ikoniaris/kippo-graph/issues/44</a></p>
+<p>スクリプトを実行すれば見れる．</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/cowrie/log
+$ python ../../bin/playlog <span class="o">{</span>任意のlog<span class="o">}</span>.log
+</pre></div>
+
+
+<p>python2系で動いてるのでpython3に書き換えたいなア</p>
+<p>以上．</p>
             <a href="#" class="go-top">Go Top</a>
 <footer class="footer">
     <p>&copy; lapis_zero09 &ndash;
