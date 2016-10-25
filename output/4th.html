@@ -148,7 +148,7 @@ Let's Encryptで取得した証明書は <code>/etc/letsencrypt/live/www.{自分
 server <span class="o">{</span>
   listen 80<span class="p">;</span>
   server_name www.<span class="o">{</span>自分の契約しているドメイン<span class="o">}</span><span class="p">;</span>
-  <span class="k">return</span> <span class="m">301</span> https://www.<span class="o">{</span>自分の契約しているドメイン<span class="o">}</span>$request_uri<span class="p">;</span>
+  <span class="k">return</span> <span class="m">301</span> https://www.<span class="o">{</span>自分の契約しているドメイン<span class="o">}</span><span class="nv">$request_uri</span><span class="p">;</span>
 <span class="o">}</span>
 
 server <span class="o">{</span>

@@ -208,7 +208,7 @@ $ tail /usr/local/nginx/logs/error.log
 
 
 <p>以下を記載．  </p>
-<div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/usr/local/nginx/sbin:$PATH
+<div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/usr/local/nginx/sbin:<span class="nv">$PATH</span>
 </pre></div>
 
 
@@ -261,48 +261,48 @@ nginx version: nginx/1.9.12
 <span class="nv">PATH</span><span class="o">=</span>/usr/local/sbin:/usr/local/bin:/sbin:/bin/:/usr/sbin:/usr/bin
 <span class="nv">DESC</span><span class="o">=</span><span class="s2">&quot;nginx deamon&quot;</span>
 <span class="nv">NAME</span><span class="o">=</span>nginx
-<span class="nv">DAEMON</span><span class="o">=</span>/usr/local/nginx/sbin/$NAME
-<span class="nv">SCRIPTNAME</span><span class="o">=</span>/etc/init.d/$NAME
+<span class="nv">DAEMON</span><span class="o">=</span>/usr/local/nginx/sbin/<span class="nv">$NAME</span>
+<span class="nv">SCRIPTNAME</span><span class="o">=</span>/etc/init.d/<span class="nv">$NAME</span>
 
-<span class="nb">test</span> -x <span class="nv">$DAE</span>MON <span class="o">||</span> <span class="nb">exit</span> 0
+<span class="nb">test</span> -x <span class="nv">$DAEMON</span> <span class="o">||</span> <span class="nb">exit</span> 0
 
 d_start<span class="o">()</span> <span class="o">{</span>
-        <span class="nv">$DAE</span>MON <span class="o">||</span> <span class="nb">echo</span> -n <span class="s2">&quot; already running&quot;</span>
+        <span class="nv">$DAEMON</span> <span class="o">||</span> <span class="nb">echo</span> -n <span class="s2">&quot; already running&quot;</span>
 <span class="o">}</span>
 
 d_stop<span class="o">()</span> <span class="o">{</span>
-        <span class="nv">$DAE</span>MON -s stop <span class="o">||</span> <span class="nb">echo</span> -n <span class="s2">&quot; not running&quot;</span>
+        <span class="nv">$DAEMON</span> -s stop <span class="o">||</span> <span class="nb">echo</span> -n <span class="s2">&quot; not running&quot;</span>
 <span class="o">}</span>
 
 d_reload<span class="o">()</span> <span class="o">{</span>
-        <span class="nv">$DAE</span>MON -s reload <span class="o">||</span> <span class="nb">echo</span> -n <span class="s2">&quot; could not reload&quot;</span>
+        <span class="nv">$DAEMON</span> -s reload <span class="o">||</span> <span class="nb">echo</span> -n <span class="s2">&quot; could not reload&quot;</span>
 <span class="o">}</span>
 
 <span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> in
         start<span class="o">)</span>
-                <span class="nb">echo</span> -n <span class="s2">&quot;Starting </span><span class="nv">$DE</span><span class="s2">SC: </span>$<span class="s2">NAME&quot;</span>
+                <span class="nb">echo</span> -n <span class="s2">&quot;Starting </span><span class="nv">$DESC</span><span class="s2">: </span><span class="nv">$NAME</span><span class="s2">&quot;</span>
                 d_start
                 <span class="nb">echo</span> <span class="s2">&quot;.&quot;</span>
         <span class="p">;;</span>
         stop<span class="o">)</span>
-                <span class="nb">echo</span> -n <span class="s2">&quot;Stopping </span><span class="nv">$DE</span><span class="s2">SC: </span>$<span class="s2">NAME&quot;</span>
+                <span class="nb">echo</span> -n <span class="s2">&quot;Stopping </span><span class="nv">$DESC</span><span class="s2">: </span><span class="nv">$NAME</span><span class="s2">&quot;</span>
                 d_stop
                 <span class="nb">echo</span> <span class="s2">&quot;.&quot;</span>
         <span class="p">;;</span>
         reload<span class="o">)</span>
-                <span class="nb">echo</span> -n <span class="s2">&quot;Reloading </span><span class="nv">$DE</span><span class="s2">SC configuration...&quot;</span>
+                <span class="nb">echo</span> -n <span class="s2">&quot;Reloading </span><span class="nv">$DESC</span><span class="s2"> configuration...&quot;</span>
                 d_reload
                 <span class="nb">echo</span> <span class="s2">&quot;reloaded.&quot;</span>
         <span class="p">;;</span>
         restart<span class="o">)</span>
-                <span class="nb">echo</span> -n <span class="s2">&quot;Restarting </span><span class="nv">$DE</span><span class="s2">SC: </span>$<span class="s2">NAME&quot;</span>
+                <span class="nb">echo</span> -n <span class="s2">&quot;Restarting </span><span class="nv">$DESC</span><span class="s2">: </span><span class="nv">$NAME</span><span class="s2">&quot;</span>
                 d_stop
                 sleep 2
                 d_start
                 <span class="nb">echo</span> <span class="s2">&quot;.&quot;</span>
         <span class="p">;;</span>
         *<span class="o">)</span>
-                <span class="nb">echo</span> <span class="s2">&quot;Usage: </span>$<span class="s2">SCRIPTNAME {start|stop|restart|reload}&quot;</span> &gt;<span class="p">&amp;</span>2
+                <span class="nb">echo</span> <span class="s2">&quot;Usage: </span><span class="nv">$SCRIPTNAME</span><span class="s2"> {start|stop|restart|reload}&quot;</span> &gt;<span class="p">&amp;</span>2
                 <span class="nb">exit</span> 3
         <span class="p">;;</span>
 <span class="k">esac</span>
