@@ -31,7 +31,7 @@ LINKS = (('Pelican', 'http://getpelican.com/'),
 SOCIAL = (
     ('github', 'https://github.com/lapis-zero09'),
     ('twitter-square', 'https://twitter.com/lapis_zero09'),
-    ('gift', 'http://www.amazon.co.jp/registry/wishlist/2TLPKVEIT5D9B?sort=priority&view=null'),
+    ('gift', 'http://amzn.asia/8plng3k'),
     ('search', 'http://qiita.com/lapis_zero09'),
 )
 
