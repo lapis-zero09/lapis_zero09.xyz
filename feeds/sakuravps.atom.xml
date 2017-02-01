@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>題未定 - さくらVPS</title><link href="https://www.lapis-zero09.xyz/" rel="alternate"></link><link href="https://www.lapis-zero09.xyz/feeds/sakuravps.atom.xml" rel="self"></link><id>https://www.lapis-zero09.xyz/</id><updated>2016-07-08T22:00:00+09:00</updated><entry><title>さくらVPSに最新Nginxをインストール</title><link href="https://www.lapis-zero09.xyz/22th.html" rel="alternate"></link><published>2016-07-08T22:00:00+09:00</published><updated>2016-07-08T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-07-08:/22th.html</id><summary type="html">&lt;p&gt;さくらVPSに最新のNginxをインストールした時のHowto．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Nginx&lt;/h1&gt;
+&lt;h2&gt;openssl&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://www.lapis-zero09.xyz/second.html"&gt;こちら&lt;/a&gt;でNginxをインストールする場合，&lt;br&gt;
+openssl1.0.2に脆弱性(&lt;a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-2107"&gt;CVE-2016-2107&lt;/a&gt;, &lt;a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-2105"&gt;CVE-2016-2105&lt;/a&gt;, &lt;a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-2106"&gt;CVE-2016-2106&lt;/a&gt;, &lt;a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-2109"&gt;CVE-2016-2109&lt;/a&gt;, &lt;a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-2176"&gt;CVE-2016-2176&lt;/a&gt;)が判明し，
+opensslのversionをあげることが推奨される．  &lt;/p&gt;
+&lt;p&gt;ここではyumを用いて最新Nginxをインストールする&lt;/p&gt;
+&lt;h2&gt;Nginxのビルド&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ yum info nginx
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;でインストールされるNginxのversionが低い場合，&lt;br&gt;
+以下のコマンドでNginxのリポジトリを追加してやる．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo rpm -ivh http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;nginx.repoが/etc/yum.repos.d/配下につくられる.  &lt;/p&gt;
+&lt;p&gt;その内容は以下  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# nginx.repo
+
+[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/centos/6/$basearch/
+gpgcheck=0
+enabled=0
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ここでenabledを以下のように変更する．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#enabled=0
+
+enabled=1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ここでyum infoするとversionが最新のものになってるはず．  &lt;/p&gt;
+&lt;p&gt;そして，Nginxをインストール&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo yum -y install nginx
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Nginxの設定はここ(https://www.lapis-zero09.xyz/forth.html)  &lt;/p&gt;
+&lt;p&gt;ちなみにNginxの設定ファイルは/etc/nginx以下
+※上記ではnginx.conf本体をいじっているがconf.dの中のconfファイルをいじるのもあり&lt;/p&gt;</content><category term="さくらVPS"></category><category term="Nginx"></category><category term="openssl"></category></entry><entry><title>さくらVPSにお名前.comで契約したドメインを関連付けた話</title><link href="https://www.lapis-zero09.xyz/3rd.html" rel="alternate"></link><published>2016-03-03T22:01:00+09:00</published><updated>2016-03-03T22:01:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-03-03:/3rd.html</id><summary type="html">&lt;p&gt;さくらVPSにお名前.comで契約したドメインを関連付けた時のHowto．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;さくらVSP&lt;/h1&gt;
+&lt;h2&gt;対象&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Nginxのインストールが終わってる状態．&lt;/li&gt;
+&lt;li&gt;お名前.comでドメイン取得済み&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;ドメインを関連付ける&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://www.onamae.com/navi/domain.html"&gt;ドメインNavi&lt;/a&gt;にアクセスしてログイン．  &lt;/p&gt;
+&lt;p&gt;"ネームサーバーの設定"項目から"DNS関連機能の設定"をクリック．&lt;br&gt;
+&lt;img alt="犬" src="./img/third-1.png"&gt;&lt;/p&gt;
+&lt;p&gt;関連付けたいドメインにチェックを入れて，&lt;br&gt;
+"次へ進む"をクリック．  &lt;/p&gt;
+&lt;p&gt;"DNSレコード設定を利用する"の"設定する"をクリック．  &lt;/p&gt;
+&lt;p&gt;"ホスト名"欄に"www"と書く．&lt;br&gt;
+"VALUE"欄にIPアドレスを入れる．&lt;br&gt;
+その他はいじらずに追加ボタンをクリック．　&lt;/p&gt;
+&lt;p&gt;一番下の"DNSレコード設定用ネームサーバー変更確認"欄にチェックを入れて，&lt;br&gt;
+"確認画面に進む"をクリック．&lt;/p&gt;
+&lt;p&gt;後はなりゆきに任せる．&lt;/p&gt;
+&lt;h2&gt;Nginx側の設定&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;nginx.conf&lt;/code&gt; をいじる．&lt;br&gt;
+&lt;code&gt;server_name&lt;/code&gt;  の後にドメインを追加する．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;server &lt;span class="o"&gt;{&lt;/span&gt;
+    ~省略~
+    server_name  www.&lt;span class="o"&gt;{&lt;/span&gt;契約したドメイン&lt;span class="o"&gt;}&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    ~省略~
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;これで &lt;code&gt;www.{契約したドメイン}&lt;/code&gt; にアクセスしてNginxの初期ページが現れれば成功．&lt;/p&gt;
+&lt;p&gt;※&lt;a href="http://www.onamae.com/navi/domain.html"&gt;ドメインNavi&lt;/a&gt;での設定から時間が経ってないと反映されない場合もあるので10分くらい待ってみるのが重要&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.lapis-zero09.xyz/4th.html"&gt;NginxをHTTP/2対応にした話&lt;/a&gt;&lt;/p&gt;</content><category term="さくらVPS"></category><category term="Nginx"></category></entry><entry><title>さくらVPSにNginx1.9系をインストールした話</title><link href="https://www.lapis-zero09.xyz/2nd.html" rel="alternate"></link><published>2016-03-03T22:00:00+09:00</published><updated>2016-03-03T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-03-03:/2nd.html</id><summary type="html">&lt;p&gt;さくらVPSに最新のNginxをインストールした時のHowto．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;さくらVSP&lt;/h1&gt;
+&lt;h2&gt;さくらVPSの状態&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://qiita.com/lapis_zero09/items/a77db6bbeb5fa83742a6"&gt;ここ&lt;/a&gt;か&lt;a href="https://www.lapis-zero09.xyz/1st.html"&gt;ここ&lt;/a&gt;の初期設定が終わってる状態．&lt;/li&gt;
+&lt;li&gt;OSは標準のCentOS 6.7&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;さくらVPSにインストールされているOSを確認するコマンドは  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ cat /etc/redhat-release
+CentOS release &lt;span class="m"&gt;6&lt;/span&gt;.7 &lt;span class="o"&gt;(&lt;/span&gt;Final&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Nginxのビルド&lt;/h2&gt;
+&lt;p&gt;(ここは読み飛ばしても大丈夫)&lt;br&gt;
+早速，Nginxをビルドしていく．&lt;br&gt;
+以下はさくらVPSにSSH接続している前提．&lt;br&gt;
+yumでできるかなと思って&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ yum info nginx
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;してみるもVersion古すぎてうっそだろお前状態．&lt;br&gt;
+そこで以下のコマンドでリポジトリを追加．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo rpm -ivh http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;これでokかなと思いきや．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo yum -y install nginx
+$ nginx -v
+nginx version: nginx/1.8.1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;インストールされたのはNginx1.8系，&lt;br&gt;
+欲しいのは1.9系なのでダメ．&lt;br&gt;
+(1.8系でもいい人はok)  &lt;/p&gt;
+&lt;h2&gt;Nginxをソースからビルド・インストール&lt;/h2&gt;
+&lt;p&gt;先ほどの章で&lt;code&gt;yum -y install nginx&lt;/code&gt;した人は，
+&lt;code&gt;yum remove nginx&lt;/code&gt;する  &lt;/p&gt;
+&lt;p&gt;まず，なんでもいいので作業用ディレクトリを作っておく．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ mkdir ~/hoge
+$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~/hoge
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;ソースのダウンロード&lt;/h3&gt;
+&lt;p&gt;作ったディレクトリの中に必要な最新版のソースをダウンロードしてくる．
+必要なソースのホームページはこちら&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;nginx-1.9系 http://nginx.org/en/download.html&lt;/li&gt;
+&lt;li&gt;openssl-1.0.2系 https://www.openssl.org/source/&lt;/li&gt;
+&lt;li&gt;pcre-8.3系 http://ftp.csx.cam.ac.uk/pub/software/programming/pcre/&lt;/li&gt;
+&lt;li&gt;zlib-1.2系 http://zlib.net/&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;現時点(2016-03-03)での最新は以下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;nginx-1.9.12&lt;/li&gt;
+&lt;li&gt;openssl-1.0.2g&lt;/li&gt;
+&lt;li&gt;pcre-8.38&lt;/li&gt;
+&lt;li&gt;zlib-1.2.8
+(筆者はwgetだけど他の方法でもok)  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ wget http://nginx.org/download/nginx-1.9.12.tar.gz
+$ wget https://www.openssl.org/source/openssl-1.0.2g.tar.gz
+$ wget http://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.38.tar.gz
+$ wget http://zlib.net/zlib-1.2.8.tar.gz
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;※なんかうめこまれてたら怖いのでちゃんとMD5，SHASUM等，ハッシュ値を照合する．&lt;/p&gt;
+&lt;h3&gt;ソースの展開&lt;/h3&gt;
+&lt;p&gt;照合できたら展開．&lt;br&gt;
+以下の4コマンドをやってもいいけど，  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ tar zxvf nginx-1.9.12.tar.gz
+$ tar zxvf openssl-1.0.2g.tar.gz
+$ tar zxvf pcre-8.38.tar.gz
+$ tar zxvf zlib-1.2.8.tar.gz
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;シェルに頼って以下で一気にやったほうが効率的．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ find ./ -type f -name &lt;span class="s2"&gt;&amp;quot;*.tar.gz&amp;quot;&lt;/span&gt; -exec tar zxf &lt;span class="o"&gt;{}&lt;/span&gt; &lt;span class="se"&gt;\;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;一応，確認しとく．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ ls
+nginx-1.9.12         openssl-1.0.2g.tar.gz
+nginx-1.9.12.tar.gz  pcre-8.38              zlib-1.2.8.tar.gz    zlib-1.2.8
+openssl-1.0.2g       pcre-8.38.tar.gz
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ok．&lt;/p&gt;
+&lt;h3&gt;ソースのビルド・インストール&lt;/h3&gt;
+&lt;p&gt;確認できたのでNginxのソース中でビルド・インストールする．&lt;br&gt;
+インストールパスは /usr/local/nginx 以下．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; nginx-1.9.12
+$ ./configure --with-openssl&lt;span class="o"&gt;=&lt;/span&gt;../openssl-1.0.2g/ --with-http_ssl_module --with-pcre&lt;span class="o"&gt;=&lt;/span&gt;../pcre-8.38 --with-zlib&lt;span class="o"&gt;=&lt;/span&gt;../zlib-1.2.8  --with-http_v2_module --with-debug
+$ make
+$ sudo make install
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;エラーが出たら &lt;code&gt;configure&lt;/code&gt; の引数のそれぞれの名前が一致しているかとか確かめる．  &lt;/p&gt;
+&lt;p&gt;これで一応終了．  &lt;/p&gt;
+&lt;p&gt;確認する．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo /usr/local/nginx/sbin/nginx -v
+nginx version: nginx/1.9.12
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ok．  &lt;/p&gt;
+&lt;p&gt;起動して確認してみる．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo /usr/local/nginx/sbin/nginx
+$ tail /usr/local/nginx/logs/error.log
+&lt;span class="m"&gt;2016&lt;/span&gt;/03/02 &lt;span class="m"&gt;17&lt;/span&gt;:18:03 &lt;span class="o"&gt;[&lt;/span&gt;notice&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="m"&gt;3008&lt;/span&gt;&lt;span class="c1"&gt;#0: signal process started&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ok．
+もろもろの設定は
+&lt;code&gt;/usr/local/nginx/conf/nginx.conf&lt;/code&gt; をいじる．&lt;br&gt;
+自分のPCのブラウザから契約しているさくらVPSのIPアドレスにアクセス(URL欄にIPアドレスを入れる)してNginxの初期ページが見れたら成功．  &lt;/p&gt;
+&lt;h2&gt;Nginxのパスを通す&lt;/h2&gt;
+&lt;p&gt;無事インストールできたけど，
+起動したり止めたりリロードする際に
+いちいち &lt;code&gt;sudo /usr/local/nginx/sbin/nginx&lt;/code&gt;
+って打つのはcoolじゃないのでパスを通しておく．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo vim ~/.bash_profile
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以下を記載．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/usr/local/nginx/sbin:&lt;span class="nv"&gt;$PATH&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;書けたら &lt;code&gt;bash_profile&lt;/code&gt; のリロード&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;source&lt;/span&gt; ~/.bash_profile
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;これで出来るはず．&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nginx&lt;/code&gt; コマンドは動くようになったけど，&lt;br&gt;
+&lt;code&gt;sudo&lt;/code&gt; 実行したらコマンドが見つかりませんって怒られた人は，
+&lt;code&gt;visudo&lt;/code&gt; を以下のようにいじる．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo nginx -v
+sudo: nginx: コマンドが見つかりません
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo visudo
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Defaults   env_keep += &amp;quot;HOME&amp;quot;&lt;/span&gt;
+Defaults    &lt;span class="nv"&gt;secure_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; /sbin:/bin:/usr/sbin:/usr/bin
+↓
+Defaults   &lt;span class="nv"&gt;env_keep&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;HOME&amp;quot;&lt;/span&gt;
+&lt;span class="c1"&gt;# Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;これで &lt;code&gt;sudo nginx&lt;/code&gt; やりたい放題．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo nginx -v
+nginx version: nginx/1.9.12
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Nginxを自動起動するようにする&lt;/h2&gt;
+&lt;p&gt;ソースビルド・インストールしたNginxはそのままだと &lt;code&gt;service&lt;/code&gt; や &lt;code&gt;chkconfig&lt;/code&gt; できないので出来るようにする．&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;/etc/init.d&lt;/code&gt; 以下に起動スクリプトを作成しデーモン化，
+自動起動を可能にする．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo vim /etc/init.d/nginx
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以下を記載．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class="c1"&gt;#chkconfig: 2345 80 30&lt;/span&gt;
+&lt;span class="c1"&gt;#description: nginx&lt;/span&gt;
+&lt;span class="nb"&gt;set&lt;/span&gt; -e
+&lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/usr/local/sbin:/usr/local/bin:/sbin:/bin/:/usr/sbin:/usr/bin
+&lt;span class="nv"&gt;DESC&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;nginx deamon&amp;quot;&lt;/span&gt;
+&lt;span class="nv"&gt;NAME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;nginx
+&lt;span class="nv"&gt;DAEMON&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/usr/local/nginx/sbin/&lt;span class="nv"&gt;$NAME&lt;/span&gt;
+&lt;span class="nv"&gt;SCRIPTNAME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/etc/init.d/&lt;span class="nv"&gt;$NAME&lt;/span&gt;
+
+&lt;span class="nb"&gt;test&lt;/span&gt; -x &lt;span class="nv"&gt;$DAEMON&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="nb"&gt;exit&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt;
+
+d_start&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="nv"&gt;$DAEMON&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="nb"&gt;echo&lt;/span&gt; -n &lt;span class="s2"&gt;&amp;quot; already running&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+d_stop&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="nv"&gt;$DAEMON&lt;/span&gt; -s stop &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="nb"&gt;echo&lt;/span&gt; -n &lt;span class="s2"&gt;&amp;quot; not running&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+d_reload&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="nv"&gt;$DAEMON&lt;/span&gt; -s reload &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="nb"&gt;echo&lt;/span&gt; -n &lt;span class="s2"&gt;&amp;quot; could not reload&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$1&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; in
+        start&lt;span class="o"&gt;)&lt;/span&gt;
+                &lt;span class="nb"&gt;echo&lt;/span&gt; -n &lt;span class="s2"&gt;&amp;quot;Starting &lt;/span&gt;&lt;span class="nv"&gt;$DESC&lt;/span&gt;&lt;span class="s2"&gt;: &lt;/span&gt;&lt;span class="nv"&gt;$NAME&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+                d_start
+                &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;.&amp;quot;&lt;/span&gt;
+        &lt;span class="p"&gt;;;&lt;/span&gt;
+        stop&lt;span class="o"&gt;)&lt;/span&gt;
+                &lt;span class="nb"&gt;echo&lt;/span&gt; -n &lt;span class="s2"&gt;&amp;quot;Stopping &lt;/span&gt;&lt;span class="nv"&gt;$DESC&lt;/span&gt;&lt;span class="s2"&gt;: &lt;/span&gt;&lt;span class="nv"&gt;$NAME&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+                d_stop
+                &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;.&amp;quot;&lt;/span&gt;
+        &lt;span class="p"&gt;;;&lt;/span&gt;
+        reload&lt;span class="o"&gt;)&lt;/span&gt;
+                &lt;span class="nb"&gt;echo&lt;/span&gt; -n &lt;span class="s2"&gt;&amp;quot;Reloading &lt;/span&gt;&lt;span class="nv"&gt;$DESC&lt;/span&gt;&lt;span class="s2"&gt; configuration...&amp;quot;&lt;/span&gt;
+                d_reload
+                &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;reloaded.&amp;quot;&lt;/span&gt;
+        &lt;span class="p"&gt;;;&lt;/span&gt;
+        restart&lt;span class="o"&gt;)&lt;/span&gt;
+                &lt;span class="nb"&gt;echo&lt;/span&gt; -n &lt;span class="s2"&gt;&amp;quot;Restarting &lt;/span&gt;&lt;span class="nv"&gt;$DESC&lt;/span&gt;&lt;span class="s2"&gt;: &lt;/span&gt;&lt;span class="nv"&gt;$NAME&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+                d_stop
+                sleep &lt;span class="m"&gt;2&lt;/span&gt;
+                d_start
+                &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;.&amp;quot;&lt;/span&gt;
+        &lt;span class="p"&gt;;;&lt;/span&gt;
+        *&lt;span class="o"&gt;)&lt;/span&gt;
+                &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Usage: &lt;/span&gt;&lt;span class="nv"&gt;$SCRIPTNAME&lt;/span&gt;&lt;span class="s2"&gt; {start|stop|restart|reload}&amp;quot;&lt;/span&gt; &amp;gt;&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;
+                &lt;span class="nb"&gt;exit&lt;/span&gt; &lt;span class="m"&gt;3&lt;/span&gt;
+        &lt;span class="p"&gt;;;&lt;/span&gt;
+&lt;span class="k"&gt;esac&lt;/span&gt;
+
+&lt;span class="nb"&gt;exit&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;できたらパーミッションを変更．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo chmod +x /etc/init.d/nginx
+$ ls -l /etc/init.d/nginx
+-rwxr-xr-x &lt;span class="m"&gt;1&lt;/span&gt; root root &lt;span class="m"&gt;872&lt;/span&gt;  3月  &lt;span class="m"&gt;3&lt;/span&gt; &lt;span class="m"&gt;18&lt;/span&gt;:55 &lt;span class="m"&gt;2016&lt;/span&gt; /etc/init.d/nginx
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ok．&lt;br&gt;
+&lt;code&gt;chkconfig&lt;/code&gt; に &lt;code&gt;nginx&lt;/code&gt; を追加.  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo chkconfig --add nginx
+$ chkconfig --list nginx
+nginx           &lt;span class="m"&gt;0&lt;/span&gt;:off   &lt;span class="m"&gt;1&lt;/span&gt;:off   &lt;span class="m"&gt;2&lt;/span&gt;:on    &lt;span class="m"&gt;3&lt;/span&gt;:on    &lt;span class="m"&gt;4&lt;/span&gt;:on    &lt;span class="m"&gt;5&lt;/span&gt;:on    &lt;span class="m"&gt;6&lt;/span&gt;:off
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;これで自動起動するようになった．&lt;/p&gt;
+&lt;p&gt;後は &lt;code&gt;/usr/local/nginx/conf/nginx.conf&lt;/code&gt; を好きなようにいじる．&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.lapis-zero09.xyz/3rd.html"&gt;さくらVPSにお名前.comで契約したドメインを関連付けた話&lt;/a&gt;
+&lt;a href="https://www.lapis-zero09.xyz/4th.html"&gt;NginxをHTTP/2対応にした話&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;追記：公式あるっぽい http://nginx.org/packages/mainline/centos/6/x86_64/RPMS/&lt;/p&gt;</content><category term="さくらVPS"></category><category term="Nginx"></category></entry><entry><title>さくらVPSを契約した話</title><link href="https://www.lapis-zero09.xyz/1st.html" rel="alternate"></link><published>2016-03-02T22:00:00+09:00</published><updated>2016-03-02T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-03-02:/1st.html</id><summary type="html">&lt;p&gt;さくらVPSを契約した時のHowto．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;さくらVSP&lt;/h1&gt;
+&lt;p&gt;さくらVPSの&lt;a href="http://vps.sakura.ad.jp/specification/"&gt;512プラン&lt;/a&gt;を契約した．&lt;br&gt;
+月額635円でとてもやすい．&lt;br&gt;
+クレジットカードで登録すると2週間無料お試しができる．&lt;br&gt;
+(初期費用で約2000円位持ってかれる．)  &lt;/p&gt;
+&lt;h2&gt;初期設定&lt;/h2&gt;
+&lt;p&gt;コントロールパネルで契約したサーバを起動した後，自分のPCのterminalでSSH接続．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ ssh root@&lt;span class="o"&gt;{&lt;/span&gt;サーバのIPアドレス&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;yum update をする  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ yum update
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;すると，いきなりエラーを吐かれるので&lt;br&gt;
+clean up してから update　する  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ yum clean up
+$ yum update
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;うまくいきました．&lt;br&gt;
+時間がかかったので screen の中で回したほうがいいかも  &lt;/p&gt;
+&lt;h2&gt;日本語化&lt;/h2&gt;
+&lt;p&gt;一応，日本語化しておく．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ vim /etc/sysconfig/i18n
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;LANG&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;ja_JP.UTF-8&amp;quot;&lt;/span&gt;
+&lt;span class="nv"&gt;SYSFONT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;latarcyrheb-sun16&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;作業用ユーザの登録&lt;/h2&gt;
+&lt;p&gt;作業用ユーザの登録をする．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ useradd &lt;span class="o"&gt;{&lt;/span&gt;新しいユーザの名前&lt;span class="o"&gt;}&lt;/span&gt;
+$ passwd &lt;span class="o"&gt;{&lt;/span&gt;useraddしたユーザの名前&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;作業用ユーザに sudo 権限を与える．&lt;br&gt;
+(userをwheelグループに入れるように変更)  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ usermod -G wheel &lt;span class="o"&gt;{&lt;/span&gt;useraddしたユーザの名前&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;wheelグループがsudoコマンドを使えるようにする．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ visudo
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;%wheel  ALL=(ALL)  ALLの行を以下のように変更  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;# %wheel       ALL=(ALL)      ALL&lt;/span&gt;
+&lt;span class="err"&gt;↓&lt;/span&gt;
+&lt;span class="nf"&gt;%wheel&lt;/span&gt;       &lt;span class="n"&gt;ALL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ALL&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;      &lt;span class="n"&gt;ALL&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;鍵認証&lt;/h2&gt;
+&lt;h3&gt;さくら側&lt;/h3&gt;
+&lt;p&gt;.sshフォルダを作っておく  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ mkdir ~/.ssh
+$ chmod &lt;span class="m"&gt;700&lt;/span&gt; ~/.ssh
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;自分のPC側&lt;/h3&gt;
+&lt;p&gt;自分のPCで鍵作成．&lt;br&gt;
+(パスフレーズなど聞かれるのでデフォルトのままでok)
+筆者はSSH先ごとに鍵を変えてるので名前を変えた．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ ssh-keygen -t rsa
+Enter file in which to save the key : id_rsa.sakura
+Enter passphrase :
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ちゃんとできてるか確認．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ ls -a ~/.ssh
+id_rsa.sakura   id_rsa.sakura.pub
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;できてる．&lt;br&gt;
+パーミッションを変えておく．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ chmod &lt;span class="m"&gt;600&lt;/span&gt; id_rsa.sakura.pub
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;SSH接続の時にいちいちIPアドレスを書くのが面倒どうなので&lt;br&gt;
+configに登録しておく．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~/.ssh
+$ vim config
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Host sakura
+  HostName &lt;span class="o"&gt;{&lt;/span&gt;さくらのIPアドレス&lt;span class="o"&gt;}&lt;/span&gt;
+  User &lt;span class="o"&gt;{&lt;/span&gt;useraddしたユーザの名前&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;これで  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ ssh sakura
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;でつなげるようになる．  &lt;/p&gt;
+&lt;p&gt;pubの方をさくらVPSに転送．&lt;br&gt;
+転送時にauthorized_keysに名前変更．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ scp ~/.ssh/id_rsa.sakura.pub sakura:~/.ssh/authorized_keys
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;さくら側で確認．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ ls -a ~/.ssh
+authorized_keys
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ok．  &lt;/p&gt;
+&lt;p&gt;configに鍵を登録しておく．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ vim ~/.ssh/config
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Host sakura
+  HostName &lt;span class="o"&gt;{&lt;/span&gt;さくらのIPアドレス&lt;span class="o"&gt;}&lt;/span&gt;
+  User &lt;span class="o"&gt;{&lt;/span&gt;useraddしたユーザの名前&lt;span class="o"&gt;}&lt;/span&gt;
+  IdentityFile ~/.ssh/id_rsa.sakura
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;SSH設定&lt;/h2&gt;
+&lt;p&gt;セキュリティを高めるために以下を実行．&lt;br&gt;
+- ポート番号の変更
+  - デフォルトの22から任意の番号に変更
+  - 指定できる範囲は1024~65535
+- パスワードログインの禁止
+- rootログインの禁止&lt;/p&gt;
+&lt;h3&gt;さくら側&lt;/h3&gt;
+&lt;p&gt;rootにスイッチ&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo -s
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;SSH設定をいじっていく．&lt;br&gt;
+SSHの設定は /etc/ssh/ssh_config
+先にバックアップをとる．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ cp /etc/ssh/ssh_config /etc/ssh/ssh_config.org
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ vim /etc/ssh/ssh_config
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以下の3つを変更．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#Port 22&lt;/span&gt;
+↓
+Port &lt;span class="o"&gt;{&lt;/span&gt;任意の番号&lt;span class="o"&gt;}&lt;/span&gt;
+
+PasswordAuthentication yes
+↓
+PasswordAuthentication no
+
+&lt;span class="c1"&gt;#PermitRootLogin yes&lt;/span&gt;
+↓
+PermitRootLogin no
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;変更を反映させる．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ service sshd restart
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;自分のPC&lt;/h3&gt;
+&lt;p&gt;configにportを登録する．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ vim ~/.ssh/config
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Host sakura
+  HostName &lt;span class="o"&gt;{&lt;/span&gt;さくらのIPアドレス&lt;span class="o"&gt;}&lt;/span&gt;
+  User &lt;span class="o"&gt;{&lt;/span&gt;useraddしたユーザの名前&lt;span class="o"&gt;}&lt;/span&gt;
+  Port &lt;span class="o"&gt;{&lt;/span&gt;/etc/ssh/ssh_config.orgのPortで指定した番号&lt;span class="o"&gt;}&lt;/span&gt;
+  IdentityFile ~/.ssh/id_rsa.sakura
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;接続できたらok．  &lt;/p&gt;
+&lt;h2&gt;FireWall(iptables)の設定&lt;/h2&gt;
+&lt;p&gt;/etc/sysconfig/iptablesをいじる．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ vim /etc/sysconfig/iptables
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以下をコピペでも可．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;*filter
+:INPUT     DROP    &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;:0&lt;span class="o"&gt;]&lt;/span&gt;
+:FORWARD   DROP    &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;:0&lt;span class="o"&gt;]&lt;/span&gt;
+:OUTPUT    ACCEPT  &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;:0&lt;span class="o"&gt;]&lt;/span&gt;
+:SERVICES  -       &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;:0&lt;span class="o"&gt;]&lt;/span&gt;
+-A INPUT -i lo -j ACCEPT
+-A INPUT -p icmp --icmp-type echo-request -m limit &lt;span class="m"&gt;1&lt;/span&gt;/s --limit-burst4 -j ACCEPT
+-A INPUT -p tcp -m state --state ESTABLISHED,RELATED -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -j SERVICES
+-A INPUT -p udp --sport &lt;span class="m"&gt;53&lt;/span&gt; -j ACCEPT
+-A INPUT -p udp --sport &lt;span class="m"&gt;123&lt;/span&gt; --dport &lt;span class="m"&gt;123&lt;/span&gt; -j ACCEPT
+-A SERVICES -p tcp --dport &lt;span class="o"&gt;{&lt;/span&gt;/etc/ssh/ssh_config.orgのPortで指定した番号&lt;span class="o"&gt;}&lt;/span&gt; -j ACCEPT
+-A SERVICES -p tcp --dport &lt;span class="m"&gt;80&lt;/span&gt; -j ACCEPT
+-A SERVICES -p tcp --dport &lt;span class="m"&gt;443&lt;/span&gt; -j ACCEPT
+COMMIT
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;筆者はこんな感じ．  &lt;/p&gt;
+&lt;p&gt;設定を反映させる．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ service iptables start
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;okが出たらok．  &lt;/p&gt;
+&lt;p&gt;設定を確認するためのコマンド&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ iptables -L
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a href="https://www.lapis-zero09.xyz/2nd.html"&gt;Nginxをインストールした話&lt;/a&gt;&lt;/p&gt;</content><category term="さくらVPS"></category><category term="ssh"></category><category term="yum"></category></entry></feed>

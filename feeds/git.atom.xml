@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>題未定 - git</title><link href="https://www.lapis-zero09.xyz/" rel="alternate"></link><link href="https://www.lapis-zero09.xyz/feeds/git.atom.xml" rel="self"></link><id>https://www.lapis-zero09.xyz/</id><updated>2016-04-05T22:00:00+09:00</updated><entry><title>PR送るときのメモ</title><link href="https://www.lapis-zero09.xyz/10th.html" rel="alternate"></link><published>2016-04-05T22:00:00+09:00</published><updated>2016-04-05T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-04-05:/10th.html</id><summary type="html">&lt;p&gt;PR(pull reqest)のキホン．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;PR(pull request)&lt;/h1&gt;
+&lt;h2&gt;元のリポジトリをfork&lt;/h2&gt;
+&lt;p&gt;元リポジトリにアクセスして &lt;code&gt;fork&lt;/code&gt; ボタンを押す．  &lt;/p&gt;
+&lt;h2&gt;forkしたリポジトリをclone&lt;/h2&gt;
+&lt;p&gt;作業ディレクトリで以下を実行．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ git clone &lt;span class="o"&gt;{&lt;/span&gt;git address&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;ブランチをきる&lt;/h2&gt;
+&lt;p&gt;cloneしたリポジトリに入ってブランチをきる．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;cloneしたリポジトリ名&lt;span class="o"&gt;}&lt;/span&gt;
+$ git checkout -b &lt;span class="o"&gt;{&lt;/span&gt;任意のブランチ名&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以下で確認．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ git branch -v
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;編集&lt;/h2&gt;
+&lt;p&gt;お好きに編集．  &lt;/p&gt;
+&lt;p&gt;( &lt;code&gt;git status&lt;/code&gt; でファイルの状態確認)  &lt;/p&gt;
+&lt;p&gt;( &lt;code&gt;git diff&lt;/code&gt; で変更箇所確認)  &lt;/p&gt;
+&lt;h2&gt;commit&lt;/h2&gt;
+&lt;p&gt;コメントは一行目に概要、改行をあけて3行目から詳細の内容を書く  &lt;/p&gt;
+&lt;p&gt;( &lt;code&gt;git remote -v&lt;/code&gt; でどこにpushするか確認)  &lt;/p&gt;
+&lt;h2&gt;push&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ git push origin &lt;span class="o"&gt;{&lt;/span&gt;きったブランチ名&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;PR&lt;/h2&gt;
+&lt;p&gt;fork元のリポジトリの &lt;code&gt;Compare &amp;amp; pull request&lt;/code&gt; ボタンを押す．  &lt;/p&gt;
+&lt;p&gt;あとは道なり．  &lt;/p&gt;
+&lt;p&gt;以上．  &lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.lapis-zero09.xyz/about/notice.html"&gt;自分のリポジトリにPR送る時&lt;/a&gt;&lt;/p&gt;</content><category term="git"></category></entry><entry><title>git commit時のエラーについて</title><link href="https://www.lapis-zero09.xyz/9th.html" rel="alternate"></link><published>2016-03-28T22:00:00+09:00</published><updated>2016-03-28T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-03-28:/9th.html</id><summary type="html">&lt;p&gt;git commitでエラーが出る時のHowto．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;git commit&lt;/h1&gt;
+&lt;p&gt;今まではできてたのにある日から&lt;br&gt;
+&lt;code&gt;git commit&lt;/code&gt; をviでした時に以下のようなエラーが出る．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ git commit -a
+error: There was a problem with the editor &lt;span class="s1"&gt;&amp;#39;vi&amp;#39;&lt;/span&gt;.
+Please supply the message using either -m or -F option.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;gitconfigを確認する．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ cat ~/.gitconfig
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;[core]タグの中のeditorの設定を見る．&lt;br&gt;
+vimのパスを確認．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ which vim
+/usr/local/bin/vim
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以下コマンドでエディタをvimに設定．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ git config --global core.editor /usr/local/bin/vim
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;gitconfigを確認して，&lt;br&gt;
+[core]タグのeditorが変わっていればok．  &lt;/p&gt;
+&lt;p&gt;以上．&lt;/p&gt;</content><category term="git"></category></entry></feed>

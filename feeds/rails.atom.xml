@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>題未定 - rails</title><link href="https://www.lapis-zero09.xyz/" rel="alternate"></link><link href="https://www.lapis-zero09.xyz/feeds/rails.atom.xml" rel="self"></link><id>https://www.lapis-zero09.xyz/</id><updated>2016-06-18T22:00:00+09:00</updated><entry><title>railsの認証</title><link href="https://www.lapis-zero09.xyz/21th.html" rel="alternate"></link><published>2016-06-18T22:00:00+09:00</published><updated>2016-06-18T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-06-18:/21th.html</id><summary type="html">&lt;p&gt;実習でbasic認証かけろと言われた時にしたこと．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;rails&lt;/h1&gt;
+&lt;p&gt;railsを使ってないチームはhtpasswdでパスワードファイル作って，.htaccessでやってた．&lt;/p&gt;
+&lt;p&gt;railsを使ってたので，authenticate_or_request_with_http_basicを使って終わり．&lt;/p&gt;
+&lt;p&gt;適当なcontrollerに以下を記述．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;class&lt;/span&gt; &lt;span class="p"&gt;...&lt;/span&gt;&lt;span class="nx"&gt;Controller&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="p"&gt;...&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="nx"&gt;Base&lt;/span&gt;
+
+  &lt;span class="nx"&gt;before_filter&lt;/span&gt; :&lt;span class="kt"&gt;basic&lt;/span&gt;
+
+  &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;（略）&lt;/span&gt;
+
+  &lt;span class="kr"&gt;private&lt;/span&gt;
+  &lt;span class="nx"&gt;def&lt;/span&gt; &lt;span class="nx"&gt;basic&lt;/span&gt;
+    &lt;span class="nx"&gt;authenticate_or_request_with_http_basic&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nx"&gt;user&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;pass&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+      &lt;span class="nx"&gt;user&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;user&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nx"&gt;pass&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;pass&amp;#39;&lt;/span&gt;
+    &lt;span class="nx"&gt;end&lt;/span&gt;
+  &lt;span class="nx"&gt;end&lt;/span&gt;
+&lt;span class="nx"&gt;end&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;でもこれだと一切暗号化してないので．．．な人は以下で簡単に暗号化
+(以下もmd5なのでセキュアとは言えない)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;require &amp;#39;digest&amp;#39;
+
+ class AdminController &amp;lt; ApplicationController
+  before_filter :authenticate
+
+  def authenticate
+    authenticate_or_request_with_http_basic(&amp;#39;Administration&amp;#39;) do |username, password|
+      md5_of_password = Digest::MD5.hexdigest(password)
+      username == &amp;#39;admin&amp;#39; &amp;amp;&amp;amp; md5_of_password == &amp;#39;5ebe2294ecd0e0f08eab7690d2a6ee69&amp;#39;
+    end
+  end
+end
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;参照：&lt;a href="http://apidock.com/rails/ActionController/HttpAuthentication/Basic/ControllerMethods/authenticate_or_request_with_http_basic"&gt;http://apidock.com/rails/ActionController/HttpAuthentication/Basic/ControllerMethods/authenticate_or_request_with_http_basic&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;以上．&lt;/p&gt;</content><category term="rails"></category><category term="ruby"></category><category term="basic"></category><category term="md5"></category><category term="security"></category></entry><entry><title>"Could not find ~ in any of the sources"</title><link href="https://www.lapis-zero09.xyz/20th.html" rel="alternate"></link><published>2016-06-15T22:00:00+09:00</published><updated>2016-06-15T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-06-15:/20th.html</id><summary type="html">&lt;p&gt;bundle installしても"Could not find　~ in any of the sources"とか怒られるときにやったこと&lt;/p&gt;</summary><content type="html">&lt;h1&gt;rails&lt;/h1&gt;
+&lt;p&gt;bundle install何度してもダメ  &lt;/p&gt;
+&lt;p&gt;rails sしてCould not find　~ in any of the sourcesって出たgemを一つずつversion合わせて，
+インストールしても動くけど何より面倒．  &lt;/p&gt;
+&lt;p&gt;まずは，問題のrailsプロジェクトのディレクトリに入って，&lt;br&gt;
+Gemfile.lockを削除．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;% rm Gemfile.lock&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;次に同ディレクトリ内の.bundle内のconfigをいじる．&lt;br&gt;
+以下の行を削除．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;BUNDLE_DISABLE_SHARED_GEMS:‘1’
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;そしてbundlerをアップデートして，bundle installしたら直る．&lt;/p&gt;
+&lt;p&gt;状況によっては，以下が必要？(要検証)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;% pkill spring&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以上．&lt;/p&gt;</content><category term="rails"></category><category term="bundler"></category><category term="ruby"></category></entry><entry><title>bundle install エラーが出るとき</title><link href="https://www.lapis-zero09.xyz/12th.html" rel="alternate"></link><published>2016-04-25T22:00:00+09:00</published><updated>2016-04-25T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-04-25:/12th.html</id><summary type="html">&lt;p&gt;Genfileでtherubyracerをコメントアウトしてbundle installしたときにエラーが出たときの対処．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;bundle install&lt;/h1&gt;
+&lt;p&gt;Ubuntu14.04でrails 環境を整えていると&lt;br&gt;
+&lt;code&gt;gem therubyracer&lt;/code&gt;を入れろと怒られる．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ vim Gemfile
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;で以下の行をコメントアウト  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;gem &amp;#39;therubyracer&amp;#39;, platforms: :ruby
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;そして&lt;code&gt;bundle install&lt;/code&gt;  &lt;/p&gt;
+&lt;p&gt;しかし，エラー．．．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Installing therubyracer 0.12.2 with native extensions
+
+Gem::Ext::BuildError: ERROR: Failed to build gem native extension.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;とか出る．&lt;/p&gt;
+&lt;p&gt;そこで，  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ gem uninstall libv8
+$ gem uninstall therubyracer
+$ brew rm v8
+$ brew tap homebrew/dupes
+$ brew install apple-gcc42
+$ brew tap homebrew/versions
+$ brew install v8-315
+$ brew link --force v8-315
+$ gem install libv8 -- --with-system-v8
+$ gem install therubyracer
+$ bundle config --local build.libv8 --with-cxx&lt;span class="o"&gt;=&lt;/span&gt;/usr/local/bin/g++-4.2
+$ bundle install
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ok&lt;/p&gt;
+&lt;p&gt;以上．&lt;/p&gt;</content><category term="ruby"></category><category term="El_Capitan"></category><category term="rails"></category></entry></feed>

@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>題未定 - study</title><link href="https://www.lapis-zero09.xyz/" rel="alternate"></link><link href="https://www.lapis-zero09.xyz/feeds/study.atom.xml" rel="self"></link><id>https://www.lapis-zero09.xyz/</id><updated>2016-10-25T22:00:00+09:00</updated><entry><title>Article Templete</title><link href="https://www.lapis-zero09.xyz/26th.html" rel="alternate"></link><published>2016-10-25T22:00:00+09:00</published><updated>2016-10-25T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-10-25:/26th.html</id><summary type="html">&lt;p&gt;論文読みのフォーマット置き場．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;題名&lt;/h1&gt;
+&lt;h2&gt;どんなもの？&lt;/h2&gt;
+&lt;h2&gt;先行研究と比べるとどこがすごい？&lt;/h2&gt;
+&lt;h2&gt;どうやって有効だと検証した？&lt;/h2&gt;
+&lt;h2&gt;議論はある？&lt;/h2&gt;
+&lt;h2&gt;次に読むべき論文は？&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://www.slideshare.net/Ochyai/1-ftma15"&gt;先端技術とメディア表現1 #FTMA15&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://lafrenze.hatenablog.com/entry/2015/08/04/120205"&gt;高速で論文がバリバリ読める落合先生のフォーマットがいい感じだったのでメモ&lt;/a&gt;&lt;/p&gt;</content><category term="study"></category></entry><entry><title>cowrieを設置した</title><link href="https://www.lapis-zero09.xyz/25th.html" rel="alternate"></link><published>2016-08-15T22:00:00+09:00</published><updated>2016-08-15T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-08-15:/25th.html</id><summary type="html">&lt;p&gt;cowrieを設置した話&lt;/p&gt;</summary><content type="html">&lt;h1&gt;cowrie&lt;/h1&gt;
+&lt;p&gt;&lt;a href="https://github.com/micheloosterhof/cowrie"&gt;cowrie&lt;/a&gt;はSSH型Honeypotの一種．&lt;/p&gt;
+&lt;p&gt;前々からHoneypot設置したいと思っていたができていなかった．&lt;/p&gt;
+&lt;p&gt;セキュリティ・キャンプで&lt;a href="https://twitter.com/junk_coken"&gt;junk&lt;/a&gt;さんにいろいろ教えてもらって，設置する決意．&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://twitter.com/ntddk"&gt;ntddk&lt;/a&gt;さんにも相談に乗ってもらった．．&lt;/p&gt;
+&lt;p&gt;cowrieがいいっていう&lt;a href="https://twitter.com/junk_coken"&gt;junk&lt;/a&gt;さんの話は&lt;a href="http://junk-coken.hatenablog.com/entry/2016/06/30/040151"&gt;ここ&lt;/a&gt;にもあるので割愛．&lt;/p&gt;
+&lt;h2&gt;cowrieインストール&lt;/h2&gt;
+&lt;h3&gt;cowrie用設定&lt;/h3&gt;
+&lt;p&gt;自分がcowrieを設置している環境はdebian ver8.5．&lt;/p&gt;
+&lt;p&gt;以下コマンドで必要なものをインストール．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# apt-get install git python-dev python-openssl openssh-server python-pyasn1 python-twisted
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;cowrieが22番ポートを使うので普段自分がsshするポートを指定できる範囲で変える．&lt;/p&gt;
+&lt;p&gt;sshd_configのバックアップを取った上で書き換える．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# vim /etc/ssh/sshd_config
+
+Port 22
+↓
+Port {任意の番号}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;書式のテストをして，いい感じならsshd_configの再読み込み．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# sshd -t
+# service sshd restart
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;cowrie設置用のユーザを作成し，22番ポートをcowrie用に設定．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# adduser --disabled-password cowrie
+# iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 22 -j REDIRECT --to-port 2222
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;cowrieにユーザをスイッチ．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# su cowrie
+$ cd
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;cowrieのインストール&lt;/h3&gt;
+&lt;p&gt;cowrieをダウンロード，設定ファイルを作る．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ git clone https://github.com/cowrie/cowrie.git
+$ &lt;span class="nb"&gt;cd&lt;/span&gt; cowrie
+$ cp cowrie.cfg.dist cowrie.cfg
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;設定ファイルをいじる(ここではホスト名だけを変えた)．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ vim cowrie.cfg
+
+&lt;span class="nv"&gt;hostname&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;任意のホスト名&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;cowrieの設定ポートを直接22にしてauthbind使ってもいい．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# apt-get install authbind
+# touch /etc/authbind/byport/22
+# chown cowrie /etc/authbind/byport/22
+# chmod 777 /etc/authbind/byport/22
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;cowrie/data内にあるuserdb.txtいじれば，
+攻撃者がログインできるユーザネームとパスワードのコンビを変えることができる．&lt;/p&gt;
+&lt;h3&gt;cowrieの起動&lt;/h3&gt;
+&lt;p&gt;下記コマンドで起動&amp;amp;起動できたか確認．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ ./start.sh
+
+$ cat cowrie.pid &lt;span class="c1"&gt;#process&lt;/span&gt;
+or
+$ netstat -antp &lt;span class="p"&gt;|&lt;/span&gt; grep &lt;span class="m"&gt;2222&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;cowrieに接続してみる&lt;/h3&gt;
+&lt;p&gt;cowrieにsshしてちゃんと動いているか確かめる．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ ssh root@&lt;span class="o"&gt;{&lt;/span&gt;ipaddress&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;userdb.txtで指定したユーザネームとパスワードのコンビでログインできたらok．&lt;/p&gt;
+&lt;h3&gt;cowrie側でlogの確認&lt;/h3&gt;
+&lt;p&gt;自分のssh用に開けたポートでログインしたらlogを見る．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ cat ~/cawrie/log/cowrie.log
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;攻撃者のipとか見える．&lt;/p&gt;
+&lt;p&gt;cowrieを止める時はstop.shとか&lt;/p&gt;
+&lt;p&gt;以上cowrieのインストール．&lt;/p&gt;
+&lt;h2&gt;kippo-graphのインストール&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://bruteforce.gr/kippo-graph"&gt;kippo-graph&lt;/a&gt;はkippoで取れた攻撃者情報をいい感じに可視化してくれるやつ．&lt;/p&gt;
+&lt;p&gt;cowrieでも使えるっぽいので使っていく．&lt;/p&gt;
+&lt;p&gt;cowrieで取れたデータをMySQLに保存して，phpで表示するというもの．&lt;/p&gt;
+&lt;h3&gt;MySQLのインストール&lt;/h3&gt;
+&lt;p&gt;MySQLをインストール．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# apt-get install mysql-server python-mysqldb
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;インストール途中でMySQLのrootのパスワードを聞かれるのでいい感じに設定．&lt;/p&gt;
+&lt;p&gt;MySQLにcowrie用のユーザを追加と権限を設定．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# mysql -u root -p #インストール途中に入力したrootパスワードを入力
+ mysql &amp;gt; create user &amp;#39;cowrie&amp;#39;@&amp;#39;localhost&amp;#39; identified by &amp;#39;{cowrieのパスワード任意で}&amp;#39;;
+ mysql &amp;gt; grant all on cowrie.* to &amp;#39;cowrie&amp;#39;@&amp;#39;localhost&amp;#39; identified by &amp;#39;{cowrieのパスワード}&amp;#39;;
+ mysql &amp;gt; exit;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;cowrieにスイッチして，データベースをいい感じにしていく．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# su cowrie
+$ cd ~/cowrie/doc/sql/
+$ mysql -u cowrie -p
+ mysql &amp;gt; create database cowrie;
+ mysql &amp;gt; use cowrie;
+ mysql &amp;gt; source mysql.sql;
+ mysql &amp;gt; show tables;
++-----------------+
+| Tables_in_kippo |
++-----------------+
+| auth            |
+| clients         |
+| downloads       |
+| input           |
+| sensors         |
+| sessions        |
+| ttylog          |
++-----------------+
+7 rows in set (0.00 sec)
+
+ mysql &amp;gt; exit;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;cowrieのログの出力を今しがた作ったデータベースにガンガン入れていくように設定する．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ vim ~/cowrie/cowrie.cfg
+
+~略~
+&lt;span class="o"&gt;[&lt;/span&gt;database_mysql&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;host&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; localhost
+&lt;span class="nv"&gt;database&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; cowrie
+&lt;span class="nv"&gt;username&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; cowrie
+&lt;span class="nv"&gt;password&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;cowrieのパスワード&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="nv"&gt;port&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;3306&lt;/span&gt;
+~略~
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;kippo-graphのインストール&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# apt-get update &amp;amp;&amp;amp; apt-get install -y libapache2-mod-php5 php5-mysql php5-gd php5-curl
+# /etc/init.d/apache2 restart
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;最新版をダウンロードしてやる．
+(2016-08-15現在 Ver. 1.5.1)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# cd /var/www
+# wget http://bruteforce.gr/wp-content/uploads/kippo-graph-1.5.1.tar.gz
+# openssl sha1 kippo-graph-1.5.1.tar.gz
+# tar zxvf kippo-graph-1.5.1.tar.gz
+# mv kippo-graph-1.5.1 kippo-graph
+# cd kippo-graph
+# chmod 777 generated-graphs
+# cp config.php.dist config.php
+# vim config.php
+
+~略~
+define(&amp;#39;DB_HOST&amp;#39;, &amp;#39;localhost&amp;#39;);
+define(&amp;#39;DB_USER&amp;#39;, &amp;#39;cowrie&amp;#39;);
+define(&amp;#39;DB_PASS&amp;#39;, &amp;#39;{cowrieのパスワード}&amp;#39;);
+define(&amp;#39;DB_NAME&amp;#39;, &amp;#39;cowrie&amp;#39;);
+define(&amp;#39;DB_PORT&amp;#39;, &amp;#39;3306&amp;#39;);
+~略~
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ブラウザでhttp://{ipaddress}/kippo-graph/を見る．&lt;/p&gt;
+&lt;p&gt;&lt;img alt="kippo-graph" src="./img/25th.png"&gt;&lt;/p&gt;
+&lt;h2&gt;余談&lt;/h2&gt;
+&lt;p&gt;kippo-graphにはKIPPO-PLAYLOGという機能があり，&lt;/p&gt;
+&lt;p&gt;攻撃者がログインしてから，ログアウトするまでの実行コマンドを&lt;/p&gt;
+&lt;p&gt;可視化してくれる機能がある．&lt;/p&gt;
+&lt;p&gt;cowrieではバグで今んとこ(2016-08-15現在)使えないっぽい
+&lt;a href="https://github.com/ikoniaris/kippo-graph/issues/44"&gt;https://github.com/ikoniaris/kippo-graph/issues/44&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;スクリプトを実行すれば見れる．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~/cowrie/log
+$ python ../../bin/playlog &lt;span class="o"&gt;{&lt;/span&gt;任意のlog&lt;span class="o"&gt;}&lt;/span&gt;.log
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;python2系で動いてるのでpython3に書き換えたいなア&lt;/p&gt;
+&lt;p&gt;以上．&lt;/p&gt;</content><category term="secrity"></category><category term="study"></category></entry><entry><title>続・わかりやすいパターン認識 第2章</title><link href="https://www.lapis-zero09.xyz/24th.html" rel="alternate"></link><published>2016-07-16T22:00:00+09:00</published><updated>2016-07-16T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-07-16:/24th.html</id><summary type="html">&lt;p&gt;続・わかりやすいパターン認識 第2章まとめ&lt;/p&gt;</summary><content type="html">&lt;h1&gt;続・わかりやすいパターン認識&lt;/h1&gt;
+&lt;h2&gt;第1章 ベイズ統計学 復習&lt;/h2&gt;
+&lt;h3&gt;ベイズの定理&lt;/h3&gt;
+&lt;p&gt;結果(X)から原因(S)を探るための式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;P(X)・・・周辺確率&lt;/li&gt;
+&lt;li&gt;P(X, S)・・・同時確率(複数の事象が組になって同時に生起する確率) P(X, S) = P(X|S)P(S)&lt;/li&gt;
+&lt;li&gt;P(S|X)・・・条件付き確率(Xという条件下でSが発生する確率)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;後の例題のために・・・&lt;/p&gt;
+&lt;p&gt;&lt;img alt="ベイズの定理" src="./img/24th-2.png"&gt;&lt;/p&gt;
+&lt;!-- \begin{eqnarray*}
+  P(X) &amp; = &amp; \sum_{S}P(X,S)\\
+  P(X, S) &amp; = &amp; P(X|S)P(S)\\
+\mbox{よって，}\\
+  P(X) &amp; = &amp; \sum_{S}P(X|S)P(S)
+\end{eqnarray*} --&gt;
+
+&lt;h5&gt;離散型確率変数についてのベイズの定理&lt;/h5&gt;
+&lt;p&gt;&lt;img alt="ベイズの定理" src="./img/24th-1.png"&gt;&lt;/p&gt;
+&lt;!-- \begin{eqnarray*}
+  P(S|X) &amp; = &amp; \frac{P(X, S)}{P(X)}\\
+         &amp; = &amp; \frac{P(X|S)}{P(X)}P(S)\\
+         &amp; = &amp; \frac{P(X|S)}{\sum_{S}P(S)P(X|S)}P(S)\\
+\end{eqnarray*} --&gt;
+
+&lt;h5&gt;連続型確率変数についてのベイズの定理&lt;/h5&gt;
+&lt;p&gt;上式のsigmaをintegralに&lt;/p&gt;
+&lt;h4&gt;例題&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;表面が白色のカードが4枚，黒色のカードが6枚ある．
+各カードは&amp;quot;当たり&amp;quot;，もしくは，&amp;quot;外れ&amp;quot;であり，&amp;quot;当たり&amp;quot;のカードの裏面には，
+「当」の文字が印刷され，&amp;quot;外れ&amp;quot;のカードの裏面には何も印刷されていない．
+&amp;quot;当たり&amp;quot;は白色のカードで2枚，黒色のカードで1枚含まれている．
+(1)これら10枚のカードから無作為に1枚取り出すとき，
+そのカードが&amp;quot;当たり&amp;quot;である確率を求めよ．
+(2)上記の取り出したカードを，表・裏とも見ずにそのままにしておく．
+その後，表の色が白であることを知ったとき，このカードが&amp;quot;当たり&amp;quot;である確率を求めよ．
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;10枚のカードから一枚を無作為に取り出したとき，そのカードが"当たり"である確率はP(S=当)&lt;/p&gt;
+&lt;p&gt;P(S=当) = 3/10&lt;/p&gt;
+&lt;p&gt;表の色が白であることを知ったとき，このカードが"当たり"である確率は条件付き確率P(S=当|X=白)に変化する．&lt;/p&gt;
+&lt;p&gt;ベイズの定理より，&lt;/p&gt;
+&lt;p&gt;&lt;img alt="例題1" src="./img/24th-ex1.png"&gt;&lt;/p&gt;
+&lt;!-- \begin{eqnarray*}
+  P(S = \mbox{当}|X = \mbox{白}) &amp; = &amp; \frac{P(X = \mbox{白}|S = \mbox{当})P(S = \mbox{当})}{\sum_{S = \{\mbox{当，外}\}}P(S)P(X = \mbox{白}|S)}\\
+         &amp; = &amp; \frac{P(X = \mbox{白}|S = \mbox{当})P(S = \mbox{当})}{P(S = \mbox{当})P(X = \mbox{白}|S = \mbox{当}) + P(S = \mbox{外})P(X = \mbox{白}|S = \mbox{外})}\\
+         &amp; = &amp; \frac{(2/3) (3/10)}{(3/10) (2/3) + (7/10) (2/7)}\\
+         &amp; = &amp; 1/2
+\end{eqnarray*} --&gt;
+
+&lt;p&gt;このとき，ベイズの定理の右辺のP(S)は，色の&lt;strong&gt;観測を行う前&lt;/strong&gt;の"当たり"の確率であり，
+左辺のP(S|X)は&lt;strong&gt;観測後&lt;/strong&gt;の"当たり"の確率．&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;P(S) -&amp;gt; 事前確率&lt;/li&gt;
+&lt;li&gt;P(S|X) -&amp;gt; 事後確率&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ベイズの定理は観測結果Xを得ることによって，「&lt;strong&gt;事前確率が事後確率に変化する&lt;/strong&gt;」変換式と捉えることができる．&lt;/p&gt;
+&lt;h2&gt;第2章 事前確率と事後確率&lt;/h2&gt;
+&lt;h3&gt;例題[1]&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;箱の中に，外見上は区別がつかない3種類のコインw1，w2，w3が大量に混ざっている．
+その含有率はπ1，π2，π3．
+これら3種類のコインを投げて表が出る確率はそれぞれθ1，θ2，θ3．
+この箱の中からコインを無造作に1枚取り出して投げたところ表が出たとする．
+(1)この結果より，そのコインがw1，w2，w3である確率を求めよ．
+(2)上記確率をπ1=0.1，π2=0.4，π3=0.5 かつ，θ1=0.8，θ2=0.6，θ3=0.3 の場合について計算せよ．
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;(1)&lt;/h4&gt;
+&lt;p&gt;結果X(コインを投げた結果)から原因S(コインの種類)を求める．&lt;/p&gt;
+&lt;p&gt;&lt;img alt="例題2" src="./img/24th-ex2.png"&gt;&lt;/p&gt;
+&lt;!-- \begin{eqnarray*}
+X &amp; = &amp;
+\begin{cases}
+\mbox{お} &amp; \mbox{コインが表のとき}\\
+\mbox{う} &amp;  \mbox{コインが裏のとき}
+\end{cases}\\
+S &amp; = &amp; w_i \ \  (i=1,2,3)
+\end{eqnarray*} --&gt;
+
+&lt;p&gt;このとき，ベイズの定理より，&lt;/p&gt;
+&lt;p&gt;&lt;img alt="例題2" src="./img/24th-ex3.png"&gt;&lt;/p&gt;
+&lt;p&gt;ここで，P(X)は，&lt;/p&gt;
+&lt;p&gt;&lt;img alt="例題2" src="./img/24th-ex4.png"&gt;&lt;/p&gt;
+&lt;!-- \begin{eqnarray*}
+%  P(S = w_i|X) &amp; = &amp; \frac{P(X|S = w_i)}{P(X)}P(S = w_i) \ \  (i=1,2,3)\\
+  P(X) &amp; = &amp; \sum_{i = 1}^{3}P(S = w_i)P(X|S = w_i) \ \  \mbox{(X = お，う)}\\
+\end{eqnarray*} --&gt;
+
+&lt;p&gt;コインwがわかっているとき，そのコインを投げて表(X=お)の出る確率は与えられており，&lt;/p&gt;
+&lt;p&gt;&lt;img alt="例題2" src="./img/24th-ex5.png"&gt;&lt;/p&gt;
+&lt;!-- \begin{eqnarray*}
+  P(X = \mbox{お}|S = w_i) &amp; = &amp; \theta _i \ \  (i=1,2,3)\\
+  P(X = \mbox{う}|S = w_i) &amp; = &amp; 1 - \theta _i \ \  (i=1,2,3)\\
+\end{eqnarray*} --&gt;
+
+&lt;p&gt;また，コインwの含有率について，&lt;/p&gt;
+&lt;p&gt;&lt;img alt="例題2" src="./img/24th-ex6.png"&gt;&lt;/p&gt;
+&lt;!-- \begin{eqnarray*}
+  P(S = w_i) &amp; = &amp; \pi _i \ \  (i=1,2,3)
+\end{eqnarray*} --&gt;
+
+&lt;p&gt;これがコインを投げる前に得られている確率で，事前確率に相当．&lt;/p&gt;
+&lt;p&gt;以上より，&lt;/p&gt;
+&lt;p&gt;&lt;img alt="例題2" src="./img/24th-ex7.png"&gt;&lt;/p&gt;
+&lt;!-- \begin{eqnarray*}
+  P(X = \mbox{お}) &amp; = &amp; \sum_{i = 1}^{3}P(S = w_i)P(X = \mbox{お}|S = w_i)\\
+                  &amp; = &amp; \sum_{i = 1}^{3} \pi _i \theta _i
+\end{eqnarray*} --&gt;
+
+&lt;p&gt;これをベイズの定理の式に代入して，&lt;/p&gt;
+&lt;p&gt;&lt;img alt="例題2" src="./img/24th-ex8.png"&gt;&lt;/p&gt;
+&lt;!-- \begin{eqnarray*}
+  P(S = w_i|X = \mbox{お}) &amp; = &amp; \frac{P(X = \mbox{お}|S = w_i)}{P(X = \mbox{お})}P(S = w_i)\\
+  &amp; = &amp; \frac{\pi _i \theta _i}{\sum_{j = 1}^{3} \pi _j \theta _j} \ \  (i=1,2,3)\\
+\end{eqnarray*} --&gt;
+
+&lt;h4&gt;(2)&lt;/h4&gt;
+&lt;p&gt;与えられたそれぞれの値より，&lt;/p&gt;
+&lt;p&gt;P(X=お) = 0.1x0.8 + 0.4x0.6 + 0.5x0.3 = 0.47&lt;/p&gt;
+&lt;p&gt;よって，&lt;/p&gt;
+&lt;p&gt;P(S = w1|X = お) = (0.1x0.8)/0.47 = 0.170&lt;/p&gt;
+&lt;p&gt;P(S = w2|X = お) = (0.4x0.6)/0.47 = 0.511&lt;/p&gt;
+&lt;p&gt;P(S = w3|X = お) = (0.5x0.3)/0.47 = 0.319&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th align="center"&gt;w1&lt;/th&gt;
+&lt;th align="center"&gt;w2&lt;/th&gt;
+&lt;th align="center"&gt;w3&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;事前確率P(S=wi)&lt;/td&gt;
+&lt;td align="center"&gt;0.100&lt;/td&gt;
+&lt;td align="center"&gt;0.400&lt;/td&gt;
+&lt;td align="center"&gt;0.500&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;事後確率P(S=wi&amp;#124;X=お)&lt;/td&gt;
+&lt;td align="center"&gt;0.170&lt;/td&gt;
+&lt;td align="center"&gt;0.511&lt;/td&gt;
+&lt;td align="center"&gt;0.319&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3&gt;例題[2]&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;箱の中に，外見上は区別がつかない3種類のコインw1，w2，w3が大量に混ざっている．
+その含有率はπ1，π2，π3．
+これら3種類のコインを投げて表が出る確率はそれぞれθ1，θ2，θ3．
+この箱の中からコインを無造作に1枚取り出し，そのコインをn(n&amp;gt;2)回投げたところ，観測結果x1x2・・・xt・・・xnが得られた．
+このとき，r(0 =&amp;lt; r =&amp;lt; n)回が表だった．
+この結果より，そのコインがw1，w2，w3である確率を求めよ．
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;コインをn回投げたときの観測結果を以下のように表す．&lt;/p&gt;
+&lt;p&gt;&lt;img alt="例題2" src="./img/24th-ex9.png"&gt;&lt;/p&gt;
+&lt;!-- \begin{eqnarray*}
+  x^{(n)} &amp; = &amp; x_1x_2\cdots x_t\cdots x_n\\
+  x_t &amp; \in &amp; \{\mbox{お，う}\} \ \  (t = 1,2,\cdots, n)
+\end{eqnarray*} --&gt;
+
+&lt;p&gt;取り出したコインwについて観測結果xが得られる確率は各試行の独立性により，&lt;/p&gt;
+&lt;p&gt;&lt;img alt="例題2" src="./img/24th-ex10.png"&gt;&lt;/p&gt;
+&lt;!--
+\begin{eqnarray*}
+  P(X = x^{(n)}|S = w_i) &amp; = &amp; P(X=x_1|S=w_i)P(X=x_2|S=w_i)\cdots  P(X=x_n|S=w_i)\\
+  &amp; = &amp; {\theta _i}^{r}{(1 - \theta _i)}^{n-r}\\
+\mbox{よって，}\\
+  P(x^{(n)}) &amp; = &amp; \sum_{i = 1}^{3}P(S = w_i)P(X = x^{(n)}|S = w_i)\\
+                  &amp; = &amp; \sum_{i = 1}^{3} \pi _i {\theta _i}^{r}{(1 - \theta _i)}^{n-r}\\
+\mbox{ベイズの定理より，}\\
+  P(S = w_i|X = x^{(n)}) &amp; = &amp; \frac{P(X = x^{(n)}|S = w_i)}{P(X = x^{(n)})}P(S = w_i)\\
+  &amp; = &amp; \frac{\pi _i {\theta _i}^{r}{(1 - \theta _i)}^{n-r}}{\sum_{j = 1}^{3} \pi _j {\theta _j}^{r}{(1 - \theta _j)}^{n-r}
+} \ \  (i=1,2,3)\\
+\end{eqnarray*} --&gt;
+
+&lt;h3&gt;ベイズ更新&lt;/h3&gt;
+&lt;p&gt;上例題[2]ではコインをn回投げたときの事後確率を直接求めた．&lt;/p&gt;
+&lt;p&gt;ここでは，ベイズの更新を用いて，逐次的に求めることを考える．&lt;/p&gt;
+&lt;p&gt;コインを一回投げ，続けて同じコインをもう一度投げる．&lt;/p&gt;
+&lt;p&gt;コインを一回投げたとき，ベイズの定理より，&lt;/p&gt;
+&lt;p&gt;&lt;img alt="例題2" src="./img/24th-ex11.png"&gt;&lt;/p&gt;
+&lt;!-- \begin{eqnarray*}
+  P(S = w_i|X = x_1) &amp; = &amp; \frac{P(X = x_1|S = w_i)}{P(X = x_1)}P(S = w_i)\\
+  &amp; = &amp; \frac{P(X = x_1|S = w_i)P(S = w_i)}{\sum_{j = 1}^{3} P(S = w_i)P(X = x_1|S = w_i)} \ \  (i=1,2,3)
+\end{eqnarray*} --&gt;
+
+&lt;p&gt;同様に2回投げた後での事後確率は，&lt;/p&gt;
+&lt;p&gt;&lt;img alt="例題2" src="./img/24th-ex12.png"&gt;&lt;/p&gt;
+&lt;!-- \begin{eqnarray}
+  P(S = w_i|X = x_1x_2) &amp; = &amp; \frac{P(X = x_1x_2|S = w_i)}{P(X = x_1x_2)}P(S = w_i) \nonumber \\
+  &amp; = &amp; \frac{P(X = x_1x_2|S = w_i)P(S = w_i)}{\sum_{j = 1}^{3} P(S = w_j)P(X = x_1x_2|S = w_j)} \nonumber \\
+\\
+\mbox{各試行の独立性より，}\nonumber\\
+  P(X = x_1x_2|S = w_i) &amp; = &amp; P(X = x_1|S = w_i)P(X = x_2|S = w_i) \nonumber \\
+\\
+\mbox{コインを一回投げたときのベイズの定理から，}\nonumber \\
+  P(S = w_i|X = x_1) &amp; = &amp; \frac{P(X = x_1|S = w_i)}{P(X = x_1)}P(S = w_i) \nonumber \\
+  P(S = w_i|X = x_1)P(X = x_1) &amp; = &amp; P(X = x_1|S = w_i)P(S = w_i)\\
+\mbox{(2)を(1)に代入}\nonumber \\
+(1) &amp; = &amp; \frac{P(X = x_1|S = w_i)P(X = x_2|S = w_i)P(S = w_i)}{\sum_{j = 1}^{3} P(S = w_j)P(X = x_1|S = w_j)P(X = x_2|S = w_j)} \nonumber\\
+\\
+\mbox{(3)を(4)に代入}\nonumber \\
+(4) &amp; = &amp; \frac{P(X = x_1)P(S = w_i|X = x_1)P(X = x_2|S = w_i)}{P(X = x_1)\sum_{j = 1}^{3} P(S = w_j|X = x_1)P(X = x_2|S = w_j)} \nonumber \\
+    &amp; = &amp; \frac{P(X = x_2|S = w_i)P(S = w_i|X = x_1)}{\sum_{j = 1}^{3} P(S = w_j|X = x_1)P(X = x_2|S = w_j)} \nonumber
+\end{eqnarray} --&gt;
+
+&lt;p&gt;この式は一回目のコインを投げた観測結果P(S=wi|X=x1)を利用して，事後確率P(S=Wi|X=x1x2)を求める形になっている．&lt;/p&gt;
+&lt;p&gt;同様に，n回投げたとき，&lt;/p&gt;
+&lt;p&gt;&lt;img alt="例題2" src="./img/24th-ex13.png"&gt;&lt;/p&gt;
+&lt;!-- \begin{eqnarray*}
+  P(S = w_i|X = x^{(n)}) &amp; = &amp; \frac{P(X = x^{(n)}|S = w_i)}{P(X = x^{(n)})}P(S = w_i)\\
+  &amp; = &amp; \frac{P(X = x^{(n)}|S = w_i)P(S = w_i)}{\sum_{j = 1}^{3} P(S = w_j)P(X = x^{(n)}|S = w_j)}\\
+\\
+\mbox{各試行の独立性より，}\\
+  P(X = x^{(n)}|S = w_i) &amp; = &amp; P(X = x_n|S = w_i)P(X = x^{(n-1)}|S = w_i)\\
+\\
+\mbox{コインを(n-1)回投げたときのベイズの定理から，}\\
+  P(S = w_i|X = x^{(n-1)}) &amp; = &amp; \frac{P(X = x^{(n-1)}|S = w_i)}{P(X = x^{(n-1)})}P(S = w_i)\\
+  P(S = w_i|X = x^{(n-1)})P(X = x^{(n-1)}) &amp; = &amp; P(X = x^{(n-1)}|S = w_i)P(S = w_i)\\
+\mbox{よって，}\\
+ P(S = w_i|X = x^{(n)}) &amp; = &amp; \frac{P(x^{(n-1)})P(w_i|x^{(n-1)})P(x_n|w_i)}{P(x^{(n-1)})\sum_{j = 1}^{3} P(w_j|x^{(n-1)})P(x_n|w_j)}\\
+    &amp; = &amp; \frac{P(X = x_n|S = w_i)P(S = w_i|X = x^{(n-1)})}{\sum_{j = 1}^{3} P(S = w_j|X = x^{(n-1)})P(X = x_n|S = w_j)}
+\end{eqnarray*} --&gt;
+
+&lt;p&gt;これにより，一般化ができ，コインをn回投げたときの事後確率P(S=wi|X=x(n))は，それまでに投げた(n-1)回のコインの観測結果に基づく事後確率P(S=wi|X=x(n-1))を事前確率としてみなし，ベイズの定理を適応すれば良いことがわかる．&lt;/p&gt;
+&lt;h3&gt;Bern&lt;/h3&gt;
+&lt;p&gt;上記のように，コインを何度も投げるなどといった同一条件で同じ試行を繰り返すとき，各回の試行は独立であり，他の試行に影響を与えない．&lt;/p&gt;
+&lt;p&gt;このような試行をベルヌーイ試行という．
+一回の試行である事象が生起する確率がθであるとき，その試行をn回繰り返して事象がr回生起する確率Pn(r;θ)は，&lt;/p&gt;
+&lt;p&gt;&lt;img alt="例題2" src="./img/24th-ex14.png"&gt;&lt;/p&gt;
+&lt;!-- \begin{eqnarray*}
+  P_n(r;\theta) &amp; = &amp; _nC_r\theta ^r(1 - \theta)^{n-r}
+\end{eqnarray*} --&gt;
+
+&lt;p&gt;この式で表されるrの分布は二項分布という．&lt;/p&gt;
+&lt;p&gt;またn=1のとき，r=0，r=1となる確率がそれぞれθ，(1-θ)の離散型確率分布が得られる．これを特にベルヌーイ分布といい，Bern(r;θ)で示す．&lt;/p&gt;</content><category term="ML"></category><category term="study"></category></entry></feed>
