@@ -81,7 +81,7 @@
 </pre></div>
 
 
-<p>作業用ディレクトリを作って，その中で今作った環境を<br />
+<p>作業用ディレクトリを作って，その中で今作った環境を<br>
 pyenv localに設定する．</p>
 <div class="highlight"><pre><span></span><span class="c">% pyenv local {env name}</span>
 <span class="c">% conda update anaconda</span>
@@ -113,7 +113,7 @@ pyenv localに設定する．</p>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">hello</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="s1">&#39;Hello, TensorFlow!&#39;</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">hello</span><span class="p">))</span>
-<span class="n">b</span><span class="s1">&#39;Hello, TensorFlow!&#39;</span>
+<span class="sa">b</span><span class="s1">&#39;Hello, TensorFlow!&#39;</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">))</span>

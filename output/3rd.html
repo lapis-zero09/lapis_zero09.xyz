@@ -79,19 +79,19 @@
 </ul>
 <h2>ドメインを関連付ける</h2>
 <p><a href="http://www.onamae.com/navi/domain.html">ドメインNavi</a>にアクセスしてログイン．  </p>
-<p>"ネームサーバーの設定"項目から"DNS関連機能の設定"をクリック．<br />
-<img alt="犬" src="./img/third-1.png" /></p>
-<p>関連付けたいドメインにチェックを入れて，<br />
+<p>"ネームサーバーの設定"項目から"DNS関連機能の設定"をクリック．<br>
+<img alt="犬" src="./img/third-1.png"></p>
+<p>関連付けたいドメインにチェックを入れて，<br>
 "次へ進む"をクリック．  </p>
 <p>"DNSレコード設定を利用する"の"設定する"をクリック．  </p>
-<p>"ホスト名"欄に"www"と書く．<br />
-"VALUE"欄にIPアドレスを入れる．<br />
+<p>"ホスト名"欄に"www"と書く．<br>
+"VALUE"欄にIPアドレスを入れる．<br>
 その他はいじらずに追加ボタンをクリック．　</p>
-<p>一番下の"DNSレコード設定用ネームサーバー変更確認"欄にチェックを入れて，<br />
+<p>一番下の"DNSレコード設定用ネームサーバー変更確認"欄にチェックを入れて，<br>
 "確認画面に進む"をクリック．</p>
 <p>後はなりゆきに任せる．</p>
 <h2>Nginx側の設定</h2>
-<p><code>nginx.conf</code> をいじる．<br />
+<p><code>nginx.conf</code> をいじる．<br>
 <code>server_name</code>  の後にドメインを追加する．</p>
 <div class="highlight"><pre><span></span>server <span class="o">{</span>
     ~省略~

@@ -76,13 +76,13 @@
 <p>bundle install何度してもダメ  </p>
 <p>rails sしてCould not find　~ in any of the sourcesって出たgemを一つずつversion合わせて，
 インストールしても動くけど何より面倒．  </p>
-<p>まずは，問題のrailsプロジェクトのディレクトリに入って，<br />
+<p>まずは，問題のrailsプロジェクトのディレクトリに入って，<br>
 Gemfile.lockを削除．</p>
 <div class="highlight"><pre><span></span><span class="c">% rm Gemfile.lock</span>
 </pre></div>
 
 
-<p>次に同ディレクトリ内の.bundle内のconfigをいじる．<br />
+<p>次に同ディレクトリ内の.bundle内のconfigをいじる．<br>
 以下の行を削除．</p>
 <div class="highlight"><pre><span></span>BUNDLE_DISABLE_SHARED_GEMS:‘1’
 </pre></div>

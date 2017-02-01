@@ -73,9 +73,9 @@
                 </header>
             </section>
             <h1>さくらVSP</h1>
-<p>さくらVPSの<a href="http://vps.sakura.ad.jp/specification/">512プラン</a>を契約した．<br />
-月額635円でとてもやすい．<br />
-クレジットカードで登録すると2週間無料お試しができる．<br />
+<p>さくらVPSの<a href="http://vps.sakura.ad.jp/specification/">512プラン</a>を契約した．<br>
+月額635円でとてもやすい．<br>
+クレジットカードで登録すると2週間無料お試しができる．<br>
 (初期費用で約2000円位持ってかれる．)  </p>
 <h2>初期設定</h2>
 <p>コントロールパネルで契約したサーバを起動した後，自分のPCのterminalでSSH接続．  </p>
@@ -88,14 +88,14 @@
 </pre></div>
 
 
-<p>すると，いきなりエラーを吐かれるので<br />
+<p>すると，いきなりエラーを吐かれるので<br>
 clean up してから update　する  </p>
 <div class="highlight"><pre><span></span>$ yum clean up
 $ yum update
 </pre></div>
 
 
-<p>うまくいきました．<br />
+<p>うまくいきました．<br>
 時間がかかったので screen の中で回したほうがいいかも  </p>
 <h2>日本語化</h2>
 <p>一応，日本語化しておく．  </p>
@@ -115,7 +115,7 @@ $ passwd <span class="o">{</span>useraddしたユーザの名前<span class="o">
 </pre></div>
 
 
-<p>作業用ユーザに sudo 権限を与える．<br />
+<p>作業用ユーザに sudo 権限を与える．<br>
 (userをwheelグループに入れるように変更)  </p>
 <div class="highlight"><pre><span></span>$ usermod -G wheel <span class="o">{</span>useraddしたユーザの名前<span class="o">}</span>
 </pre></div>
@@ -142,7 +142,7 @@ $ chmod <span class="m">700</span> ~/.ssh
 
 
 <h3>自分のPC側</h3>
-<p>自分のPCで鍵作成．<br />
+<p>自分のPCで鍵作成．<br>
 (パスフレーズなど聞かれるのでデフォルトのままでok)
 筆者はSSH先ごとに鍵を変えてるので名前を変えた．  </p>
 <div class="highlight"><pre><span></span>$ ssh-keygen -t rsa
@@ -157,13 +157,13 @@ id_rsa.sakura   id_rsa.sakura.pub
 </pre></div>
 
 
-<p>できてる．<br />
+<p>できてる．<br>
 パーミッションを変えておく．  </p>
 <div class="highlight"><pre><span></span>$ chmod <span class="m">600</span> id_rsa.sakura.pub
 </pre></div>
 
 
-<p>SSH接続の時にいちいちIPアドレスを書くのが面倒どうなので<br />
+<p>SSH接続の時にいちいちIPアドレスを書くのが面倒どうなので<br>
 configに登録しておく．</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/.ssh
 $ vim config
@@ -182,7 +182,7 @@ $ vim config
 
 
 <p>でつなげるようになる．  </p>
-<p>pubの方をさくらVPSに転送．<br />
+<p>pubの方をさくらVPSに転送．<br>
 転送時にauthorized_keysに名前変更．  </p>
 <div class="highlight"><pre><span></span>$ scp ~/.ssh/id_rsa.sakura.pub sakura:~/.ssh/authorized_keys
 </pre></div>
@@ -208,7 +208,7 @@ authorized_keys
 
 
 <h2>SSH設定</h2>
-<p>セキュリティを高めるために以下を実行．<br />
+<p>セキュリティを高めるために以下を実行．<br>
 - ポート番号の変更
   - デフォルトの22から任意の番号に変更
   - 指定できる範囲は1024~65535
@@ -220,7 +220,7 @@ authorized_keys
 </pre></div>
 
 
-<p>SSH設定をいじっていく．<br />
+<p>SSH設定をいじっていく．<br>
 SSHの設定は /etc/ssh/ssh_config
 先にバックアップをとる．  </p>
 <div class="highlight"><pre><span></span>$ cp /etc/ssh/ssh_config /etc/ssh/ssh_config.org
@@ -274,12 +274,12 @@ PermitRootLogin no
 
 <p>以下をコピペでも可．  </p>
 <div class="highlight"><pre><span></span>*filter
-:INPUT     DROP    <span class="o">[</span>0:0<span class="o">]</span>
-:FORWARD   DROP    <span class="o">[</span>0:0<span class="o">]</span>
-:OUTPUT    ACCEPT  <span class="o">[</span>0:0<span class="o">]</span>
-:SERVICES  -       <span class="o">[</span>0:0<span class="o">]</span>
+:INPUT     DROP    <span class="o">[</span><span class="m">0</span>:0<span class="o">]</span>
+:FORWARD   DROP    <span class="o">[</span><span class="m">0</span>:0<span class="o">]</span>
+:OUTPUT    ACCEPT  <span class="o">[</span><span class="m">0</span>:0<span class="o">]</span>
+:SERVICES  -       <span class="o">[</span><span class="m">0</span>:0<span class="o">]</span>
 -A INPUT -i lo -j ACCEPT
--A INPUT -p icmp --icmp-type echo-request -m limit 1/s --limit-burst4 -j ACCEPT
+-A INPUT -p icmp --icmp-type echo-request -m limit <span class="m">1</span>/s --limit-burst4 -j ACCEPT
 -A INPUT -p tcp -m state --state ESTABLISHED,RELATED -j ACCEPT
 -A INPUT -p tcp -m state --state NEW -j SERVICES
 -A INPUT -p udp --sport <span class="m">53</span> -j ACCEPT

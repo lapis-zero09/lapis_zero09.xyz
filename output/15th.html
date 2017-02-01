@@ -73,7 +73,7 @@
                 </header>
             </section>
             <h1>kali linux</h1>
-<p>悪用しない<br />
+<p>悪用しない<br>
 大いなる力には〜〜ってやつ  </p>
 <h2>kali linux isoファイルのダウンロード</h2>
 <ul>
@@ -84,7 +84,7 @@
 <p>ミラーリスト - <a href="http://docs.kali.org/community/kali-linux-mirrors">http://docs.kali.org/community/kali-linux-mirrors</a></p>
 </li>
 </ul>
-<p>からkali linux 64bitをダウンロードする．<br />
+<p>からkali linux 64bitをダウンロードする．<br>
 ミラーサイトの場合は，amd64が64bit  </p>
 <p>sha1sumを確認してマッチするかちゃんと確かめる．  </p>
 <div class="highlight"><pre><span></span># openssl sha1sum {kaliのisoファイル}
@@ -94,21 +94,21 @@
 <h2>USBブート</h2>
 <p>今回はUSBからブートする方法  </p>
 <h3>dmgに変換</h3>
-<p>kaliのisoイメージをdmgに変換．<br />
+<p>kaliのisoイメージをdmgに変換．<br>
 kaliのisoがあるディレクトリで  </p>
 <div class="highlight"><pre><span></span># hdiutil convert -format UDRW -o kali.dmg kali-linux-2016.1-amd64.iso
 </pre></div>
 
 
 <h3>USBのアンマウント</h3>
-<p>まず，USBのデバイスパスの確認<br />
+<p>まず，USBのデバイスパスの確認<br>
 USBをささない状態で以下を実行  </p>
 <div class="highlight"><pre><span></span># diskutil
 </pre></div>
 
 
 <p>USBをさした状態で上記を実行  </p>
-<p>この時，新たに認識されたデバイスがUSBなので<br />
+<p>この時，新たに認識されたデバイスがUSBなので<br>
 diskN の N　の部分をよく覚えておく．  </p>
 <p>以下で，USBをアンマウントする  </p>
 <div class="highlight"><pre><span></span># diskutil unmountDisk /dev/diskN

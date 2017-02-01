@@ -72,7 +72,7 @@
                 </header>
             </section>
             <h1>El CapitanにTeXを入れる</h1>
-<p>Homebrew経由でもTeX本家からpkgを落としてきても，TeX関連のPATHが通らないのでやったこと<br />
+<p>Homebrew経由でもTeX本家からpkgを落としてきても，TeX関連のPATHが通らないのでやったこと<br>
 ※本当なら勝手にPATH が通るはず??  </p>
 <h2>Ghostscriptのインストール</h2>
 <div class="highlight"><pre><span></span>$ brew install ghostscript
@@ -80,16 +80,16 @@
 
 
 <h2>MacTeXのインストール</h2>
-<p><a href="https://tug.org/mactex/mactex-download.html">MacTeX</a>　から，MacTeX.pkgをダウンロード．<br />
-ファイルのダウンロードが始まらず，<br />
-"mactex-download..."のテキストが表示された場合，<br />
+<p><a href="https://tug.org/mactex/mactex-download.html">MacTeX</a>　から，MacTeX.pkgをダウンロード．<br>
+ファイルのダウンロードが始まらず，<br>
+"mactex-download..."のテキストが表示された場合，<br>
 "ftp://"で始まるURLをアドレスフィールドに直接コピペ．  </p>
-<p>"インストールの種類"で"カスタマイズ"をクリック．<br />
-"カスタムインストール"でGhostscriptのチェックを外して<br />
+<p>"インストールの種類"で"カスタマイズ"をクリック．<br>
+"カスタムインストール"でGhostscriptのチェックを外して<br>
 インストールをクリック．  </p>
 <h2>PATHを通してやる</h2>
 <p><code>zshrc</code> か <code>bashrc</code> に以下を記載．  </p>
-<div class="highlight"><pre><span></span><span class="x">export PATH=&quot;/usr/local/texlive/2015/bin/x86_64-darwin/&quot;:</span><span class="p">$</span><span class="nv">PATH</span><span class="x"></span>
+<div class="highlight"><pre><span></span>export PATH=&quot;/usr/local/texlive/2015/bin/x86_64-darwin/&quot;:$PATH
 </pre></div>
 
 

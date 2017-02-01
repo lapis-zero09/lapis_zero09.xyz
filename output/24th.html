@@ -81,7 +81,7 @@
 <li>P(S|X)・・・条件付き確率(Xという条件下でSが発生する確率)</li>
 </ul>
 <p>後の例題のために・・・</p>
-<p><img alt="ベイズの定理" src="./img/24th-2.png" /></p>
+<p><img alt="ベイズの定理" src="./img/24th-2.png"></p>
 <!-- \begin{eqnarray*}
   P(X) & = & \sum_{S}P(X,S)\\
   P(X, S) & = & P(X|S)P(S)\\
@@ -90,7 +90,7 @@
 \end{eqnarray*} -->
 
 <h5>離散型確率変数についてのベイズの定理</h5>
-<p><img alt="ベイズの定理" src="./img/24th-1.png" /></p>
+<p><img alt="ベイズの定理" src="./img/24th-1.png"></p>
 <!-- \begin{eqnarray*}
   P(S|X) & = & \frac{P(X, S)}{P(X)}\\
          & = & \frac{P(X|S)}{P(X)}P(S)\\
@@ -115,7 +115,7 @@
 <p>P(S=当) = 3/10</p>
 <p>表の色が白であることを知ったとき，このカードが"当たり"である確率は条件付き確率P(S=当|X=白)に変化する．</p>
 <p>ベイズの定理より，</p>
-<p><img alt="例題1" src="./img/24th-ex1.png" /></p>
+<p><img alt="例題1" src="./img/24th-ex1.png"></p>
 <!-- \begin{eqnarray*}
   P(S = \mbox{当}|X = \mbox{白}) & = & \frac{P(X = \mbox{白}|S = \mbox{当})P(S = \mbox{当})}{\sum_{S = \{\mbox{当，外}\}}P(S)P(X = \mbox{白}|S)}\\
          & = & \frac{P(X = \mbox{白}|S = \mbox{当})P(S = \mbox{当})}{P(S = \mbox{当})P(X = \mbox{白}|S = \mbox{当}) + P(S = \mbox{外})P(X = \mbox{白}|S = \mbox{外})}\\
@@ -143,7 +143,7 @@
 
 <h4>(1)</h4>
 <p>結果X(コインを投げた結果)から原因S(コインの種類)を求める．</p>
-<p><img alt="例題2" src="./img/24th-ex2.png" /></p>
+<p><img alt="例題2" src="./img/24th-ex2.png"></p>
 <!-- \begin{eqnarray*}
 X & = &
 \begin{cases}
@@ -154,37 +154,37 @@ S & = & w_i \ \  (i=1,2,3)
 \end{eqnarray*} -->
 
 <p>このとき，ベイズの定理より，</p>
-<p><img alt="例題2" src="./img/24th-ex3.png" /></p>
+<p><img alt="例題2" src="./img/24th-ex3.png"></p>
 <p>ここで，P(X)は，</p>
-<p><img alt="例題2" src="./img/24th-ex4.png" /></p>
+<p><img alt="例題2" src="./img/24th-ex4.png"></p>
 <!-- \begin{eqnarray*}
 %  P(S = w_i|X) & = & \frac{P(X|S = w_i)}{P(X)}P(S = w_i) \ \  (i=1,2,3)\\
   P(X) & = & \sum_{i = 1}^{3}P(S = w_i)P(X|S = w_i) \ \  \mbox{(X = お，う)}\\
 \end{eqnarray*} -->
 
 <p>コインwがわかっているとき，そのコインを投げて表(X=お)の出る確率は与えられており，</p>
-<p><img alt="例題2" src="./img/24th-ex5.png" /></p>
+<p><img alt="例題2" src="./img/24th-ex5.png"></p>
 <!-- \begin{eqnarray*}
   P(X = \mbox{お}|S = w_i) & = & \theta _i \ \  (i=1,2,3)\\
   P(X = \mbox{う}|S = w_i) & = & 1 - \theta _i \ \  (i=1,2,3)\\
 \end{eqnarray*} -->
 
 <p>また，コインwの含有率について，</p>
-<p><img alt="例題2" src="./img/24th-ex6.png" /></p>
+<p><img alt="例題2" src="./img/24th-ex6.png"></p>
 <!-- \begin{eqnarray*}
   P(S = w_i) & = & \pi _i \ \  (i=1,2,3)
 \end{eqnarray*} -->
 
 <p>これがコインを投げる前に得られている確率で，事前確率に相当．</p>
 <p>以上より，</p>
-<p><img alt="例題2" src="./img/24th-ex7.png" /></p>
+<p><img alt="例題2" src="./img/24th-ex7.png"></p>
 <!-- \begin{eqnarray*}
   P(X = \mbox{お}) & = & \sum_{i = 1}^{3}P(S = w_i)P(X = \mbox{お}|S = w_i)\\
                   & = & \sum_{i = 1}^{3} \pi _i \theta _i
 \end{eqnarray*} -->
 
 <p>これをベイズの定理の式に代入して，</p>
-<p><img alt="例題2" src="./img/24th-ex8.png" /></p>
+<p><img alt="例題2" src="./img/24th-ex8.png"></p>
 <!-- \begin{eqnarray*}
   P(S = w_i|X = \mbox{お}) & = & \frac{P(X = \mbox{お}|S = w_i)}{P(X = \mbox{お})}P(S = w_i)\\
   & = & \frac{\pi _i \theta _i}{\sum_{j = 1}^{3} \pi _j \theta _j} \ \  (i=1,2,3)\\
@@ -232,14 +232,14 @@ S & = & w_i \ \  (i=1,2,3)
 
 
 <p>コインをn回投げたときの観測結果を以下のように表す．</p>
-<p><img alt="例題2" src="./img/24th-ex9.png" /></p>
+<p><img alt="例題2" src="./img/24th-ex9.png"></p>
 <!-- \begin{eqnarray*}
   x^{(n)} & = & x_1x_2\cdots x_t\cdots x_n\\
   x_t & \in & \{\mbox{お，う}\} \ \  (t = 1,2,\cdots, n)
 \end{eqnarray*} -->
 
 <p>取り出したコインwについて観測結果xが得られる確率は各試行の独立性により，</p>
-<p><img alt="例題2" src="./img/24th-ex10.png" /></p>
+<p><img alt="例題2" src="./img/24th-ex10.png"></p>
 <!--
 \begin{eqnarray*}
   P(X = x^{(n)}|S = w_i) & = & P(X=x_1|S=w_i)P(X=x_2|S=w_i)\cdots  P(X=x_n|S=w_i)\\
@@ -258,14 +258,14 @@ S & = & w_i \ \  (i=1,2,3)
 <p>ここでは，ベイズの更新を用いて，逐次的に求めることを考える．</p>
 <p>コインを一回投げ，続けて同じコインをもう一度投げる．</p>
 <p>コインを一回投げたとき，ベイズの定理より，</p>
-<p><img alt="例題2" src="./img/24th-ex11.png" /></p>
+<p><img alt="例題2" src="./img/24th-ex11.png"></p>
 <!-- \begin{eqnarray*}
   P(S = w_i|X = x_1) & = & \frac{P(X = x_1|S = w_i)}{P(X = x_1)}P(S = w_i)\\
   & = & \frac{P(X = x_1|S = w_i)P(S = w_i)}{\sum_{j = 1}^{3} P(S = w_i)P(X = x_1|S = w_i)} \ \  (i=1,2,3)
 \end{eqnarray*} -->
 
 <p>同様に2回投げた後での事後確率は，</p>
-<p><img alt="例題2" src="./img/24th-ex12.png" /></p>
+<p><img alt="例題2" src="./img/24th-ex12.png"></p>
 <!-- \begin{eqnarray}
   P(S = w_i|X = x_1x_2) & = & \frac{P(X = x_1x_2|S = w_i)}{P(X = x_1x_2)}P(S = w_i) \nonumber \\
   & = & \frac{P(X = x_1x_2|S = w_i)P(S = w_i)}{\sum_{j = 1}^{3} P(S = w_j)P(X = x_1x_2|S = w_j)} \nonumber \\
@@ -286,7 +286,7 @@ S & = & w_i \ \  (i=1,2,3)
 
 <p>この式は一回目のコインを投げた観測結果P(S=wi|X=x1)を利用して，事後確率P(S=Wi|X=x1x2)を求める形になっている．</p>
 <p>同様に，n回投げたとき，</p>
-<p><img alt="例題2" src="./img/24th-ex13.png" /></p>
+<p><img alt="例題2" src="./img/24th-ex13.png"></p>
 <!-- \begin{eqnarray*}
   P(S = w_i|X = x^{(n)}) & = & \frac{P(X = x^{(n)}|S = w_i)}{P(X = x^{(n)})}P(S = w_i)\\
   & = & \frac{P(X = x^{(n)}|S = w_i)P(S = w_i)}{\sum_{j = 1}^{3} P(S = w_j)P(X = x^{(n)}|S = w_j)}\\
@@ -307,7 +307,7 @@ S & = & w_i \ \  (i=1,2,3)
 <p>上記のように，コインを何度も投げるなどといった同一条件で同じ試行を繰り返すとき，各回の試行は独立であり，他の試行に影響を与えない．</p>
 <p>このような試行をベルヌーイ試行という．
 一回の試行である事象が生起する確率がθであるとき，その試行をn回繰り返して事象がr回生起する確率Pn(r;θ)は，</p>
-<p><img alt="例題2" src="./img/24th-ex14.png" /></p>
+<p><img alt="例題2" src="./img/24th-ex14.png"></p>
 <!-- \begin{eqnarray*}
   P_n(r;\theta) & = & _nC_r\theta ^r(1 - \theta)^{n-r}
 \end{eqnarray*} -->

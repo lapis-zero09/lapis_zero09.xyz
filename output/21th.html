@@ -78,19 +78,19 @@
 <p>railsを使ってないチームはhtpasswdでパスワードファイル作って，.htaccessでやってた．</p>
 <p>railsを使ってたので，authenticate_or_request_with_http_basicを使って終わり．</p>
 <p>適当なcontrollerに以下を記述．</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> ...<span class="n">Controller</span> &lt; ...::<span class="n">Base</span>
+<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="p">...</span><span class="nx">Controller</span> <span class="o">&lt;</span> <span class="p">...</span><span class="o">::</span><span class="nx">Base</span>
 
-  <span class="n">before_filter</span> :<span class="n">basic</span>
+  <span class="nx">before_filter</span> :<span class="kt">basic</span>
 
-  <span class="c c-Singleline"># （略）</span>
+  <span class="err">#</span> <span class="err">（略）</span>
 
-  <span class="n">private</span>
-  <span class="n">def</span> <span class="n">basic</span>
-    <span class="n">authenticate_or_request_with_http_basic</span> <span class="k">do</span> |<span class="n">user</span>, <span class="nb">pass</span>|
-      <span class="n">user</span> == <span class="s">&#39;user&#39;</span> &amp;&amp; <span class="nb">pass</span> == <span class="s">&#39;pass&#39;</span>
-    <span class="nb">end</span>
-  <span class="nb">end</span>
-<span class="nb">end</span>
+  <span class="kr">private</span>
+  <span class="nx">def</span> <span class="nx">basic</span>
+    <span class="nx">authenticate_or_request_with_http_basic</span> <span class="k">do</span> <span class="o">|</span><span class="nx">user</span><span class="p">,</span> <span class="nx">pass</span><span class="o">|</span>
+      <span class="nx">user</span> <span class="o">==</span> <span class="s1">&#39;user&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">pass</span> <span class="o">==</span> <span class="s1">&#39;pass&#39;</span>
+    <span class="nx">end</span>
+  <span class="nx">end</span>
+<span class="nx">end</span>
 </pre></div>
 
 

@@ -74,7 +74,7 @@
             </section>
             <h1>Nginx</h1>
 <h2>openssl</h2>
-<p><a href="https://www.lapis-zero09.xyz/second.html">こちら</a>でNginxをインストールする場合，<br />
+<p><a href="https://www.lapis-zero09.xyz/second.html">こちら</a>でNginxをインストールする場合，<br>
 openssl1.0.2に脆弱性(<a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-2107">CVE-2016-2107</a>, <a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-2105">CVE-2016-2105</a>, <a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-2106">CVE-2016-2106</a>, <a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-2109">CVE-2016-2109</a>, <a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-2176">CVE-2016-2176</a>)が判明し，
 opensslのversionをあげることが推奨される．  </p>
 <p>ここではyumを用いて最新Nginxをインストールする</p>
@@ -83,7 +83,7 @@ opensslのversionをあげることが推奨される．  </p>
 </pre></div>
 
 
-<p>でインストールされるNginxのversionが低い場合，<br />
+<p>でインストールされるNginxのversionが低い場合，<br>
 以下のコマンドでNginxのリポジトリを追加してやる．</p>
 <div class="highlight"><pre><span></span>$ sudo rpm -ivh http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
 </pre></div>
@@ -91,13 +91,13 @@ opensslのversionをあげることが推奨される．  </p>
 
 <p>nginx.repoが/etc/yum.repos.d/配下につくられる.  </p>
 <p>その内容は以下  </p>
-<div class="highlight"><pre><span></span><span class="err">#</span><span class="x"> nginx.repo</span>
+<div class="highlight"><pre><span></span># nginx.repo
 
-<span class="x">[nginx]</span>
-<span class="x">name=nginx repo</span>
-<span class="x">baseurl=http://nginx.org/packages/centos/6/</span><span class="p">$</span><span class="nv">basearch</span><span class="x">/</span>
-<span class="x">gpgcheck=0</span>
-<span class="x">enabled=0</span>
+[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/centos/6/$basearch/
+gpgcheck=0
+enabled=0
 </pre></div>
 
 

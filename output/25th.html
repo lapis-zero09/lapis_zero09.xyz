@@ -144,7 +144,7 @@ $ cp cowrie.cfg.dist cowrie.cfg
 
 $ cat cowrie.pid <span class="c1">#process</span>
 or
-$ netstat -antp <span class="p">|</span> grep 2222
+$ netstat -antp <span class="p">|</span> grep <span class="m">2222</span>
 </pre></div>
 
 
@@ -217,7 +217,7 @@ $ mysql -u cowrie -p
 <span class="nv">database</span> <span class="o">=</span> cowrie
 <span class="nv">username</span> <span class="o">=</span> cowrie
 <span class="nv">password</span> <span class="o">=</span> <span class="o">{</span>cowrieのパスワード<span class="o">}</span>
-<span class="nv">port</span> <span class="o">=</span> 3306
+<span class="nv">port</span> <span class="o">=</span> <span class="m">3306</span>
 ~略~
 </pre></div>
 
@@ -251,7 +251,7 @@ define(&#39;DB_PORT&#39;, &#39;3306&#39;);
 
 
 <p>ブラウザでhttp://{ipaddress}/kippo-graph/を見る．</p>
-<p><img alt="kippo-graph" src="./img/25th.png" /></p>
+<p><img alt="kippo-graph" src="./img/25th.png"></p>
 <h2>余談</h2>
 <p>kippo-graphにはKIPPO-PLAYLOGという機能があり，</p>
 <p>攻撃者がログインしてから，ログアウトするまでの実行コマンドを</p>

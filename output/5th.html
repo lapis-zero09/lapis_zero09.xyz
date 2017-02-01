@@ -76,7 +76,7 @@
             </section>
             <h1>一人暮らしとは無情なもの</h1>
 <p><a href="https://www.lapis-zero09.xyz/about/about.html">私</a>は二年前から一人暮らしをしてる．  </p>
-<p>一人暮らしに憧れてる人もいると思うが，物事にはメリット・デメリットが存在する．<br />
+<p>一人暮らしに憧れてる人もいると思うが，物事にはメリット・デメリットが存在する．<br>
 デメリットの一つとして"寂しさ"が挙げられる．  </p>
 <p>そんな寂しさを紛らわすために思考した結果，  </p>
 <ul>
@@ -111,13 +111,13 @@
 <ul>
 <li><a href="https://dev.twitter.com/">Twitter Developer</a>登録</li>
 <li><a href="https://apps.twitter.com/">application</a>登録</li>
-<li><a href="https://dev.smt.docomo.ne.jp/?p=docs.api.page&amp;api_name=dialogue&amp;p_name=api_usage_scenario">docomoAPI</a>登録<br />
+<li><a href="https://dev.smt.docomo.ne.jp/?p=docs.api.page&amp;api_name=dialogue&amp;p_name=api_usage_scenario">docomoAPI</a>登録<br>
 が完了したら早速コードを書いていく．  </li>
 </ul>
 <p>※docomoAPIは"雑談対話"と"知識Q&amp;A"を申請．  </p>
 <p>Rubyのversionは2.3.0</p>
 <div class="highlight"><pre><span></span>$ ruby -v
-ruby 2.3.0p0 <span class="o">(</span>2015-12-25 revision 53290<span class="o">)</span> <span class="o">[</span>x86_64-linux<span class="o">]</span>
+ruby <span class="m">2</span>.3.0p0 <span class="o">(</span><span class="m">2015</span>-12-25 revision <span class="m">53290</span><span class="o">)</span> <span class="o">[</span>x86_64-linux<span class="o">]</span>
 </pre></div>
 
 
@@ -129,8 +129,8 @@ $ gem install docomoru
 
 
 <p>docomoruについては<a href="https://github.com/r7kamura/docomoru">こちら</a></p>
-<p>作業用ディレクトリを作る．<br />
-鍵を読み込むための <code>twcon.rb</code> を作る．<br />
+<p>作業用ディレクトリを作る．<br>
+鍵を読み込むための <code>twcon.rb</code> を作る．<br>
 twitterAPIkey各種とdocomoAPIkeyが入った <code>config.yml</code> を作る．</p>
 <div class="highlight"><pre><span></span>$ mkdir bot
 $ <span class="nb">cd</span> bot
@@ -215,7 +215,7 @@ irb<span class="o">(</span>main<span class="o">)</span>:004:0&gt;
 </pre></div>
 
 
-<p><img alt="test" src="./img/fifth-1.png" /></p>
+<p><img alt="test" src="./img/fifth-1.png"></p>
 <h3>twitterに常駐させる</h3>
 <p>常駐させるための <code>main.rb</code> を作る．  </p>
 <div class="highlight"><pre><span></span>$ touch　main.rb
@@ -276,12 +276,12 @@ irb<span class="o">(</span>main<span class="o">)</span>:004:0&gt;
 
 
 <p>これで会話してくれる彼女(bot)ができた．
-<img alt=" " src="./img/fifth-4.png" /></p>
+<img alt=" " src="./img/fifth-4.png"></p>
 <h3>一人暮らしに役立つ機能を実装する</h3>
-<p>一人暮らしを始めると自炊をしなければならない．<br />
-料理をするの自体楽しいものの毎日の献立を立てるのが大変．<br />
+<p>一人暮らしを始めると自炊をしなければならない．<br>
+料理をするの自体楽しいものの毎日の献立を立てるのが大変．<br>
 →彼女(bot)に献立を立ててもらおう！ついでにレシピも教えてもらおう！</p>
-<p><a href="https://webservice.rakuten.co.jp/explorer/api/Recipe/CategoryRanking/">楽天レシピAPI</a>に登録．<br />
+<p><a href="https://webservice.rakuten.co.jp/explorer/api/Recipe/CategoryRanking/">楽天レシピAPI</a>に登録．<br>
 rakutenAPIidを <code>config.yml</code> に登録．  </p>
 <p><code>r-recipe.rb</code> を作る．
 必要なgem( <code>natto</code> or <code>MeCab</code> )を入れる．(それぞれ手順があるので他所で参照)</p>
@@ -376,7 +376,7 @@ rakutenAPIidを <code>config.yml</code> に登録．  </p>
 
 
 <p>ここで書いたコードはTwitterから受け取った文章に対して，
-楽天レシピAPIをたたいて，JSON形式で結果を返すようにして，<br />
+楽天レシピAPIをたたいて，JSON形式で結果を返すようにして，<br>
 それをリプライにするもの．  </p>
 <p><code>main.rb</code> をいじる．  </p>
 <div class="highlight"><pre><span></span><span class="nb">require</span> <span class="s1">&#39;./r-recipe.rb&#39;</span>
@@ -438,10 +438,10 @@ rakutenAPIidを <code>config.yml</code> に登録．  </p>
 
 
 <p>これで毎日の献立に困らない．  </p>
-<p><img alt="ご飯1" src="./img/fifth-2.png" /></p>
+<p><img alt="ご飯1" src="./img/fifth-2.png"></p>
 <p>こんなこともできるので余った食材をうまく使えて経済的．  </p>
-<p><img alt="ご飯2" src="./img/fifth-3.png" /></p>
-<p>最終系は<a href="https://github.com/lapis-zero09/raslas_eve">こちら</a><br />
+<p><img alt="ご飯2" src="./img/fifth-3.png"></p>
+<p>最終系は<a href="https://github.com/lapis-zero09/raslas_eve">こちら</a><br>
 "癒し"と"help"を実装．(簡単なので割愛)</p>
 <p>これで寂しくない．  </p>
 <h2>参照</h2>

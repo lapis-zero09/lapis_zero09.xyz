@@ -84,7 +84,7 @@
 <h2>現状のnginx.conf</h2>
 <div class="highlight"><pre><span></span>~省略~
 server <span class="o">{</span>
-  listen 80<span class="p">;</span>
+  listen <span class="m">80</span><span class="p">;</span>
   server_name www.<span class="o">{</span>自分の契約しているドメイン<span class="o">}</span><span class="p">;</span>
   location / <span class="o">{</span>
     root   /var/www<span class="p">;</span> <span class="c1">#公開したいドキュメントのルート</span>
@@ -115,7 +115,7 @@ $ ./letsencrypt-auto certonly --webroot -d www.<span class="o">{</span>自分の
 <div class="highlight"><pre><span></span>IMPORTANT NOTES:
  - Congratulations! Your certificate and chain have been saved at
    /etc/letsencrypt/live/itochan.jp/fullchain.pem. Your cert
-   will expire on 2016-03-08. To obtain a new version of the
+   will expire on <span class="m">2016</span>-03-08. To obtain a new version of the
    certificate in the future, simply run Lets Encrypt again.
  - If like Lets Encrypt, please consider supporting our work by:
 
@@ -138,13 +138,13 @@ $ crontab -e
 
 <h3>TLSに対応させる</h3>
 <p><code>nginx.conf</code> をいじる．
-http接続をhttps接続にリダイレクトさせる内容を<br />
-<code>listen 80</code> の <code>server</code> タグ内に書く．<br />
-<code>listen 443</code> の <code>server</code> タグのコメントを外してドキュメントルート等書く．<br />
+http接続をhttps接続にリダイレクトさせる内容を<br>
+<code>listen 80</code> の <code>server</code> タグ内に書く．<br>
+<code>listen 443</code> の <code>server</code> タグのコメントを外してドキュメントルート等書く．<br>
 Let's Encryptで取得した証明書は <code>/etc/letsencrypt/live/www.{自分の契約しているドメイン}/</code> 以下にあるのでそれを参照する旨を書く．</p>
 <div class="highlight"><pre><span></span>~省略~
 server <span class="o">{</span>
-  listen 80<span class="p">;</span>
+  listen <span class="m">80</span><span class="p">;</span>
   server_name www.<span class="o">{</span>自分の契約しているドメイン<span class="o">}</span><span class="p">;</span>
   <span class="k">return</span> <span class="m">301</span> https://www.<span class="o">{</span>自分の契約しているドメイン<span class="o">}</span><span class="nv">$request_uri</span><span class="p">;</span>
 <span class="o">}</span>
@@ -175,8 +175,8 @@ server <span class="o">{</span>
 </pre></div>
 
 
-<p>一応アクセスできるか確認．<br />
-できたら<a href="https://www.ssllabs.com/ssltest/index.html">SSLLab</a>のテストもやってみる．<br />
+<p>一応アクセスできるか確認．<br>
+できたら<a href="https://www.ssllabs.com/ssltest/index.html">SSLLab</a>のテストもやってみる．<br>
 (BかCが出る)</p>
 <h3>http2に対応させる</h3>
 <p><code>nginx.conf</code> をいじる．</p>
@@ -216,14 +216,14 @@ ECDHE)</li>
 </ul>
 <p>そんなことはいいからやり方はよ</p>
 <h3>DHEの鍵長増加</h3>
-<p>2048bitのDHパラメータファイルを生成．<br />
+<p>2048bitのDHパラメータファイルを生成．<br>
 <code>nginx.conf</code> があるフォルダで以下を実行．  </p>
-<div class="highlight"><pre><span></span>$ openssl dhparam -out dhparam.pem 2048
+<div class="highlight"><pre><span></span>$ openssl dhparam -out dhparam.pem <span class="m">2048</span>
 $ openssl dhparam -text -in dhparam.pem  -noout
 </pre></div>
 
 
-<p><code>nginx.conf</code> のsslサーバの部分にDHパラメータのファイルを加える．<br />
+<p><code>nginx.conf</code> のsslサーバの部分にDHパラメータのファイルを加える．<br>
 <code>nginx.conf</code> をいじる．</p>
 <div class="highlight"><pre><span></span>~省略~
 server <span class="o">{</span>
@@ -245,11 +245,11 @@ server <span class="o">{</span>
 </pre></div>
 
 
-<p>文法チェック，リロードの流れをもう一度．<br />
-<a href="https://www.ssllabs.com/ssltest/index.html">SSLLab</a>のテストもやってみる．<br />
+<p>文法チェック，リロードの流れをもう一度．<br>
+<a href="https://www.ssllabs.com/ssltest/index.html">SSLLab</a>のテストもやってみる．<br>
 (AかA-が出る)</p>
 <h3>HSTSヘッダ</h3>
-<p><code>nginx.conf</code> のsslサーバの部分にHSTSヘッダを返すように以下の設定を追加．<br />
+<p><code>nginx.conf</code> のsslサーバの部分にHSTSヘッダを返すように以下の設定を追加．<br>
 (max-ageは半年に設定)  </p>
 <div class="highlight"><pre><span></span>~省略~
 server <span class="o">{</span>
@@ -274,8 +274,8 @@ server <span class="o">{</span>
 </pre></div>
 
 
-<p>文法チェック，リロードの流れをもう一度．<br />
-<a href="https://www.ssllabs.com/ssltest/index.html">SSLLab</a>のテストもやってみる．<br />
+<p>文法チェック，リロードの流れをもう一度．<br>
+<a href="https://www.ssllabs.com/ssltest/index.html">SSLLab</a>のテストもやってみる．<br>
 (A+が出る(2016-03-03))</p>
             <a href="#" class="go-top">Go Top</a>
 <footer class="footer">

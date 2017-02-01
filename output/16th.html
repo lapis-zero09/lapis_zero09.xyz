@@ -78,7 +78,7 @@
             <h1>kali linux rolling</h1>
 <p>kali linux rolling editionで日本語入力環境がおかしくなった時にやったこと  </p>
 <h2>uim</h2>
-<p>kali linuxはdebianベースのOSで日本語入力環境を整えるパッケージとしては，<br />
+<p>kali linuxはdebianベースのOSで日本語入力環境を整えるパッケージとしては，<br>
 uim, ibus, etc..あるが，他のサイトを参照してもuimを使ってるものしかない.  </p>
 <p>実際にibusを入れてみたが動かず...  </p>
 <h2>anthy</h2>
@@ -112,7 +112,7 @@ anthyしかうまく動かないっぽい.  </p>
 </pre></div>
 
 
-<p>それぞれで出てきたパッケージに対し，<code>apt-get purge</code> を実行．<br />
+<p>それぞれで出てきたパッケージに対し，<code>apt-get purge</code> を実行．<br>
 めんどい人は以下で</p>
 <div class="highlight"><pre><span></span># apt-get purge `apt list | grep -G &quot;uim\|anthy&quot; | cut -d&quot;/&quot; -f1 | xargs echo`
 # apt autoremove
@@ -131,7 +131,7 @@ anthyしかうまく動かないっぽい.  </p>
 
 
 <p>その他，設定を変えるたびにrebootするのが望ましい．  </p>
-<p>osインストールの時も日本語だとうまく表示されませんって出るし，<br />
+<p>osインストールの時も日本語だとうまく表示されませんって出るし，<br>
 日本語対応が完璧ではないのかな(そりゃそうか)  </p>
 <p>以上．</p>
             <a href="#" class="go-top">Go Top</a>
