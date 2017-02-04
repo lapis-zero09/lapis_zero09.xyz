@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>題未定 - pyenv</title><link href="https://www.lapis-zero09.xyz/" rel="alternate"></link><link href="https://www.lapis-zero09.xyz/feeds/pyenv.atom.xml" rel="self"></link><id>https://www.lapis-zero09.xyz/</id><updated>2016-05-26T22:00:00+09:00</updated><entry><title>brew doctor, pyenv</title><link href="https://www.lapis-zero09.xyz/18th.html" rel="alternate"></link><published>2016-05-26T22:00:00+09:00</published><updated>2016-05-26T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-05-26:/18th.html</id><summary type="html">&lt;p&gt;brew doctorでpyenvのエラーが出た時の対処．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;brew doctor&lt;/h1&gt;
+&lt;p&gt;pyenvを入れた後で久々に(おい)brew doctorをすると&lt;br&gt;
+pyenvに関するWarningを吐いた．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# brew doctor
+
+Warning: &amp;quot;config&amp;quot; scripts exist outside your system or Homebrew directories.
+`./configure` scripts often look for *-config scripts to determine if
+software packages are installed, and what additional flags to use when
+compiling and linking.
+
+Having additional scripts in your path can confuse software installed via
+Homebrew if the config script overrides a system or Homebrew provided
+script of the same name. We found the following &amp;quot;config&amp;quot; scripts:
+    /Users/KonoShinsaku/.pyenv/shims/curl-config
+    /Users/KonoShinsaku/.pyenv/shims/freetype-config
+    /Users/KonoShinsaku/.pyenv/shims/libdynd-config
+    /Users/KonoShinsaku/.pyenv/shims/libpng-config
+    /Users/KonoShinsaku/.pyenv/shims/libpng16-config
+    /Users/KonoShinsaku/.pyenv/shims/python-config
+    /Users/KonoShinsaku/.pyenv/shims/python2-config
+    /Users/KonoShinsaku/.pyenv/shims/python2.7-config
+    /Users/KonoShinsaku/.pyenv/shims/python3-config
+    /Users/KonoShinsaku/.pyenv/shims/python3.4-config
+    /Users/KonoShinsaku/.pyenv/shims/python3.4m-config
+    /Users/KonoShinsaku/.pyenv/shims/python3.5-config
+    /Users/KonoShinsaku/.pyenv/shims/python3.5m-config
+    /Users/KonoShinsaku/.pyenv/shims/xml2-config
+    /Users/KonoShinsaku/.pyenv/shims/xslt-config
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;PATHが通ってるところにconfigっていうファイルがあると./configureスクリプトが&lt;br&gt;
+自分の設定ファイルを勘違いしてしまうかも&lt;br&gt;
+らしい  &lt;/p&gt;
+&lt;p&gt;PATHから外すとpyenvが使えなくなるので&lt;br&gt;
+brewを実行するときだけ該当のパスを外す．  &lt;/p&gt;
+&lt;p&gt;zshrcに以下を記載．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# vim ~/.zshrc
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;alias brew=&amp;quot;env PATH=&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;\&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Users&lt;/span&gt;\&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;user_name&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;\/\.phpenv\/shims:/} brew&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;再読み込みをして，  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# source ~/.zshrc
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;brew doctor&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# brew doctor
+Your system is ready to brew.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ok  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# brew cleanup
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;を実行するとpyenvの中のanacondaに入れたライブラリが使えなくなる現象が起きていたが，&lt;br&gt;
+上記を行ったら直ったのでそういうことだと思う．  &lt;/p&gt;
+&lt;p&gt;以上．&lt;/p&gt;</content><category term="brew"></category><category term="pyenv"></category><category term="El_Capitan"></category><category term="zsh"></category></entry></feed>

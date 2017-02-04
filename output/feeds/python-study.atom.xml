@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>題未定 - python, study</title><link href="https://www.lapis-zero09.xyz/" rel="alternate"></link><link href="https://www.lapis-zero09.xyz/feeds/python-study.atom.xml" rel="self"></link><id>https://www.lapis-zero09.xyz/</id><updated>2016-12-10T22:00:00+09:00</updated><entry><title>Opencvで雑ファッションチェック</title><link href="https://www.lapis-zero09.xyz/27th.html" rel="alternate"></link><published>2016-12-10T22:00:00+09:00</published><updated>2016-12-10T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-12-10:/27th.html</id><summary type="html">&lt;p&gt;Opencvで雑に合成して雑にファッションチェック．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;&lt;/h1&gt;
+&lt;p&gt;この記事は&lt;a href="http://qiita.com/advent-calendar/2016/enough"&gt;いなふ進捗アドベントカレンダー&lt;/a&gt;の10日目の記事です．&lt;/p&gt;
+&lt;h2&gt;衣&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;生活とは基本的に、命をつなぎ活動することであり、また生きながらえるために行う様々な活動である。 人は生き続けるためには、少なくとも、何らかの栄養を取らなければならず、（一般に）身体に何かをまとうことで体温を保つ必要があり、また野の雨や風をしのげる場所で眠りをとることを必要とする。つまり食べること、着ること、住まうことである。日本では、そうした生活の基本を漢字で簡潔に表現しようとする時は「衣食住」（いしょくじゅう）などと表現する&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;"生活"．wikipedia．https://ja.wikipedia.org/wiki/%E7%94%9F%E6%B4%BB　より&lt;/p&gt;
+&lt;p&gt;人間が生きて行く上で体温を保つために「衣服」が必要なことはみなさんご存知の通り．&lt;/p&gt;
+&lt;p&gt;しかし，体温を保つことができれば身に纏うものはなんでもいいのかと聞かれればそうではない．&lt;/p&gt;
+&lt;p&gt;現代で動物の皮や葉っぱを直に纏っている人間は彼女なんてできないし，異常者として扱われるかもしれない．&lt;/p&gt;
+&lt;p&gt;ここで，女性が彼氏にしたい男性を選ぶとき，男性のどこをみるかについて考える．&lt;/p&gt;
+&lt;p&gt;そう，顔である．&lt;/p&gt;
+&lt;p&gt;これは事実である．&lt;/p&gt;
+&lt;p&gt;ここでさらに疑問がうまれてくる．顔が良くない我々は為す術もなく淘汰されてしまうのだろうか．&lt;/p&gt;
+&lt;p&gt;そうではないであろう．もし，顔が良くない人間が子孫を残すことができず息絶えて行くのなら我々は生まれていない(は？)．&lt;/p&gt;
+&lt;p&gt;では，どんな男性が異性といい感じになっているのだろうか．&lt;/p&gt;
+&lt;p&gt;私が事前に行った調査(要出典)では，「雰囲気イケメン」と呼ばれる男性も異性といい感じになっている確率が高いことがわかった．&lt;/p&gt;
+&lt;p&gt;一般的に「雰囲気イケメン」は「髪型」と「服装」によって構成されていると言われている(要出典)．&lt;/p&gt;
+&lt;p&gt;ここでは，「服装」について考えていきたい．&lt;/p&gt;
+&lt;p&gt;※イケメンに関しても服装がダメだと異性といい感じになれないかもしれない&lt;/p&gt;
+&lt;h2&gt;現代における服装&lt;/h2&gt;
+&lt;p&gt;現代における「服装」はその人の人間性を表していると言っても過言ではないだろう(要出典)．&lt;/p&gt;
+&lt;p&gt;「服装」と一概に言っても様々な種類・色，また着方がある．&lt;/p&gt;
+&lt;p&gt;自分に合った服を選ぶには，まず店に行き，次に自分に色合い・形が合うもの選ぶ．&lt;/p&gt;
+&lt;p&gt;そして，試着し本当に自分に合っているか確かめる必要がある．&lt;/p&gt;
+&lt;p&gt;また，このとき友人などを連れて行き，第三者的視点から意見をもらうことも重要である．&lt;/p&gt;
+&lt;p&gt;しかし，多忙な&lt;a href="https://twitter.com/made_up_123"&gt;いなふ&lt;/a&gt;君にとって上記プロセスを踏襲することは難しいかもしれない．&lt;/p&gt;
+&lt;p&gt;そんなときどうすればいいだろうか．&lt;/p&gt;
+&lt;p&gt;雑誌や&lt;a href="http://wear.jp/"&gt;WEAR&lt;/a&gt;などでサイズ感や着こなしを確かめることができる．&lt;/p&gt;
+&lt;p&gt;しかし，それらでモデルとして写っている人は皆顔がいい．&lt;/p&gt;
+&lt;p&gt;我々が今知りたいのは雰囲気イケメンになれる服装である．&lt;/p&gt;
+&lt;p&gt;そこで，我々の持てる技術を駆使し，&lt;a href="https://twitter.com/made_up_123"&gt;いなふ&lt;/a&gt;君に合う服をサジェストしたい．&lt;/p&gt;
+&lt;h2&gt;服が似合うか(ファッションチェック)&lt;/h2&gt;
+&lt;h3&gt;OpenCV&lt;/h3&gt;
+&lt;p&gt;服を着たモデルの画像からモデルの顔の位置を認識し，そこにその服を着せたい人間の顔を合成する．&lt;/p&gt;
+&lt;p&gt;モデルの顔認識には&lt;a href="http://opencv.jp/"&gt;OpenCV&lt;/a&gt;を用いることで容易に行うことができる．&lt;/p&gt;
+&lt;p&gt;例えば以下の画像はかの有名なレナ画像であるが，&lt;a href="http://opencv.jp/"&gt;OpenCV&lt;/a&gt;を用いて顔の範囲を特定し，その範囲内を圧縮することで容易にモザイク画像を作成することができる．&lt;/p&gt;
+&lt;p&gt;&lt;img alt="レナ" src="./img/lena.jpeg"&gt;
+&lt;img alt="レナ(モザイク加工)" src="./img/mosaic_lena.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;以下のPythonコードを用いて，雑合成を行う．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;cv2&lt;/span&gt;
+
+&lt;span class="n"&gt;IMAGE_PATH&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/path/to/model_image&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;FACE_PATH&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/path/to/face_image&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;imageIn&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cv2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;imread&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;IMAGE_PATH&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+
+&lt;span class="n"&gt;cascade_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;/path/to/OpenCV/haarcascades/haarcascade_frontalface_alt.xml&amp;quot;&lt;/span&gt;
+
+&lt;span class="n"&gt;cascade&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cv2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CascadeClassifier&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cascade_path&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;gray&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cv2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cvtColor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;imageIn&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;cv2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;COLOR_BGR2GRAY&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;face&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cascade&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;detectMultiScale&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;gray&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;scaleFactor&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;1.1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;minNeighbors&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;minSize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;face&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;face&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;face&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;rect&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;face&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;faceIn&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cv2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;imread&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;FACE_PATH&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;mask&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cv2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cvtColor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;faceIn&lt;/span&gt;&lt;span class="p"&gt;[:,:,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;cv2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;COLOR_GRAY2BGR&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mf"&gt;255.0&lt;/span&gt;
+        &lt;span class="n"&gt;faceIn&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;faceIn&lt;/span&gt;&lt;span class="p"&gt;[:,:,:&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+        &lt;span class="c1"&gt;# 画像によって顔をぴったり合わせるためには値を変える必要がある&lt;/span&gt;
+        &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;-=&lt;/span&gt; &lt;span class="nb"&gt;min&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;15&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+        &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;-=&lt;/span&gt; &lt;span class="nb"&gt;min&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+        &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="nb"&gt;min&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;imageIn&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;shape&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+        &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="nb"&gt;min&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;45&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;imageIn&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;shape&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+
+        &lt;span class="n"&gt;faceIn&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cv2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;resize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;faceIn&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+        &lt;span class="n"&gt;mask&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cv2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;resize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mask&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+
+        &lt;span class="n"&gt;imageIn&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt;&lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt;&lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;faceIn&lt;/span&gt;&lt;span class="p"&gt;[:,:]&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;mask&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;imageIn&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt;&lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt;&lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;rect&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.0&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;mask&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;cv2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;imwrite&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;out.jpg&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;imageIn&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;使ってみる&lt;/h3&gt;
+&lt;p&gt;まず，雑透過顔画像を用意する．&lt;/p&gt;
+&lt;p&gt;&lt;img alt="face" src="./img/itousan.png"&gt;&lt;/p&gt;
+&lt;p&gt;次に，着せたい服を着ているモデルの画像を用意する．&lt;/p&gt;
+&lt;p&gt;&lt;img alt="fashion" src="./img/fashion.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;合成する．&lt;/p&gt;
+&lt;p&gt;&lt;img alt="out" src="./img/out.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;雑なのでこういうことがある．&lt;/p&gt;
+&lt;p&gt;&lt;img alt="out2" src="./img/out2.jpg"&gt;&lt;/p&gt;
+&lt;h2&gt;まとめ&lt;/h2&gt;
+&lt;p&gt;自分で合成したほうがはやくね？&lt;/p&gt;
+&lt;p&gt;店に行って試着しろ&lt;/p&gt;
+&lt;h2&gt;謝辞&lt;/h2&gt;
+&lt;p&gt;ピ先輩におかれましては，今回の記事作成に関して貴重な資料を提供していただきまして，誠に感謝しております．&lt;/p&gt;
+&lt;p&gt;以上．&lt;/p&gt;</content><category term="trash"></category></entry></feed>

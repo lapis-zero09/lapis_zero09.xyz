@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>題未定 - TeX</title><link href="https://www.lapis-zero09.xyz/" rel="alternate"></link><link href="https://www.lapis-zero09.xyz/feeds/tex.atom.xml" rel="self"></link><id>https://www.lapis-zero09.xyz/</id><updated>2016-04-19T22:00:00+09:00</updated><entry><title>TeX report template</title><link href="https://www.lapis-zero09.xyz/11th.html" rel="alternate"></link><published>2016-04-19T22:00:00+09:00</published><updated>2016-04-19T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-04-19:/11th.html</id><summary type="html">&lt;p&gt;TeX reportのテンプレート置き場．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;tex&lt;/h1&gt;
+&lt;h2&gt;テンプレート&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;\documentclass&lt;/span&gt;&lt;span class="na"&gt;[dvipdfmx]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;jsarticle&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;\usepackage&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;graphicx&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;\title&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;タイトル&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;\author&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;学籍番号: &lt;span class="k"&gt;\\&lt;/span&gt;氏名:&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;\date&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;&lt;span class="k"&gt;\today&lt;/span&gt;&lt;span class="nb"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;\maketitle&lt;/span&gt;
+&lt;span class="k"&gt;\section*&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;Sectionname&lt;span class="nb"&gt;}&lt;/span&gt;
+
+
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;TeXshopでタイプセットボタンで実行&lt;/p&gt;
+&lt;h2&gt;画像&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;h： その部分（here）&lt;/li&gt;
+&lt;li&gt;t： ページの上（top）&lt;/li&gt;
+&lt;li&gt;b： ページの下（bottom）&lt;/li&gt;
+&lt;li&gt;p： 独立したページ&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;一枚&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;\documentclass&lt;/span&gt;&lt;span class="na"&gt;[dvipdfmx]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;jsarticle&lt;span class="nb"&gt;}&lt;/span&gt;
+
+
+&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;figure&lt;span class="nb"&gt;}&lt;/span&gt;[hhbp]
+  &lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;center&lt;span class="nb"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;\includegraphics&lt;/span&gt;&lt;span class="na"&gt;[width=8.0cm]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;./pic.JPG&lt;span class="nb"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;\caption&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;caption&lt;span class="nb"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;\label&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;fig:figname&lt;span class="nb"&gt;}&lt;/span&gt;
+  &lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;center&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;figure&lt;span class="nb"&gt;}&lt;/span&gt;
+
+
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;\documentclass&lt;/span&gt;&lt;span class="na"&gt;[dvipdfmx]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;jsarticle&lt;span class="nb"&gt;}&lt;/span&gt;
+
+
+図 &lt;span class="k"&gt;\ref&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;fig:figname&lt;span class="nb"&gt;}&lt;/span&gt;...
+
+
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;横並び&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;\documentclass&lt;/span&gt;&lt;span class="na"&gt;[dvipdfmx]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;jsarticle&lt;span class="nb"&gt;}&lt;/span&gt;
+
+
+
+&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;figure&lt;span class="nb"&gt;}&lt;/span&gt;[htbp]
+  &lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;center&lt;span class="nb"&gt;}&lt;/span&gt;
+      &lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;tabular&lt;span class="nb"&gt;}{&lt;/span&gt;c&lt;span class="nb"&gt;}&lt;/span&gt;
+
+          &lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;minipage&lt;span class="nb"&gt;}{&lt;/span&gt;0.33&lt;span class="k"&gt;\hsize&lt;/span&gt;&lt;span class="nb"&gt;}&lt;/span&gt;
+              &lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;center&lt;span class="nb"&gt;}&lt;/span&gt;
+                  &lt;span class="k"&gt;\includegraphics&lt;/span&gt;&lt;span class="na"&gt;[width=5.0cm]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;./1.JPG&lt;span class="nb"&gt;}&lt;/span&gt;
+                  &lt;span class="k"&gt;\hspace&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;1.6cm&lt;span class="nb"&gt;}&lt;/span&gt; [1]caption1
+              &lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;center&lt;span class="nb"&gt;}&lt;/span&gt;
+          &lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;minipage&lt;span class="nb"&gt;}&lt;/span&gt;
+
+          &lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;minipage&lt;span class="nb"&gt;}{&lt;/span&gt;0.33&lt;span class="k"&gt;\hsize&lt;/span&gt;&lt;span class="nb"&gt;}&lt;/span&gt;
+              &lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;center&lt;span class="nb"&gt;}&lt;/span&gt;
+                  &lt;span class="k"&gt;\includegraphics&lt;/span&gt;&lt;span class="na"&gt;[width=5.0cm]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;./2.JPG&lt;span class="nb"&gt;}&lt;/span&gt;
+                  &lt;span class="k"&gt;\hspace&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;1.6cm&lt;span class="nb"&gt;}&lt;/span&gt; [2]caption2
+              &lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;center&lt;span class="nb"&gt;}&lt;/span&gt;
+          &lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;minipage&lt;span class="nb"&gt;}&lt;/span&gt;
+
+          &lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;minipage&lt;span class="nb"&gt;}{&lt;/span&gt;0.33&lt;span class="k"&gt;\hsize&lt;/span&gt;&lt;span class="nb"&gt;}&lt;/span&gt;
+              &lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;center&lt;span class="nb"&gt;}&lt;/span&gt;
+                  &lt;span class="k"&gt;\includegraphics&lt;/span&gt;&lt;span class="na"&gt;[width=5.0cm]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;./3.JPG&lt;span class="nb"&gt;}&lt;/span&gt;
+                  &lt;span class="k"&gt;\hspace&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;1.6cm&lt;span class="nb"&gt;}&lt;/span&gt; [3]caption3
+              &lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;center&lt;span class="nb"&gt;}&lt;/span&gt;
+          &lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;minipage&lt;span class="nb"&gt;}&lt;/span&gt;
+
+      &lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;tabular&lt;span class="nb"&gt;}&lt;/span&gt;
+      &lt;span class="k"&gt;\caption&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;caption&lt;span class="nb"&gt;}&lt;/span&gt;
+      &lt;span class="k"&gt;\label&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;fig:figname&lt;span class="nb"&gt;}&lt;/span&gt;
+  &lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;center&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;figure&lt;span class="nb"&gt;}&lt;/span&gt;
+
+
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;\documentclass&lt;/span&gt;&lt;span class="na"&gt;[dvipdfmx]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;jsarticle&lt;span class="nb"&gt;}&lt;/span&gt;
+
+
+図 &lt;span class="k"&gt;\ref&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;fig:figname&lt;span class="nb"&gt;}&lt;/span&gt;[n:1~3]...
+
+
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;箇条書き&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;\documentclass&lt;/span&gt;&lt;span class="na"&gt;[dvipdfmx]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;jsarticle&lt;span class="nb"&gt;}&lt;/span&gt;
+
+
+# ドット
+&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;itemize&lt;span class="nb"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;itemize&lt;span class="nb"&gt;}&lt;/span&gt;
+
+#入れ子
+&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;itemize&lt;span class="nb"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;
+        &lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;itemize&lt;span class="nb"&gt;}&lt;/span&gt;
+            &lt;span class="k"&gt;\item&lt;/span&gt;
+            &lt;span class="k"&gt;\item&lt;/span&gt;
+            &lt;span class="k"&gt;\item&lt;/span&gt;
+         &lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;itemize&lt;span class="nb"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;itemize&lt;span class="nb"&gt;}&lt;/span&gt;
+
+# 記号任意
+&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;itemize&lt;span class="nb"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;&lt;span class="na"&gt;[$\clubsuit$]&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;&lt;span class="na"&gt;[$F=ma$]&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;&lt;span class="na"&gt;[文字もOK]&lt;/span&gt;
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;itemize&lt;span class="nb"&gt;}&lt;/span&gt;
+
+# 番号
+&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;enumerate&lt;span class="nb"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;enumerate&lt;span class="nb"&gt;}&lt;/span&gt;
+
+
+# 見出しつき
+&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;description&lt;span class="nb"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;&lt;span class="na"&gt;[]&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;&lt;span class="na"&gt;[]&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;&lt;span class="na"&gt;[]&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;&lt;span class="na"&gt;[]&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;&lt;span class="na"&gt;[]&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;&lt;span class="na"&gt;[]&lt;/span&gt;
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;description&lt;span class="nb"&gt;}&lt;/span&gt;
+
+# 見出し後改行
+&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;description&lt;span class="nb"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;\item&lt;/span&gt;&lt;span class="na"&gt;[]&lt;/span&gt;&lt;span class="k"&gt;\mbox&lt;/span&gt;&lt;span class="nb"&gt;{}&lt;/span&gt;&lt;span class="k"&gt;\\&lt;/span&gt;
+    　　string
+    &lt;span class="k"&gt;\item&lt;/span&gt;&lt;span class="na"&gt;[]&lt;/span&gt;&lt;span class="k"&gt;\mbox&lt;/span&gt;&lt;span class="nb"&gt;{}&lt;/span&gt;&lt;span class="k"&gt;\\&lt;/span&gt;
+        string
+    &lt;span class="k"&gt;\item&lt;/span&gt;&lt;span class="na"&gt;[]&lt;/span&gt;&lt;span class="k"&gt;\mbox&lt;/span&gt;&lt;span class="nb"&gt;{}&lt;/span&gt;&lt;span class="k"&gt;\\&lt;/span&gt;
+        string
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;description&lt;span class="nb"&gt;}&lt;/span&gt;
+
+
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;引用・参考文献&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;\documentclass&lt;/span&gt;&lt;span class="na"&gt;[dvipdfmx]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;jsarticle&lt;span class="nb"&gt;}&lt;/span&gt;
+
+
+
+#e.g.1
+&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;thebibliography&lt;span class="nb"&gt;}{&lt;/span&gt;2:文献の数だけ&lt;span class="nb"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;\bibitem&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;Preece&lt;span class="nb"&gt;}&lt;/span&gt;Jenny Preece, Helen Sharp, Yvonne Rogers. Interaction Design: Beyond Human-Computer Interaction. 2th ed., Wiley, 2007, xxvi, 775p.
+    &lt;span class="k"&gt;\bibitem&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;norman&lt;span class="nb"&gt;}&lt;/span&gt;ドナルド・A. ノーマン, 野島 久雄. 誰のためのデザイン?—認知科学者のデザイン原論. 新曜社, 1990, 427p.
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;thebibliography&lt;span class="nb"&gt;}&lt;/span&gt;
+
+#e.g.2
+&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;thebibliography&lt;span class="nb"&gt;}{&lt;/span&gt;4&lt;span class="nb"&gt;}&lt;/span&gt;
+  &lt;span class="k"&gt;\bibitem&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;pocket&lt;span class="nb"&gt;}&lt;/span&gt;&amp;quot;Pocket&amp;quot;．Pocket．https://getpocket.com/，(参照  2016-5-13)．
+  &lt;span class="k"&gt;\bibitem&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;recommends&lt;span class="nb"&gt;}&lt;/span&gt;&amp;quot;Pocket：おすすめ&amp;quot;．Pocket．https://getpocket.com/a/recommended/，(参照  2016-5-13)．
+  &lt;span class="k"&gt;\bibitem&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;blog&lt;span class="nb"&gt;}&lt;/span&gt;&amp;quot;Introducing the Pocket Beta Channel — Medium&amp;quot;．Introducing the Pocket Beta Channel．https://medium.com/@nateweiner/introducing-the-pocket-beta-channel-9c348d60dd1a¥#.4y4mt2r3u，(参照  2016-5-13)．
+  &lt;span class="k"&gt;\bibitem&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;shima&lt;span class="nb"&gt;}&lt;/span&gt;神嶌敏弘. 推薦システムのアルゴリズム(3). 人工知能学会誌. 2008, vol. 23, p. 248-263.
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;thebibliography&lt;span class="nb"&gt;}&lt;/span&gt;
+
+
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;sist02 - &lt;a href="https://jipsti.jst.go.jp/sist/handbook/sist02_2007/main.htm"&gt;https://jipsti.jst.go.jp/sist/handbook/sist02_2007/main.htm&lt;/a&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;\documentclass&lt;/span&gt;&lt;span class="na"&gt;[dvipdfmx]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;jsarticle&lt;span class="nb"&gt;}&lt;/span&gt;
+
+
+ノーマン &lt;span class="k"&gt;\cite&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;norman&lt;span class="nb"&gt;}&lt;/span&gt; による...
+
+
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;「参考文献」という文字を変えたい時，&lt;br&gt;
+プリアンブルにrenewcommandを追記  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;\documentclass&lt;/span&gt;&lt;span class="na"&gt;[dvipdfmx]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;jsarticle&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;\usepackage&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;graphicx,here&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;\renewcommand&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;&lt;span class="k"&gt;\refname&lt;/span&gt;&lt;span class="nb"&gt;}{&lt;/span&gt;new&lt;span class="nb"&gt;_&lt;/span&gt;name&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;ソースコードの付与&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;\documentclass&lt;/span&gt;&lt;span class="na"&gt;[dvipdfmx]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;jsarticle&lt;span class="nb"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;\usepackage&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;graphicx,listings,jlisting&lt;span class="nb"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
+
+
+# コードを取り込む
+&lt;span class="k"&gt;\lstinputlisting&lt;/span&gt;&lt;span class="na"&gt;[caption=report,label=report,numbers=left,frame=shadowbox]&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;test.py&lt;span class="nb"&gt;}&lt;/span&gt;
+
+
+# コードを記述する
+&lt;span class="k"&gt;\begin&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;lstlisting&lt;span class="nb"&gt;}&lt;/span&gt;[caption=report,label=report]
+  ソースコード
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;lstlisting&lt;span class="nb"&gt;}&lt;/span&gt;
+
+
+&lt;span class="k"&gt;\end&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;document&lt;span class="nb"&gt;}&lt;/span&gt;
+
+# 編集テンプレート
+
+&lt;span class="k"&gt;\lstset&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;&lt;span class="c"&gt;%listings の表示設定&lt;/span&gt;
+breaklines = true,&lt;span class="c"&gt;%自動で折り返す&lt;/span&gt;
+tabsize = 2,&lt;span class="c"&gt;%tabsize&lt;/span&gt;
+frame=shadowbox,&lt;span class="c"&gt;%枠を上下左右に表示する&lt;/span&gt;
+basicstyle = &lt;span class="k"&gt;\scriptsize&lt;/span&gt;,&lt;span class="c"&gt;%\footnotesize,&lt;/span&gt;
+showstringspaces=false,&lt;span class="c"&gt;%文字列中のスペースをちゃんと&amp;quot; &amp;quot;と表示(デフォルトは文字列中のスペースは可視設定)&lt;/span&gt;
+numbers=left,&lt;span class="c"&gt;%行番号を左に&lt;/span&gt;
+framexleftmargin=6mm,&lt;span class="c"&gt;%行番号をフレーム内に&lt;/span&gt;
+numberstyle=&lt;span class="k"&gt;\scriptsize&lt;/span&gt;,&lt;span class="c"&gt;%行番号のサイズ&lt;/span&gt;
+stepnumber=1,&lt;span class="c"&gt;%1行おきに行番号を&lt;/span&gt;
+numbersep=1zw,&lt;span class="c"&gt;%ソースと行番号の間隔&lt;/span&gt;
+language = &lt;span class="nb"&gt;}&lt;/span&gt;&lt;span class="c"&gt;%言語設定&lt;/span&gt;
+
+&lt;span class="k"&gt;\renewcommand&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;&lt;span class="k"&gt;\thelstnumber&lt;/span&gt;&lt;span class="nb"&gt;}{&lt;/span&gt;&lt;span class="k"&gt;\arabic&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;lstnumber&lt;span class="nb"&gt;}&lt;/span&gt;:&lt;span class="nb"&gt;}&lt;/span&gt; &lt;span class="c"&gt;%行番号の表示形式変更番号の後に:をつける。前に付けたい場合はnumberstyleに書く&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;数式でベクトルを表す&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;def&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;mbox&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;boldmath&lt;/span&gt; &lt;span class="err"&gt;$#&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;}}&lt;/span&gt;
+
+&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;begin&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;document&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="err"&gt;太文字&lt;/span&gt;
+&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;mathbf&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;mathbf&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;mathbf&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="err"&gt;イタリック太文字&lt;/span&gt;
+&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;mbox&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;boldmath&lt;/span&gt; &lt;span class="n"&gt;$a&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;mbox&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;boldmath&lt;/span&gt; &lt;span class="n"&gt;$b&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;mbox&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;boldmath&lt;/span&gt; &lt;span class="n"&gt;$c&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="nf"&gt;%or&lt;/span&gt;
+&lt;span class="err"&gt;$\&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;vector&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;
+
+&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;mathbf&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;hat&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;}}&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;mathbf&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;hat&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;}}&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;mathbf&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;hat&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="p"&gt;}}&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="err"&gt;単位ベクトル&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;ハット&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;document&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以上．&lt;/p&gt;</content><category term="TeX"></category><category term="El_Capitan"></category><category term="study"></category></entry><entry><title>TeXshopのcolor schemeを変更したときの話</title><link href="https://www.lapis-zero09.xyz/7th.html" rel="alternate"></link><published>2016-03-18T22:00:00+09:00</published><updated>2016-03-18T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-03-18:/7th.html</id><summary type="html">&lt;p&gt;TeXshopのcolor schemeを変更した時のHowto．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;TeXshopのcolor schemeを変更する&lt;/h1&gt;
+&lt;p&gt;デフォルトの白背景黒文字から変更する．  &lt;/p&gt;
+&lt;p&gt;指定したいcolorのRGB値を"255"で割って，&lt;br&gt;
+その値を指定してやれば良い．  &lt;/p&gt;
+&lt;p&gt;例えば，backgroundならこんな感じ．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# background = 39 40 34 (#272822)
+defaults write TeXShop background_R 0.15
+defaults write TeXShop background_G 0.16
+defaults write TeXShop background_B 0.13
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;これをshファイルとして保存・実行してやれば，
+設定が変わるはず．&lt;br&gt;
+※TeXshopの再起動が必要．&lt;/p&gt;
+&lt;p&gt;monokai, safari_night, solarized dark lightの例を，&lt;br&gt;
+&lt;a href="https://gist.github.com/lapis-zero09/7f973b2d80d2486510f9"&gt;gist&lt;/a&gt;に記す．  &lt;/p&gt;
+&lt;p&gt;戻したい時は，以下を保存・実行．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;defaults write TeXShop background_R 1.0
+defaults write TeXShop background_G 1.0
+defaults write TeXShop background_B 1.0
+
+defaults write TeXShop commandred 0.0
+defaults write TeXShop commandgreen 0.0
+defaults write TeXShop commandblue 1.0
+
+defaults write TeXShop commentred 1.0
+defaults write TeXShop commentgreen 0.0
+defaults write TeXShop commentblue 0.0
+
+defaults write TeXShop foreground_R 0.00
+defaults write TeXShop foreground_G 0.00
+defaults write TeXShop foreground_B 0.00
+
+defaults write TeXShop indexred 1.00
+defaults write TeXShop indexgreen 1.00
+defaults write TeXShop indexblue 0.00
+
+defaults write TeXShop insertionpoint_R 0.00
+defaults write TeXShop insertionpoint_G 0.00
+defaults write TeXShop insertionpoint_B 0.00
+
+defaults write TeXShop markerred 0.02
+defaults write TeXShop markergreen 0.51
+defaults write TeXShop markerblue 0.13
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以上．  &lt;/p&gt;</content><category term="TeX"></category><category term="El_Capitan"></category><category term="TeXshop"></category></entry><entry><title>TeXを入れたときの話</title><link href="https://www.lapis-zero09.xyz/6th.html" rel="alternate"></link><published>2016-03-15T22:00:00+09:00</published><updated>2016-03-15T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-03-15:/6th.html</id><summary type="html">&lt;p&gt;El_CapitanにTeXを入れる時のHowto．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;El CapitanにTeXを入れる&lt;/h1&gt;
+&lt;p&gt;Homebrew経由でもTeX本家からpkgを落としてきても，TeX関連のPATHが通らないのでやったこと&lt;br&gt;
+※本当なら勝手にPATH が通るはず??  &lt;/p&gt;
+&lt;h2&gt;Ghostscriptのインストール&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ brew install ghostscript
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;MacTeXのインストール&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://tug.org/mactex/mactex-download.html"&gt;MacTeX&lt;/a&gt;　から，MacTeX.pkgをダウンロード．&lt;br&gt;
+ファイルのダウンロードが始まらず，&lt;br&gt;
+"mactex-download..."のテキストが表示された場合，&lt;br&gt;
+"ftp://"で始まるURLをアドレスフィールドに直接コピペ．  &lt;/p&gt;
+&lt;p&gt;"インストールの種類"で"カスタマイズ"をクリック．&lt;br&gt;
+"カスタムインストール"でGhostscriptのチェックを外して&lt;br&gt;
+インストールをクリック．  &lt;/p&gt;
+&lt;h2&gt;PATHを通してやる&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;zshrc&lt;/code&gt; か &lt;code&gt;bashrc&lt;/code&gt; に以下を記載．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;export PATH=&amp;quot;/usr/local/texlive/2015/bin/x86_64-darwin/&amp;quot;:$PATH
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;zshrc&lt;/code&gt; か &lt;code&gt;bashrc&lt;/code&gt; 書いた方をリロード．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;source&lt;/span&gt; ~/.zshrc
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;TeX Liveのアップデート&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo tlmgr update --self --all
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;日本語環境構築&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo tlmgr install collection-langjapanese
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;ヒラギノフォント埋め込み&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; /usr/local/texlive/2015/texmf-dist/scripts/cjk-gs-integrate
+$ sudo perl cjk-gs-integrate.pl --link-texmf --force
+$ sudo mktexlsr
+$ sudo kanji-config-updmap-sys hiragino-elcapitan-pron
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;ソースコードを埋め込めるようにする&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://osdn.jp/projects/mytexpert/downloads/26068/jlisting.sty.bz2/"&gt;https://osdn.jp/projects/mytexpert/downloads/26068/jlisting.sty.bz2/&lt;/a&gt;
+からjlisting.sty をダウンロードしてくる．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo mv jlisting.sty /usr/local/texlive/2015/texmf-dist/tex/latex/listings/
+$ sudo chmod +r /usr/local/texlive/2015/texmf-dist/tex/latex/listings/jlisting.sty
+$ sudo mktexlsr
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a href="https://www.lapis-zero09.xyz/11th.html"&gt;https://www.lapis-zero09.xyz/11th.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;以上．  &lt;/p&gt;</content><category term="TeX"></category><category term="El_Capitan"></category></entry></feed>

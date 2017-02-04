@@ -13,6 +13,9 @@ PATH = 'content'
 PROFILE_IMG_URL = './img/profile.jpg'
 THEME = './pure-single/'
 
+PLUGIN_PATHS = ['../pelican-plugins']
+PLUGINS = ['render_math']
+
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
@@ -32,7 +35,7 @@ SOCIAL = (
     ('github', 'https://github.com/lapis-zero09'),
     ('twitter-square', 'https://twitter.com/lapis_zero09'),
     ('gift', 'http://amzn.asia/8plng3k'),
-    ('search', 'http://qiita.com/lapis_zero09'),
+    ('search', 'http://qiita.com/lapis_zero09')
 )
 
 DEFAULT_PAGINATION = 10

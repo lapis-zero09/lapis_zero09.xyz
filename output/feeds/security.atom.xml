@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>題未定 - security</title><link href="https://www.lapis-zero09.xyz/" rel="alternate"></link><link href="https://www.lapis-zero09.xyz/feeds/security.atom.xml" rel="self"></link><id>https://www.lapis-zero09.xyz/</id><updated>2016-05-21T22:00:00+09:00</updated><entry><title>debianにVirtual Boxをインストール</title><link href="https://www.lapis-zero09.xyz/17th.html" rel="alternate"></link><published>2016-05-21T22:00:00+09:00</published><updated>2016-05-21T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-05-21:/17th.html</id><summary type="html">&lt;p&gt;kali linux rolling edにvirtualboxを入れるときに躓いたこと．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;kali linux rolling&lt;/h1&gt;
+&lt;p&gt;&lt;a href="https://www.virtualbox.org/wiki/Downloads"&gt;公式&lt;/a&gt;からdebパッケージをダウンロードしてきてインストール  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;dpkg -i {virtualbox...}.deb
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;エラー吐いたら  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# sudo apt-get install -f
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;-&amp;gt;依存環境が解決されずインストールできない  &lt;/p&gt;
+&lt;p&gt;-&amp;gt;aptでインストールしてみる  &lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.virtualbox.org/wiki/Linux_Downloads"&gt;https://www.virtualbox.org/wiki/Linux_Downloads&lt;/a&gt;
+ここを参照して&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# vim /etc/apt/source.list
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以下を追加&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;deb&lt;/span&gt; &lt;span class="s"&gt;http://download.virtualbox.org/virtualbox/debian&lt;/span&gt; &lt;span class="kp"&gt;xenial&lt;/span&gt; &lt;span class="kp"&gt;contrib&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;環境によって'xenial' を'vivid', 'utopic', 'trusty', 'raring', 'quantal', 'precise', 'lucid', 'jessie', 'wheezy', 'squeeze'で入れ替える&lt;/p&gt;
+&lt;p&gt;source.listに追加した に対してのkeyを追加する  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+# wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;fingerprintがちゃんと合ってるかapt-key fingerprintで確認  &lt;/p&gt;
+&lt;p&gt;ちなみに2016/05/20時点で正しいのは以下  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;The key fingerprint for oracle_vbox_2016.asc is
+B9F8 D658 297A F3EF C18D  5CDF A2F6 83C5 2980 AECF
+Oracle Corporation (VirtualBox archive signing key) &amp;lt;info@virtualbox.org&amp;gt;
+The key fingerprint for oracle_vbox.asc is
+7B0F AB3A 13B9 0743 5925  D9C9 5442 2A4B 98AB 5139
+Oracle Corporation (VirtualBox archive signing key) &amp;lt;info@virtualbox.org&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;そして以下を実行  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#apt-get update
+
+# apt-get -y install virtualbox-5.0
+パッケージリストを読み込んでいます... 完了
+依存関係ツリーを作成しています
+状態情報を読み取っています... 完了
+インストールすることができないパッケージがありました。おそらく、あり得
+ない状況を要求したか、(不安定版ディストリビューションを使用しているの
+であれば) 必要なパッケージがまだ作成されていなかったり Incoming から移
+動されていないことが考えられます。
+以下の情報がこの問題を解決するために役立つかもしれません:
+
+以下のパッケージには満たせない依存関係があります:
+ virtualbox-5.0 : 依存: libpng12-0 (&amp;gt;= 1.2.13-4) しかし、インストールすることができません
+                  依存: libssl1.0.0 (&amp;gt;= 1.0.0) しかし、インストールすることができません
+                  依存: libvpx1 (&amp;gt;= 1.0.0) しかし、インストールすることができません
+                  推奨: libsdl-ttf2.0-0 しかし、インストールされようとしていません
+                  推奨: dkms しかし、インストールされようとしていません
+                  推奨: linux-headers しかし、インストールすることができません
+E: 問題を解決することができません。壊れた変更禁止パッケージがあります。
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;やっぱりダメ&lt;br&gt;
+しかし，  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#apt-get libpng12-0
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;とかやってもないと言われるので,&lt;br&gt;
+手動でパッケージをインストールする.  &lt;/p&gt;
+&lt;p&gt;自分のアーキテクチャにあったdebファイルをダウンロードする(上のエラーで依存になっているもの)  &lt;/p&gt;
+&lt;p&gt;筆者はamd64なので以下の3つ  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;libpng12-0 - &lt;a href="https://packages.debian.org/jessie/amd64/libpng12-0/download"&gt;https://packages.debian.org/jessie/amd64/libpng12-0/download&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;libvpx1 - &lt;a href="https://packages.debian.org/jessie/amd64/libvpx1-dbg/download"&gt;https://packages.debian.org/jessie/amd64/libvpx1-dbg/download&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;libssl1.0 - &lt;a href="https://packages.debian.org/jessie/amd64/libssl1.0.0/download"&gt;https://packages.debian.org/jessie/amd64/libssl1.0.0/download&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;それぞれパッケージをダウンロードしたらmd5, sha1, sha256でチェックサム確認  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# md5sum lib*
+2f392ddcfd7de95cd794b8c5433e272b  libpng12-0_1.2.50-2+deb8u2_amd64.deb
+57c3d82c10706d711f21c03f34d8249c  libssl1.0.0_1.0.1e-2+deb7u21_amd64.deb
+a31e1de3bf7d71b02763c7eb194a445f  libvpx1_1.3.0-3_amd64.deb
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;合致したら以下でインストール&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# dpkg -i libvpx1_1.3.0-3_amd64.deb libpng12-0_1.2.50-2+deb8u2_amd64.deb libssl1.0.0_1.0.1e-2+deb7u21_amd64.deb
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;そしてvirtualboxインストール&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# apt-get -y install virtualbox-5.0
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;成功.&lt;/p&gt;
+&lt;p&gt;以上.&lt;/p&gt;</content><category term="security"></category><category term="kali_linuxi"></category><category term="debian"></category><category term="virtualbox"></category><category term="apt"></category><category term="dpkg"></category></entry><entry><title>kali linux日本語環境</title><link href="https://www.lapis-zero09.xyz/16th.html" rel="alternate"></link><published>2016-05-20T22:00:00+09:00</published><updated>2016-05-20T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-05-20:/16th.html</id><summary type="html">&lt;p&gt;kali linux日本語入力環境がおかしくなった時の対処法．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;kali linux rolling&lt;/h1&gt;
+&lt;p&gt;kali linux rolling editionで日本語入力環境がおかしくなった時にやったこと  &lt;/p&gt;
+&lt;h2&gt;uim&lt;/h2&gt;
+&lt;p&gt;kali linuxはdebianベースのOSで日本語入力環境を整えるパッケージとしては，&lt;br&gt;
+uim, ibus, etc..あるが，他のサイトを参照してもuimを使ってるものしかない.  &lt;/p&gt;
+&lt;p&gt;実際にibusを入れてみたが動かず...  &lt;/p&gt;
+&lt;h2&gt;anthy&lt;/h2&gt;
+&lt;p&gt;また，辞書もanthy, mozc, etc..あるが,
+anthyしかうまく動かないっぽい.  &lt;/p&gt;
+&lt;p&gt;mozcはguiを起動させようとしても起動せずそのまま落ちる状態．  &lt;/p&gt;
+&lt;h2&gt;uim uim-anthy&lt;/h2&gt;
+&lt;p&gt;そこで，uim, uim-anthyのパッケージを入れて日本語入力環境を整える．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# apt-get install uim uim-anthy
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;が，uimとanthyを使ってもある設定をすると日本語入力ができなくなる．  &lt;/p&gt;
+&lt;h3&gt;やると日本語入力ができなくなる行為&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;入力メソッド(uim-pref-gtk)で「予測変換」にチェックを入れる&lt;/li&gt;
+&lt;li&gt;インプットメソッド設定(im-config)で明示的にシステム(「default」以外)を設定する&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;以上の設定をやってしまうと，日本語入力ができなくなる．  &lt;/p&gt;
+&lt;h3&gt;この設定をやってしまった場合&lt;/h3&gt;
+&lt;p&gt;チェックを外し(defaultを設定し)，再起動する．  &lt;/p&gt;
+&lt;p&gt;それでも日本語入力ができない場合は以下を実行．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# apt-get purge uim uim-anthy
+# apt autoremove
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;これでもまだダメな場合は，  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# dpkg -l |grep &amp;quot;uim&amp;quot;
+# dpkg -l |grep &amp;quot;anthy&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;それぞれで出てきたパッケージに対し，&lt;code&gt;apt-get purge&lt;/code&gt; を実行．&lt;br&gt;
+めんどい人は以下で&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# apt-get purge `apt list | grep -G &amp;quot;uim\|anthy&amp;quot; | cut -d&amp;quot;/&amp;quot; -f1 | xargs echo`
+# apt autoremove
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;そして，以下を実行．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# apt autoremove
+# reboot
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;そして，再インストール  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# apt-get install uim uim-anthy
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;その他，設定を変えるたびにrebootするのが望ましい．  &lt;/p&gt;
+&lt;p&gt;osインストールの時も日本語だとうまく表示されませんって出るし，&lt;br&gt;
+日本語対応が完璧ではないのかな(そりゃそうか)  &lt;/p&gt;
+&lt;p&gt;以上．&lt;/p&gt;</content><category term="security"></category><category term="El_Capitan"></category><category term="kali_linuxi"></category><category term="debian"></category><category term="uim"></category><category term="anthy"></category></entry><entry><title>kali linux インストール</title><link href="https://www.lapis-zero09.xyz/15th.html" rel="alternate"></link><published>2016-05-15T22:00:00+09:00</published><updated>2016-05-15T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-05-15:/15th.html</id><summary type="html">&lt;p&gt;kali linuxインストールから日本語化まで．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;kali linux&lt;/h1&gt;
+&lt;p&gt;悪用しない&lt;br&gt;
+大いなる力には〜〜ってやつ  &lt;/p&gt;
+&lt;h2&gt;kali linux isoファイルのダウンロード&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;公式サイト - &lt;a href="https://www.kali.org/downloads/"&gt;https://www.kali.org/downloads/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ミラーリスト - &lt;a href="http://docs.kali.org/community/kali-linux-mirrors"&gt;http://docs.kali.org/community/kali-linux-mirrors&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;からkali linux 64bitをダウンロードする．&lt;br&gt;
+ミラーサイトの場合は，amd64が64bit  &lt;/p&gt;
+&lt;p&gt;sha1sumを確認してマッチするかちゃんと確かめる．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# openssl sha1sum {kaliのisoファイル}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;USBブート&lt;/h2&gt;
+&lt;p&gt;今回はUSBからブートする方法  &lt;/p&gt;
+&lt;h3&gt;dmgに変換&lt;/h3&gt;
+&lt;p&gt;kaliのisoイメージをdmgに変換．&lt;br&gt;
+kaliのisoがあるディレクトリで  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# hdiutil convert -format UDRW -o kali.dmg kali-linux-2016.1-amd64.iso
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;USBのアンマウント&lt;/h3&gt;
+&lt;p&gt;まず，USBのデバイスパスの確認&lt;br&gt;
+USBをささない状態で以下を実行  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# diskutil
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;USBをさした状態で上記を実行  &lt;/p&gt;
+&lt;p&gt;この時，新たに認識されたデバイスがUSBなので&lt;br&gt;
+diskN の N　の部分をよく覚えておく．  &lt;/p&gt;
+&lt;p&gt;以下で，USBをアンマウントする  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# diskutil unmountDisk /dev/diskN
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;USBに書き込む&lt;/h3&gt;
+&lt;p&gt;以下でUSBに書き込み(結構時間かかる)  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# sudo dd if=kali.dmg of=/dev/diskN bs=1m
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ここでパス違えるともれなく&lt;strong&gt;死ぬ&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;書き込みが終わったら以下のコマンドでUSBを取り出す．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# diskutil eject /dev/diskN
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;起動&lt;/h2&gt;
+&lt;p&gt;USBを挿してインストールするPCを起動．  &lt;/p&gt;
+&lt;p&gt;Thinkpadでは起動メディアを選択できるのでF12キーを押しながら起動．  &lt;/p&gt;
+&lt;p&gt;この時うまく認識されなかったらBIOSの起動メディア順序を変えてみる(やり方は省略)  &lt;/p&gt;
+&lt;p&gt;それでもダメならUSB書き込みのプロセスをもう一度．  &lt;/p&gt;
+&lt;p&gt;うまくいったら&lt;/p&gt;
+&lt;h3&gt;kali 2.0 sanaの場合&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Graphicalinstall を選択してEnter&lt;/li&gt;
+&lt;li&gt;言語の選択-&amp;gt;「Japanese - 日本語」&lt;/li&gt;
+&lt;li&gt;国を選択-&amp;gt;「日本」&lt;/li&gt;
+&lt;li&gt;キーボードを選択-&amp;gt;「英語」(自分の環境に合わせて)&lt;/li&gt;
+&lt;li&gt;ネットワークの選択-&amp;gt;デフォルトでok&lt;/li&gt;
+&lt;li&gt;ドメイン名-&amp;gt;「localhost」&lt;/li&gt;
+&lt;li&gt;パスワード設定-&amp;gt;任意のパスワード&lt;/li&gt;
+&lt;li&gt;ディスクのパーティショニング-&amp;gt;「ディスク全体」-&amp;gt;USBじゃないHDDを選択-&amp;gt;「すべての．．．」-&amp;gt;「パーティショニングの終了とディスクへの変更の書き込み」-&amp;gt;「はい」&lt;/li&gt;
+&lt;li&gt;ネットワークミラー-&amp;gt;「はい」&lt;/li&gt;
+&lt;li&gt;プロキシ-&amp;gt;デフォルトでok&lt;/li&gt;
+&lt;li&gt;GRUBブートローダ-&amp;gt;「はい」&lt;/li&gt;
+&lt;li&gt;デバイスの変換-&amp;gt;「/dev/sda」&lt;/li&gt;
+&lt;li&gt;「続ける」を選択&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;-&amp;gt;勝手に再起動-&amp;gt;ユーザ:root，パスワードでログイン  &lt;/p&gt;
+&lt;p&gt;ログインできたら成功  &lt;/p&gt;
+&lt;h3&gt;kali rolling edition の場合&lt;/h3&gt;
+&lt;p&gt;言語を日本語にしてインストールすると &lt;code&gt;apt-get update upgrade&lt;/code&gt; 後に環境が壊れるバグ(?)が起きたので初期言語を英語にしといて後で日本語に設定する．  &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Graphicalinstall を選択してEnter&lt;/li&gt;
+&lt;li&gt;言語の選択-&amp;gt;「English」(?)&lt;/li&gt;
+&lt;li&gt;国を選択-&amp;gt;「日本」&lt;/li&gt;
+&lt;li&gt;キーボードを選択-&amp;gt;「英語」(自分の環境に合わせて)&lt;/li&gt;
+&lt;li&gt;ネットワークの選択-&amp;gt;デフォルトでok&lt;/li&gt;
+&lt;li&gt;ドメイン名-&amp;gt;「localhost」&lt;/li&gt;
+&lt;li&gt;パスワード設定-&amp;gt;任意のパスワード&lt;/li&gt;
+&lt;li&gt;ディスクのパーティショニング-&amp;gt;「ディスク全体」-&amp;gt;USBじゃないHDDを選択-&amp;gt;「すべての．．．」-&amp;gt;「パーティショニングの終了とディスクへの変更の書き込み」-&amp;gt;「はい」&lt;/li&gt;
+&lt;li&gt;ネットワークミラー-&amp;gt;「はい」&lt;/li&gt;
+&lt;li&gt;プロキシ-&amp;gt;デフォルトでok&lt;/li&gt;
+&lt;li&gt;GRUBブートローダ-&amp;gt;「はい」&lt;/li&gt;
+&lt;li&gt;デバイスの変換-&amp;gt;「/dev/sda」&lt;/li&gt;
+&lt;li&gt;「続ける」を選択&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;-&amp;gt;勝手に再起動-&amp;gt;ユーザ:root，パスワードでログイン  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ dpkg-reconfigure locales
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;スペースで &lt;code&gt;ja-JP.UTF-8 UTF-8&lt;/code&gt; を選択-&amp;gt;エンター&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ reboot
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ログインできて日本語になってれば成功  &lt;/p&gt;
+&lt;h3&gt;こっからsanaもrollingも一緒&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://docs.kali.org/general-use/kali-linux-sources-list-repositories"&gt;http://docs.kali.org/general-use/kali-linux-sources-list-repositories&lt;/a&gt; に従って，&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ vim /etc/apt/sources.list
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以下を記載&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;deb&lt;/span&gt; &lt;span class="s"&gt;http://http.kali.org/kali&lt;/span&gt; &lt;span class="kp"&gt;kali-rolling&lt;/span&gt; &lt;span class="kp"&gt;main&lt;/span&gt; &lt;span class="kp"&gt;contrib&lt;/span&gt; &lt;span class="kp"&gt;non-free&lt;/span&gt;
+&lt;span class="c"&gt;# For source package access, uncomment the following line&lt;/span&gt;
+&lt;span class="k"&gt;deb-src&lt;/span&gt; &lt;span class="s"&gt;http://http.kali.org/kali&lt;/span&gt; &lt;span class="kp"&gt;kali-rolling&lt;/span&gt; &lt;span class="kp"&gt;main&lt;/span&gt; &lt;span class="kp"&gt;contrib&lt;/span&gt; &lt;span class="kp"&gt;non-free&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以下を実行&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ apt-get update
+$ apt-get dist-upgrade
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;upgradeの方がうまくできなかったら&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ apt-get dist-upgrade --fix-missing
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;途中で日本語表記が崩れますがすぐに直る  &lt;/p&gt;
+&lt;p&gt;直らなければ．．．  &lt;/p&gt;
+&lt;h2&gt;日本語入力環境&lt;/h2&gt;
+&lt;p&gt;以下を実行&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ apt-get install uim uim-anthy
+$ reboot &lt;span class="c1"&gt;#再起動&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以上．&lt;/p&gt;</content><category term="security"></category><category term="El_Capitan"></category><category term="kali_linux"></category></entry><entry><title>WEBセキュリティ</title><link href="https://www.lapis-zero09.xyz/14th.html" rel="alternate"></link><published>2016-05-11T22:00:00+09:00</published><updated>2016-05-11T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-05-11:/14th.html</id><summary type="html">&lt;p&gt;情報セキュリティ入門第5章まとめ．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;WEBセキュリティ&lt;/h1&gt;
+&lt;p&gt;&lt;a href="http://www.amazon.co.jp/%E6%83%85%E5%A0%B1%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E5%85%A5%E9%96%80-%E7%AC%AC3%E7%89%88-%EF%A8%9E%E5%AE%A4-%E8%8B%B1%E5%A4%AA%E9%83%8E/dp/4766421655/ref=pd_sim_14_3?ie=UTF8&amp;amp;dpID=51L1j2RYMNL&amp;amp;dpSrc=sims&amp;amp;preST=_AC_UL160_SR113%2C160_&amp;amp;refRID=1MW1F8KA1HKMPSYHV7FN"&gt;羽室 英太郎．情報セキュリティ入門．第3版，東京，慶應義塾大学出版会，2014，379p．&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;1.webサイトのセキュリティとは&lt;/h2&gt;
+&lt;h3&gt;非武装地帯&lt;/h3&gt;
+&lt;h4&gt;数年前まで&lt;/h4&gt;
+&lt;p&gt;-&amp;gt;攻撃が内部まで侵入しないよう非武装地域(DMS:DeMilitarixed Zone)を設けていた&lt;br&gt;
+  (ここに外部公開用のサーバなどを設置し，内部LANとファイアウォールによって隔離する)  &lt;/p&gt;
+&lt;p&gt;といった物理的方式が一般的だった．  &lt;/p&gt;
+&lt;p&gt;攻撃：サーバやOSを狙ったもの&lt;/p&gt;
+&lt;h4&gt;現在&lt;/h4&gt;
+&lt;p&gt;様々なサービスのポータルとなった今，個人情報などのデータベースとの密接な連携  &lt;/p&gt;
+&lt;p&gt;-&amp;gt;webを経由するサービスを処理するwebアプリへの攻撃  &lt;/p&gt;
+&lt;p&gt;--&amp;gt;webサイトへの脅威の中心&lt;/p&gt;
+&lt;h3&gt;脅威への対策&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;入力データの確認&lt;/li&gt;
+&lt;li&gt;アクセスコントロール&lt;/li&gt;
+&lt;li&gt;セッション管理&lt;/li&gt;
+&lt;li&gt;エラー処理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;-&amp;gt;個々のwebサイト毎に行い，webアプリケーション全体で十分なチェックが行われていなければ，ファイアウォールすり抜けられる可能性  &lt;/p&gt;
+&lt;p&gt;対策として&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;攻撃手法や脅威の理解&lt;/li&gt;
+&lt;li&gt;WAF(webアプリケーション・ファイアウォール)の導入&lt;/li&gt;
+&lt;li&gt;適切なセッション管理&lt;/li&gt;
+&lt;li&gt;認証技術の高度化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;体制の構築&lt;/h3&gt;
+&lt;p&gt;脅威の直接の対象-&amp;gt;webアプリ&lt;br&gt;
+クラッカーの狙い-&amp;gt;データベース  &lt;/p&gt;
+&lt;p&gt;セキュリティ=技術的=企業の営利活動に比較して瑣末なのでは(?)&lt;/p&gt;
+&lt;h3&gt;サイト全体のセキュリティ&lt;/h3&gt;
+&lt;p&gt;情報セキュリティポリシーの策定&lt;br&gt;
+それに伴って．．基づく体制の確保，対策推進  &lt;/p&gt;
+&lt;p&gt;-&amp;gt;サイバー攻撃・ウイルス・DoS攻撃(意図的脅威)，自然災害(環境的脅威)，アウトソーシングなど事業形態の変化に伴う構造的な脅威(非意図的要因)を考慮  &lt;/p&gt;
+&lt;h2&gt;2.webアプリケーションとは&lt;/h2&gt;
+&lt;h3&gt;利用環境&lt;/h3&gt;
+&lt;p&gt;端末側のOSの影響を受けない(クロスプラットフォーム)ブラウザとインターネット接続環境が必要&lt;/p&gt;
+&lt;h3&gt;webアプリの高速化&lt;/h3&gt;
+&lt;p&gt;WEB2.0 -&amp;gt; WEB3.0  &lt;/p&gt;
+&lt;p&gt;セマンティック・ウェブ(Semantic Web:webページに有意性を持たせることによる効率化)  &lt;/p&gt;
+&lt;p&gt;マッシュアップ(各種webサービスの融合)  &lt;/p&gt;
+&lt;p&gt;-&amp;gt;webページを華麗に彩るだけでなく様々なアプリやクラウドサービスの提供の高度化  &lt;/p&gt;
+&lt;p&gt;-&amp;gt;プログラミング技術などの複雑化  &lt;/p&gt;
+&lt;p&gt;基本：webアプリの開発-&amp;gt;MVC(Model-View-Controller)フレームワーク  &lt;/p&gt;
+&lt;p&gt;最近：Ajax(Asynchronous JavaScript + XML)やHTML5，DOM(Document Object Model)  &lt;/p&gt;
+&lt;h3&gt;セッションとは&lt;/h3&gt;
+&lt;p&gt;セッション：ユーザがリクエストした内容に対応するサーバがリプライを送る一連の流れ  &lt;/p&gt;
+&lt;p&gt;e.g.  ~~~~~~~~~&lt;br&gt;
+ユーザ：ネットショッピングにおいてログイン(id + pass)，注文，支払い手段，届け先-&amp;gt;リクエスト&lt;br&gt;
+サーバ：リクエスト&lt;br&gt;
+~~~~~~~~  &lt;/p&gt;
+&lt;h3&gt;ウェブアプリが狙われるのは&lt;/h3&gt;
+&lt;p&gt;セッションをユーザごとに区別するために番号を付して管理  &lt;/p&gt;
+&lt;p&gt;-&amp;gt;セッション管理が定型的なら攻撃対象に&lt;/p&gt;
+&lt;h2&gt;3.webに対する攻撃の進化&lt;/h2&gt;
+&lt;h3&gt;攻撃対象・手法の進化&lt;/h3&gt;
+&lt;p&gt;現在の攻撃手法
+- 従来型のサーバに対する攻撃手法
+  - セッションハイジャック，SQLiなどwebアプリの設定ミスや不具合を利用
+- 会社のサーバを攻撃-&amp;gt;ターゲットのサーバに侵入
+  - 難攻不落のサーバに侵入するよりは．．制作会社や保守管理用コンソールをウイルスに感染させ，ターゲットに侵入&lt;/p&gt;
+&lt;p&gt;-&amp;gt;踏み台にしたりクロスサイトからツールを持ってきたり．．etc.&lt;br&gt;
+--&amp;gt;一般ユーザに実行させるスクリプトを潜ませておいて，誘導されたユーザに攻撃させる&lt;br&gt;
+---&amp;gt;ユーザのクッキーやアカウント情報を抜き取ることも可能  &lt;/p&gt;
+&lt;h3&gt;検索エンジンの活用&lt;/h3&gt;
+&lt;p&gt;大手検索エンジンを利用して，セキュリティ技術情報を収集したり，脆弱性を有するサイトを抽出する&lt;br&gt;
+-&amp;gt;Googleハッキングなど&lt;br&gt;
+--&amp;gt;見つけたサイトにマルウェアなどをばら撒き，サーバに侵入してバックドアを仕掛けたり，用意したマルウェアの本体を入れたり．&lt;br&gt;
+ボットネットもこのような手法を用いてボット化したものが多い  &lt;/p&gt;
+&lt;h2&gt;4.セッション管理とは&lt;/h2&gt;
+&lt;p&gt;インターネット上でショッピングをしたり，購入時に必要な一連の画面遷移の流れ-&amp;gt;セッション&lt;br&gt;
+管理する手法は，サーバとユーザのブラウザが相互に認証する手法でもある．  &lt;/p&gt;
+&lt;p&gt;画面が変わるたびに一連の顧客番号などを入力するのは面倒&lt;br&gt;
+-&amp;gt;番号に代わる目印をどこかに埋め込み．認証情報を保持する仕組み  &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;hiddenパラメータを活用した方法&lt;/li&gt;
+&lt;li&gt;直接URLパラメータとして記入する方法(URLライティング)&lt;/li&gt;
+&lt;li&gt;Cookieを利用する方法&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;1. hiddenパラメータを用いる方法&lt;/h3&gt;
+&lt;p&gt;hiddenパラメータ-&amp;gt;HTMLの文書の見えない領域に記載する方法  &lt;/p&gt;
+&lt;p&gt;e.g.~~~~~~~~~&lt;br&gt;
+&amp;lt;\input type="hidden" name="sessionID" value="0001"&gt;\&lt;br&gt;
+.~~~~~~~~~~~~~&lt;br&gt;
+-&amp;gt; これだとソースで判読されて，コピーされたり，適当な値でセッションが乗っ取られる&lt;/p&gt;
+&lt;h3&gt;2. URLライティング方式&lt;/h3&gt;
+&lt;p&gt;URLに文字列を追加し，セッションIDを記述する方式  &lt;/p&gt;
+&lt;p&gt;JAVAやPHPなどの言語で，その書き換え(リライティング)方法が決められている  &lt;/p&gt;
+&lt;p&gt;e.g.~~~~~~~~~&lt;br&gt;
+&amp;lt;\a href="Index.html;sessionID=0001"&amp;gt;......&amp;lt;\/a&amp;gt;\&lt;br&gt;
+.~~~~~~~~~~~~~  &lt;/p&gt;
+&lt;p&gt;-&amp;gt;他人がこのID番号を使ったり，IDを類推することで乗っ取られる&lt;/p&gt;
+&lt;h3&gt;3. Cookieを利用する方法&lt;/h3&gt;
+&lt;p&gt;Cookieは画面表示設定情報などをサーバ側で把握する以外に，webサイトを過去に訪れたことがあるのか，あるならば何回アクセスしたかなど，サーバ側の端末で利用状況を把握するアクセス解析に使用されることが多い．  &lt;/p&gt;
+&lt;p&gt;長い有効期限が設定されている固定値のCookieをセッション管理に利用すると，盗聴などによる「なりすまし」や「セッションハイジャック」が行われる可能性  &lt;/p&gt;
+&lt;p&gt;-&amp;gt;セッションIDには単純な番号や日時，IDなどを利用したものを使用せず，有効期限もログアウト時にはきちんとクリアされ，適切なログアウト処理が行われなかった場合でも速やかに破棄するように設定しておく必要性  &lt;/p&gt;
+&lt;p&gt;&lt;a href=""&gt;2038年問題&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;セッションに関する攻撃&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;セッションハイジャック&lt;/li&gt;
+&lt;li&gt;セッションフィクセーション&lt;/li&gt;
+&lt;li&gt;XSS&lt;/li&gt;
+&lt;li&gt;CSRF&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;5.セッションハイジャックとは&lt;/h2&gt;
+&lt;p&gt;以上のような手法で得たセッション番号をそのまま使用したり，生成番号を類推することで「セッション」の乗っ取りを行うこと&lt;/p&gt;
+&lt;h3&gt;盗聴対策&lt;/h3&gt;
+&lt;p&gt;適切な暗号化などにより通信路が保護されていないセキュアでない場合，クラッカーが通信路を盗聴すれば，Cookieや個人情報を入手することは容易  &lt;/p&gt;
+&lt;p&gt;SSLを用いて通信路を保護することが必要．  &lt;/p&gt;
+&lt;hr&gt;
+&lt;h2&gt;SSL 以下６章16 SSL&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;SSL&lt;/strong&gt; -&amp;gt;Secure Socket Layerの略．&lt;br&gt;
+コンピュータの処理において，異なるアプリケーション（プロセス）間の通信(ソケット層)を，暗号化手法などを活用してセキュアに行うもの．&lt;br&gt;
+IPアドレス，プロトコル，ポート番号を指定して利用する．  &lt;/p&gt;
+&lt;p&gt;e.g.~~~~~~~~~&lt;br&gt;
+http(Hypertext Transfer Protocol)-&amp;gt; 80番ポート  &lt;/p&gt;
+&lt;p&gt;https(Hypertext Transfer Protocol over SSL/TLS)-&amp;gt; 443番ポート&lt;br&gt;
+.~~~~~~~~~~~~  &lt;/p&gt;
+&lt;p&gt;公開鍵により共通鍵を暗号化して配送する仕組み  &lt;/p&gt;
+&lt;h2&gt;共通鍵と公開鍵の暗号方式の原理について&lt;/h2&gt;
+&lt;h3&gt;共通鍵-&amp;gt;秘密鍵, 対称鍵とも&lt;/h3&gt;
+&lt;p&gt;暗号化と復号化に使用する鍵が同じもの  &lt;/p&gt;
+&lt;p&gt;-&amp;gt;これを利用した暗号方式-&amp;gt;慣用暗号方式&lt;br&gt;
+　-&amp;gt;送受信相手が固定されていて同じ"鍵"を保有している場合, 簡単でわかりやすい暗号化手法&lt;br&gt;
+　-&amp;gt;鍵を入手すれば第三者でも容易に暗号文が解読可能  &lt;/p&gt;
+&lt;p&gt;一方, 公開鍵&lt;/p&gt;
+&lt;h3&gt;公開鍵&lt;/h3&gt;
+&lt;p&gt;「錠前と鍵」のように一対の"鍵"の組み合わせを作り, 暗号化と復号化の役目を分担させている暗号化手法  &lt;/p&gt;
+&lt;p&gt;公開鍵の数学的理論については後にまとめる  &lt;/p&gt;
+&lt;p&gt;-&amp;gt;公開鍵を公開しても容易には秘密鍵を求められない&lt;br&gt;
+-&amp;gt;乱数発生方法, パスフレーズなどが既知であれば, 公開鍵から秘密鍵を算出することが可能  &lt;/p&gt;
+&lt;h3&gt;鍵の配送について&lt;/h3&gt;
+&lt;p&gt;SSLでは, 基本的には共通鍵により暗号化を行い通信を行うが, &lt;br&gt;
+その共通鍵を安全に配送(通信相手と共有)するために, セッション毎に&lt;br&gt;
+サーバ側の公開鍵を用いて暗号化を行ってサーバ側に配送することで&lt;br&gt;
+当該ユーザとサーバのみが解読可能な共通鍵(セッション鍵)でデータを暗号化して通信を行う  &lt;/p&gt;
+&lt;p&gt;この際, サーバ側が適切な暗号化措置を行っていることを証明するために,&lt;br&gt;
+公開鍵が含まれている「サーバ証明書」をユーザに送付する&lt;/p&gt;
+&lt;p&gt;SSLに関する規格(IETF)は
+- TLS(Tranceport Layer Secrity)1.0 -&amp;gt; RFC2246
+- TLS1.1 -&amp;gt; RFC4346
+- TLS1.2 -&amp;gt; RFC5246&lt;/p&gt;
+&lt;p&gt;で規程されているが, 用語的には"SSL"や"SSL/TLS"と呼ばれる.  &lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;しかし, SSL(HTTPS)を用いているからといって安心できるわけではない&lt;br&gt;
+Cookieの発行時にはセキュアという属性をセットすることが可能&lt;br&gt;
+-&amp;gt;この設定を怠るとCookieが流れる(非暗号(HTTP)通信も)  &lt;/p&gt;
+&lt;p&gt;-&amp;gt;属性をsecureに設定  &lt;/p&gt;
+&lt;p&gt;HTTPSとHTTP両方でCookieを使う場合, それぞれ別のCookieを使う  &lt;/p&gt;
+&lt;h3&gt;Cookieを見る&lt;/h3&gt;
+&lt;p&gt;Firefox -&amp;gt; Live HTTP Headers  &lt;/p&gt;
+&lt;p&gt;最近のサイトはサーバと端末側で複数回往復して複雑な演算等を行わせて認証を行う&lt;br&gt;
+-&amp;gt;チャレンジ・アンド・レスポンス方式&lt;br&gt;
+--&amp;gt;USBメモリやSDカードなどのトークンを用いないトークンレス認証の一種．サーバ側から投げられた質問(チャレンジ)に対し，適切な回答(レスポンス)を行うことで正当なユーザと認めてもらう  &lt;/p&gt;
+&lt;p&gt;-&amp;gt;盗聴されても簡単にセッションIDが類推されない  &lt;/p&gt;
+&lt;p&gt;プログラムに備わるセッション番号を発生させる関数を古い状態のまま使うとダメ&lt;br&gt;
+-&amp;gt;暗号号理論に基づいてハッシュ値を生成させているもののMD5などの古い暗号化アルゴリスムを使用してたりすると危険  &lt;/p&gt;
+&lt;h2&gt;6.セッションフィクセーション&lt;/h2&gt;
+&lt;h3&gt;ハイジャックとの違い&lt;/h3&gt;
+&lt;p&gt;fixation = 固定&lt;br&gt;
+-&amp;gt;セッションが固定されているために攻撃される  &lt;/p&gt;
+&lt;p&gt;サーバとクライアント間でセッションが確立された状態で，盗聴やセッション番号の類推により横入り&lt;br&gt;
+-&amp;gt;セッションハイジャック  &lt;/p&gt;
+&lt;p&gt;セッション番号を攻撃者が用意してそれを利用者に使わせる&lt;br&gt;
+-&amp;gt;セッションフィクセーション  &lt;/p&gt;
+&lt;h3&gt;攻撃の仕組み&lt;/h3&gt;
+&lt;p&gt;攻撃者があらかじめセッションIDを用意&lt;br&gt;
+本物のサイトに似たサイトを用意&lt;br&gt;
+HTMLメールなどを被害者に送付&lt;br&gt;
+リンクを踏むとセットされていたセッションを奪われる&lt;br&gt;
+偽サイトから発行されたセッションIDを真正サイトが受理してしまうと攻撃者が被害者になりすましてアクセスできるように  &lt;/p&gt;
+&lt;p&gt;-&amp;gt;他ドメインのセッションIDを受理する，セッションの有効期限が長い・ログインした後に変化しない，ことが攻撃の背景  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;自ドメインが発行したセッションID(Cookie)かどうかチェックして，他のものを受け取らない&lt;/li&gt;
+&lt;li&gt;有効期限を短く設定&lt;/li&gt;
+&lt;li&gt;二重ログインの禁止&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;セッションリプレイ&lt;/h3&gt;
+&lt;p&gt;盗聴やXSSにより正当なユーザのセッションIDが再利用されることがある.  &lt;/p&gt;
+&lt;h2&gt;7.XSS&lt;/h2&gt;</content><category term="security"></category><category term="El_Capitan"></category></entry><entry><title>Permissionについて</title><link href="https://www.lapis-zero09.xyz/13th.html" rel="alternate"></link><published>2016-05-04T22:00:00+09:00</published><updated>2016-05-04T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-05-04:/13th.html</id><summary type="html">&lt;p&gt;CGI,HTMl等のPermission設定．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Permission&lt;/h1&gt;
+&lt;p&gt;いつか，  &lt;/p&gt;
+&lt;p&gt;忘れたときのために  &lt;/p&gt;
+&lt;h3&gt;r,w,xについて&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;r   4   読むことが可能（Read）&lt;/li&gt;
+&lt;li&gt;w   2   書くことが可能（Write）&lt;/li&gt;
+&lt;li&gt;x   1   実行が可能（eXecute）&lt;/li&gt;
+&lt;li&gt;-   0   なにもできない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Examples&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;777（rwxrwxrwx）  CGIスクリプトから操作するディレクトリ&lt;/li&gt;
+&lt;li&gt;755（rwxr-xr-x）  CGIスクリプトや通常のディレクトリなど&lt;/li&gt;
+&lt;li&gt;666（rw-rw-rw-）  データ記録など読み書き可能なファイル&lt;/li&gt;
+&lt;li&gt;644（rw-r--r-）   読むだけのファイル、HTMLやテキスト cssと画像ファイルもこれでok&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;3列の内訳&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;ユーザー(User)&lt;/strong&gt;
+  - ファイルやディレクトリの所有者、本人のこと&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;グループ(Group)&lt;/strong&gt;
+  - UNIXのシステムの利用者、本人が所属するグループ全員&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;その他(Other)&lt;/strong&gt;
+  - システムの利用者でもない、第三者のこと&lt;/p&gt;
+&lt;p&gt;以上．&lt;/p&gt;</content><category term="security"></category><category term="El_Capitan"></category></entry></feed>

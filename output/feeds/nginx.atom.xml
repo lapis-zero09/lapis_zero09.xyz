@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>題未定 - Nginx</title><link href="https://www.lapis-zero09.xyz/" rel="alternate"></link><link href="https://www.lapis-zero09.xyz/feeds/nginx.atom.xml" rel="self"></link><id>https://www.lapis-zero09.xyz/</id><updated>2016-07-09T22:00:00+09:00</updated><entry><title>NginxをHTTP/2対応にした話2</title><link href="https://www.lapis-zero09.xyz/23th.html" rel="alternate"></link><published>2016-07-09T22:00:00+09:00</published><updated>2016-07-09T22:00:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-07-09:/23th.html</id><summary type="html">&lt;p&gt;NginxをHTTP/2対応にした時のHowto．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Nginx&lt;/h1&gt;
+&lt;h2&gt;Nginx&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://www.lapis-zero09.xyz/forth.html"&gt;ここ&lt;/a&gt;の方法でHTTP/2に対応させると&lt;br&gt;
+Firefox 47系ではうまく表示されないという不具合が生じた．  &lt;/p&gt;
+&lt;p&gt;Firefoxをメインに使ってるので直す．  &lt;/p&gt;
+&lt;p&gt;Nginxの設定でCipherリストの部分が問題っぽかったので以下のように変更．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nt"&gt;ssl_ciphers&lt;/span&gt;  &lt;span class="nt"&gt;ECDHE&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nt"&gt;AESGCM&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nd"&gt;DHE&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nt"&gt;AESGCM&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nd"&gt;HIGH&lt;/span&gt;&lt;span class="o"&gt;:!&lt;/span&gt;&lt;span class="nt"&gt;aNULL&lt;/span&gt;&lt;span class="o"&gt;:!&lt;/span&gt;&lt;span class="nt"&gt;MD5&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;span class="nt"&gt;ssl_ciphers&lt;/span&gt;  &lt;span class="nt"&gt;AESGCM&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nd"&gt;HIGH&lt;/span&gt;&lt;span class="o"&gt;:!&lt;/span&gt;&lt;span class="nt"&gt;aNULL&lt;/span&gt;&lt;span class="o"&gt;:!&lt;/span&gt;&lt;span class="nt"&gt;MD5&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;これで一応はうまく動く．  &lt;/p&gt;
+&lt;p&gt;&lt;a href="https://mozilla.github.io/server-side-tls/ssl-config-generator/"&gt;Mozilla SSL Configuration Generator&lt;/a&gt;で確認すると，
+Cipherリストでは以下が推奨されているっぽい．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;ssl_ciphers&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;これに書き換える．  &lt;/p&gt;
+&lt;h2&gt;OCSP Stapling&lt;/h2&gt;
+&lt;p&gt;ついでにOCSP Staplingに対応させる．  &lt;/p&gt;
+&lt;p&gt;現在インストールしてある証明書からルート証明がどこかを確認．   &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo openssl s_client -connect www.lapis-zero09.xyz:443 -tls1 -status -reconnect &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; &amp;lt; /dev/null &lt;span class="p"&gt;|&lt;/span&gt; grep issuer
+&lt;span class="nv"&gt;issuer&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/C&lt;span class="o"&gt;=&lt;/span&gt;US/O&lt;span class="o"&gt;=&lt;/span&gt;Let&lt;span class="s1"&gt;&amp;#39;s Encrypt/CN=Let&amp;#39;&lt;/span&gt;s Encrypt Authority X3
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ルート証明書がない場合はダウンロード&lt;br&gt;
+lets encryptでインストールした証明書では/etc/letsencrypt/live/{FQDN}以下にchain.pemがあるので活用&lt;br&gt;
+Nginxの設定ファイルに以下を記述．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ssl_stapling on;
+ssl_stapling_verify on;
+ssl_trusted_certificate /etc/letsencrypt/live/{FQDN}/chain.pem;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以下のコマンドでOCSPに対応したかを確認．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; QUIT &lt;span class="p"&gt;|&lt;/span&gt; openssl s_client -connect www.lapis-zero09.xyz:443 -status &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt; /dev/null &lt;span class="p"&gt;|&lt;/span&gt; grep -A &lt;span class="m"&gt;17&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;OCSP response:&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; grep -B &lt;span class="m"&gt;17&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Next Update&amp;#39;&lt;/span&gt;
+OCSP response:
+&lt;span class="o"&gt;======================================&lt;/span&gt;
+OCSP Response Data:
+    OCSP Response Status: successful &lt;span class="o"&gt;(&lt;/span&gt;0x0&lt;span class="o"&gt;)&lt;/span&gt;
+    Response Type: Basic OCSP Response
+    Version: &lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;0x0&lt;span class="o"&gt;)&lt;/span&gt;
+    Responder Id: &lt;span class="nv"&gt;C&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; US, &lt;span class="nv"&gt;O&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; Let&lt;span class="s1"&gt;&amp;#39;s Encrypt, CN = Let&amp;#39;&lt;/span&gt;s Encrypt Authority X3
+    Produced At: Jul  &lt;span class="m"&gt;8&lt;/span&gt; &lt;span class="m"&gt;20&lt;/span&gt;:05:00 &lt;span class="m"&gt;2016&lt;/span&gt; GMT
+ ~~省略~~
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;OCSP Response Statusがsuccessfulとなっていれば対応完了&lt;br&gt;
+できていなければエラーログ確認&lt;br&gt;
+&lt;a href="https://www.ssllabs.com/ssltest/index.html"&gt;SSLLab&lt;/a&gt;のテストもやってみる．&lt;br&gt;
+(A+が出る(2016-07-09))&lt;/p&gt;
+&lt;p&gt;以上．&lt;/p&gt;</content><category term="さくらVPS"></category><category term="Nginx"></category><category term="http2"></category><category term="tls"></category><category term="Let'sEncrypt"></category></entry><entry><title>NginxをHTTP/2対応にした話</title><link href="https://www.lapis-zero09.xyz/4th.html" rel="alternate"></link><published>2016-03-03T22:01:00+09:00</published><updated>2016-03-03T22:01:00+09:00</updated><author><name>lapis_zero09</name></author><id>tag:www.lapis-zero09.xyz,2016-03-03:/4th.html</id><summary type="html">&lt;p&gt;NginxをHTTP/2対応にした時のHowto．&lt;/p&gt;</summary><content type="html">&lt;h1&gt;NginxをHTTP/2対応にした話&lt;/h1&gt;
+&lt;h2&gt;環境&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://qiita.com/lapis_zero09/items/a77db6bbeb5fa83742a6"&gt;ここ&lt;/a&gt;と&lt;a href="http://qiita.com/lapis_zero09/items/74b6ac261546dfee077e"&gt;ここ&lt;/a&gt;の初期設定が終わってる状態．&lt;/li&gt;
+&lt;li&gt;CentOS 6.7&lt;/li&gt;
+&lt;li&gt;Nginx 1.9.12&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;現状のnginx.conf&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;~省略~
+server &lt;span class="o"&gt;{&lt;/span&gt;
+  listen &lt;span class="m"&gt;80&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  server_name www.&lt;span class="o"&gt;{&lt;/span&gt;自分の契約しているドメイン&lt;span class="o"&gt;}&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  location / &lt;span class="o"&gt;{&lt;/span&gt;
+    root   /var/www&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;#公開したいドキュメントのルート&lt;/span&gt;
+    index  index.html&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="o"&gt;}&lt;/span&gt;
+  ~省略~
+&lt;span class="o"&gt;}&lt;/span&gt;
+~省略~
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;TLSに対応させる&lt;/h2&gt;
+&lt;h3&gt;証明書を取得する&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://github.com/letsencrypt/letsencrypt"&gt;Let's Encrypt&lt;/a&gt;を使って無料で証明書を取得する．&lt;/p&gt;
+&lt;p&gt;ホームディレクトリで&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; /usr/local/
+$ git clone https://github.com/letsencrypt/letsencrypt
+$ &lt;span class="nb"&gt;cd&lt;/span&gt; letsencrypt
+$ ./letsencrypt-auto --help
+$ ./letsencrypt-auto certonly --webroot -d www.&lt;span class="o"&gt;{&lt;/span&gt;自分の契約しているドメイン&lt;span class="o"&gt;}&lt;/span&gt; --webroot-path &lt;span class="o"&gt;{&lt;/span&gt;公開したいドキュメントのルートここでは/var/www&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;するとEnter email addressという画面が表示されるので、メールアドレスを入力．
+筆者はwhoisで登録されてるアドレスにしました．&lt;/p&gt;
+&lt;p&gt;&lt;Agree&gt; を選択．&lt;/p&gt;
+&lt;p&gt;うまくいくとこんな感じの表示が出る&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at
+   /etc/letsencrypt/live/itochan.jp/fullchain.pem. Your cert
+   will expire on &lt;span class="m"&gt;2016&lt;/span&gt;-03-08. To obtain a new version of the
+   certificate in the future, simply run Lets Encrypt again.
+ - If like Lets Encrypt, please consider supporting our work by:
+
+   Donating to ISRG / Lets Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;証明書取得を自動化する&lt;/h3&gt;
+&lt;p&gt;Let's encryptは証明書の期限が３ヶ月と短いので，自動更新する．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ su -
+$ crontab -e
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;以下を記載．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="m"&gt;00&lt;/span&gt; &lt;span class="m"&gt;05&lt;/span&gt; &lt;span class="m"&gt;01&lt;/span&gt; * * /usr/local/letsencrypt/letsencrypt-auto certonly --webroot -d www.&lt;span class="o"&gt;{&lt;/span&gt;自分の契約しているドメイン&lt;span class="o"&gt;}&lt;/span&gt; --webroot-path &lt;span class="o"&gt;{&lt;/span&gt;公開したいドキュメントのルートここでは/var/www&lt;span class="o"&gt;}&lt;/span&gt; --renew-by-default &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; nginx -s reload
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;TLSに対応させる&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;nginx.conf&lt;/code&gt; をいじる．
+http接続をhttps接続にリダイレクトさせる内容を&lt;br&gt;
+&lt;code&gt;listen 80&lt;/code&gt; の &lt;code&gt;server&lt;/code&gt; タグ内に書く．&lt;br&gt;
+&lt;code&gt;listen 443&lt;/code&gt; の &lt;code&gt;server&lt;/code&gt; タグのコメントを外してドキュメントルート等書く．&lt;br&gt;
+Let's Encryptで取得した証明書は &lt;code&gt;/etc/letsencrypt/live/www.{自分の契約しているドメイン}/&lt;/code&gt; 以下にあるのでそれを参照する旨を書く．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;~省略~
+server &lt;span class="o"&gt;{&lt;/span&gt;
+  listen &lt;span class="m"&gt;80&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  server_name www.&lt;span class="o"&gt;{&lt;/span&gt;自分の契約しているドメイン&lt;span class="o"&gt;}&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="m"&gt;301&lt;/span&gt; https://www.&lt;span class="o"&gt;{&lt;/span&gt;自分の契約しているドメイン&lt;span class="o"&gt;}&lt;/span&gt;&lt;span class="nv"&gt;$request_uri&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+server &lt;span class="o"&gt;{&lt;/span&gt;
+        listen       &lt;span class="m"&gt;443&lt;/span&gt; ssl&lt;span class="p"&gt;;&lt;/span&gt;
+        server_name  www.&lt;span class="o"&gt;{&lt;/span&gt;自分の契約しているドメイン&lt;span class="o"&gt;}&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        ~省略~
+        ssl_certificate      /etc/letsencrypt/live/www.&lt;span class="o"&gt;{&lt;/span&gt;自分の契約しているドメイン&lt;span class="o"&gt;}&lt;/span&gt;/fullchain.pem&lt;span class="p"&gt;;&lt;/span&gt;
+        ssl_certificate_key  /etc/letsencrypt/live/www.&lt;span class="o"&gt;{&lt;/span&gt;自分の契約しているドメイン&lt;span class="o"&gt;}&lt;/span&gt;/privkey.pem&lt;span class="p"&gt;;&lt;/span&gt;
+
+        location / &lt;span class="o"&gt;{&lt;/span&gt;
+            root   /var/www&lt;span class="p"&gt;;&lt;/span&gt;
+            index  index.html&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+~省略~
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;nginx.conf&lt;/code&gt; の文法チェック  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$  sudo nginx -t
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;okが出たらNginxをリロードする．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo nginx -s reload
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;一応アクセスできるか確認．&lt;br&gt;
+できたら&lt;a href="https://www.ssllabs.com/ssltest/index.html"&gt;SSLLab&lt;/a&gt;のテストもやってみる．&lt;br&gt;
+(BかCが出る)&lt;/p&gt;
+&lt;h3&gt;http2に対応させる&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;nginx.conf&lt;/code&gt; をいじる．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;~省略~
+server &lt;span class="o"&gt;{&lt;/span&gt;
+        listen       &lt;span class="m"&gt;443&lt;/span&gt; ssl http2&lt;span class="p"&gt;;&lt;/span&gt;
+        server_name  www.&lt;span class="o"&gt;{&lt;/span&gt;自分の契約しているドメイン&lt;span class="o"&gt;}&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        ~省略~
+        ssl_certificate      /etc/letsencrypt/live/www.&lt;span class="o"&gt;{&lt;/span&gt;自分の契約しているドメイン&lt;span class="o"&gt;}&lt;/span&gt;/fullchain.pem&lt;span class="p"&gt;;&lt;/span&gt;
+        ssl_certificate_key  /etc/letsencrypt/live/www.&lt;span class="o"&gt;{&lt;/span&gt;自分の契約しているドメイン&lt;span class="o"&gt;}&lt;/span&gt;/privkey.pem&lt;span class="p"&gt;;&lt;/span&gt;
+
+        ssl_ciphers  ECDHE+AESGCM:DHE+AESGCM:HIGH:!aNULL:!MD5&lt;span class="p"&gt;;&lt;/span&gt;
+        ssl_prefer_server_ciphers  on&lt;span class="p"&gt;;&lt;/span&gt;
+        location / &lt;span class="o"&gt;{&lt;/span&gt;
+            root   /var/www&lt;span class="p"&gt;;&lt;/span&gt;
+            index  index.html&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+~省略~
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;文法チェック，リロードの流れをもう一度．  &lt;/p&gt;
+&lt;h2&gt;SSLLabでA+をとる&lt;/h2&gt;
+&lt;p&gt;HTTP/2がTLSに求める制限&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TLSのバージョンは1.2以上&lt;/li&gt;
+&lt;li&gt;プロトコル選択にALPN(RFC7301)を使う&lt;/li&gt;
+&lt;li&gt;サーバ認証を共有できる接続は接続共有が可能&lt;/li&gt;
+&lt;li&gt;SNI(Server Name Indicator)拡張必須&lt;/li&gt;
+&lt;li&gt;SNI(Server Name Indicator)拡張必須&lt;/li&gt;
+&lt;li&gt;TLS Compression禁止&lt;/li&gt;
+&lt;li&gt;Renegotiation禁止&lt;/li&gt;
+&lt;li&gt;鍵長 (DHE 2048bit以上、ECDHE 224bit以上)サポート必須 • PFS必須 (DHE,
+ECDHE)&lt;/li&gt;
+&lt;li&gt;AEAD(GCM/CCM)以外の暗号方式をブラックリストとして利用禁止&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;そんなことはいいからやり方はよ&lt;/p&gt;
+&lt;h3&gt;DHEの鍵長増加&lt;/h3&gt;
+&lt;p&gt;2048bitのDHパラメータファイルを生成．&lt;br&gt;
+&lt;code&gt;nginx.conf&lt;/code&gt; があるフォルダで以下を実行．  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ openssl dhparam -out dhparam.pem &lt;span class="m"&gt;2048&lt;/span&gt;
+$ openssl dhparam -text -in dhparam.pem  -noout
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;nginx.conf&lt;/code&gt; のsslサーバの部分にDHパラメータのファイルを加える．&lt;br&gt;
+&lt;code&gt;nginx.conf&lt;/code&gt; をいじる．&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;~省略~
+server &lt;span class="o"&gt;{&lt;/span&gt;
+        listen       &lt;span class="m"&gt;443&lt;/span&gt; ssl http2&lt;span class="p"&gt;;&lt;/span&gt;
+        server_name  www.&lt;span class="o"&gt;{&lt;/span&gt;自分の契約しているドメイン&lt;span class="o"&gt;}&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        ~省略~
+        ssl_certificate      /etc/letsencrypt/live/www.&lt;span class="o"&gt;{&lt;/span&gt;自分の契約しているドメイン&lt;span class="o"&gt;}&lt;/span&gt;/fullchain.pem&lt;span class="p"&gt;;&lt;/span&gt;
+        ssl_certificate_key  /etc/letsencrypt/live/www.&lt;span class="o"&gt;{&lt;/span&gt;自分の契約しているドメイン&lt;span class="o"&gt;}&lt;/span&gt;/privkey.pem&lt;span class="p"&gt;;&lt;/span&gt;
+        ssl_dhparam          dhparam.pem&lt;span class="p"&gt;;&lt;/span&gt;
+
+        ssl_ciphers  ECDHE+AESGCM:DHE+AESGCM:HIGH:!aNULL:!MD5&lt;span class="p"&gt;;&lt;/span&gt;
+        ssl_prefer_server_ciphers  on&lt;span class="p"&gt;;&lt;/span&gt;
+        location / &lt;span class="o"&gt;{&lt;/span&gt;
+            root   /var/www&lt;span class="p"&gt;;&lt;/span&gt;
+            index  index.html&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+~省略~
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;文法チェック，リロードの流れをもう一度．&lt;br&gt;
+&lt;a href="https://www.ssllabs.com/ssltest/index.html"&gt;SSLLab&lt;/a&gt;のテストもやってみる．&lt;br&gt;
+(AかA-が出る)&lt;/p&gt;
+&lt;h3&gt;HSTSヘッダ&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;nginx.conf&lt;/code&gt; のsslサーバの部分にHSTSヘッダを返すように以下の設定を追加．&lt;br&gt;
+(max-ageは半年に設定)  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;~省略~
+server &lt;span class="o"&gt;{&lt;/span&gt;
+        listen       &lt;span class="m"&gt;443&lt;/span&gt; ssl http2&lt;span class="p"&gt;;&lt;/span&gt;
+        server_name  www.&lt;span class="o"&gt;{&lt;/span&gt;自分の契約しているドメイン&lt;span class="o"&gt;}&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        add_header Strict-Transport-Security &lt;span class="s2"&gt;&amp;quot;max-age=15768000; includeSubdomains&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+        ssl_certificate      /etc/letsencrypt/live/www.&lt;span class="o"&gt;{&lt;/span&gt;自分の契約しているドメイン&lt;span class="o"&gt;}&lt;/span&gt;/fullchain.pem&lt;span class="p"&gt;;&lt;/span&gt;
+        ssl_certificate_key  /etc/letsencrypt/live/www.&lt;span class="o"&gt;{&lt;/span&gt;自分の契約しているドメイン&lt;span class="o"&gt;}&lt;/span&gt;/privkey.pem&lt;span class="p"&gt;;&lt;/span&gt;
+        ssl_dhparam          dhparam.pem&lt;span class="p"&gt;;&lt;/span&gt;
+        ssl_session_cache    shared:SSL:1m&lt;span class="p"&gt;;&lt;/span&gt;
+        ssl_session_timeout  5m&lt;span class="p"&gt;;&lt;/span&gt;
+
+        ssl_ciphers  ECDHE+AESGCM:DHE+AESGCM:HIGH:!aNULL:!MD5&lt;span class="p"&gt;;&lt;/span&gt;
+        ssl_prefer_server_ciphers  on&lt;span class="p"&gt;;&lt;/span&gt;
+        location / &lt;span class="o"&gt;{&lt;/span&gt;
+            root   /var/www&lt;span class="p"&gt;;&lt;/span&gt;
+            index  index.html&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+~省略~
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;文法チェック，リロードの流れをもう一度．&lt;br&gt;
+&lt;a href="https://www.ssllabs.com/ssltest/index.html"&gt;SSLLab&lt;/a&gt;のテストもやってみる．&lt;br&gt;
+(A+が出る(2016-03-03))&lt;/p&gt;</content><category term="さくらVPS"></category><category term="Nginx"></category><category term="http2"></category><category term="tls"></category><category term="Let'sEncrypt"></category></entry></feed>
