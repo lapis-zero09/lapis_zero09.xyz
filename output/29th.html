@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="題未定, ">
+
+
+        <title>意味表現学習まわり // 題未定 // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="theme/css/pure.css">
+    <link rel="stylesheet" href="https://www.lapis-zero09.xyz/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-74593186-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+    <div class="pure-g-r" id="layout">
+        <div class="sidebar pure-u">
+            <div class="cover-img" style="background: none repeat scroll 0% 0% #3D4F5D">
+                <div class="cover-body">
+                    <header class="header">
+                        <hgroup>
+                            <a href="https://www.lapis-zero09.xyz/about/about.html"><img class="avatar" src="./img/profile.jpg"></a>
+                            <h1 class="brand-main"><a href="https://www.lapis-zero09.xyz">題未定</a></h1>
+                            <p class="tagline"></p>
+                                <p class="social">
+                                    <a href="https://github.com/lapis-zero09">
+                                        <i class="fa fa-github fa-3x"></i>
+                                    </a>
+                                    <a href="https://twitter.com/lapis_zero09">
+                                        <i class="fa fa-twitter-square fa-3x"></i>
+                                    </a>
+                                    <a href="http://amzn.asia/8plng3k">
+                                        <i class="fa fa-gift fa-3x"></i>
+                                    </a>
+                                    <a href="http://qiita.com/lapis_zero09">
+                                        <i class="fa fa-search fa-3x"></i>
+                                    </a>
+                                </p>
+                        </hgroup>
+                    </header>
+                </div>
+            </div>
+        </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>意味表現学習まわり</h1>
+                        <p class="post-meta">
+                            // under                                 <a class="post-category" href="https://www.lapis-zero09.xyz/tag/nlp.html">NLP</a>
+                        </p>
+                </header>
+            </section>
+            <h1>CBOW SG GloVe</h1>
+<p>連続単語袋詰めモデル(continuous bag-of-words model，CBOW)
+と
+連続スキップグラムモデル(continuous skip-gram model，SG)
+は
+Mikolovらによって提案された単語の分散的意味表現手法．</p>
+<p>これらのモデルを公開しているツール→word2vec</p>
+<h2>CBOW</h2>
+<p>与えられた文脈の中で出現している文脈語を使って，ある対象語が出現しているかどうかを予測可能な意味表現を学習．</p>
+<p>対象語 意味を表現したい単語
+文脈語 ある単語の周辺に現れる単語</p>
+<p>文s = 「私はご飯と味噌汁を食べた．」について，</p>
+<p>形態素は，[私，は，ご飯，と，味噌汁，を，食べた]</p>
+<p>対象語を「ご飯」とすると，それ以外の語が文脈語として用い，「ご飯」の出現を予測．</p>
+<p>CBOWモデルでは，文章中に[私，は，と，味噌汁，を，食べた]という文脈語が出現していた時に，
+その文章中に「ご飯」という単語が出現するかどうか予測できるように，
+それぞれの単語の意味表現ベクトルを更新することが目的．</p>
+<p>1つの単語につき，d次元のベクトル</p>
+<p>i番目の単語が対象語の場合，その単語の対象語ベクトル<span class="math">\(\boldsymbol{x}_i\)</span>を使用．</p>
+<p>i番目の単語が文脈語の場合，その単語の文脈語ベクトル<span class="math">\(\boldsymbol{z}_i\)</span>を使用．</p>
+<p>対象語xが文脈中のi番目の単語して出現している場合，xを中心とする(2k+1)個の単語からなる文脈
+<span class="math">\((i-k), \cdots, (i-1), i, (i+1), \cdots, (i+k)\)</span>
+を使って予測する問題を考える．</p>
+<p>この文脈中に出現する文脈語についての文脈ベクトルを
+<span class="math">\(\boldsymbol{z}_{i-k}, \cdots, \boldsymbol{z}_{i-1}, \boldsymbol{z}_{i+1}, \cdots, \boldsymbol{z}_{i+k}\)</span>
+とすると対象語の出現確率は，
+<span class="math">\(p(\boldsymbol{x}_i|\boldsymbol{z}_{i-k}, \cdots, \boldsymbol{z}_{i-1}, \boldsymbol{z}_{i+1}, \cdots, \boldsymbol{z}_{i+k})\)</span>
+と表すことができる．</p>
+<p>→kを大きくするとより広い範囲で単語の共起が考慮可能．関係が低い離れた単語同士の共起も考慮されてしまう</p>
+<p>→kはCBOWのハイパーパラメータ．Mikolovらは<span class="math">\(k=2\)</span>として5単語からなる文脈窓を用いて学習</p>
+<p>問題:長い連続する単語列の出現は大きなコーパスについても少ない→その出現確率を推定することは難しい</p>
+<p>CBOWにおける解決策:文脈語の出現順序を無視，下式で与えられる文脈語ベクトルの平均ベクトル<span class="math">\(\hat{\boldsymbol{x}}\)</span>を，対象語xの文脈を代表するベクトルとして用いる．</p>
+<div class="math">$$
+\hat{\boldsymbol{x}} = \frac{1}{2k}(\boldsymbol{z}_{i-k} + \cdots + \boldsymbol{z}_{i-1} + \boldsymbol{z}_{i+1} + \cdots + \boldsymbol{z}_{i+k})
+$$</div>
+<p><span class="math">\(\boldsymbol{x}\)</span>と<span class="math">\(\hat{\boldsymbol{x}}\)</span>を用いて，対象語の出現確率をソフトマックス関数で以下のように計算</p>
+<div class="math">$$
+p(\boldsymbol{x}_i|\boldsymbol{z}_{i-k}, \cdots, \boldsymbol{z}_{i-1}, \boldsymbol{z}_{i+1}, \cdots, \boldsymbol{z}_{i+k}) = \frac{\exp(\hat{\boldsymbol{x}}^{\mathrm{T}} \boldsymbol{x})}{\sum_{x' \in \boldsymbol{\nu}}\exp(\hat{\boldsymbol{x}}^{\mathrm{T}} \boldsymbol{x'})}
+$$</div>
+<p><span class="math">\(\boldsymbol{\nu}\)</span>はコーパス中の全単語からなる語彙集合，<span class="math">\(\boldsymbol{x'}\)</span>は<span class="math">\(\boldsymbol{\nu}\)</span>中の単語を表す</p>
+<p>xが文章中に出現する可能性が高いほど右辺・分子の内積の値が大きくする</p>
+<p>1つの単語について2つのベクトルが付与される(文脈語ベクトルと対象語ベクトル)→単語の共起をベクトルの内積で表現しているから</p>
+<p>1つじゃダメなの？→1つの場合，<span class="math">\(\hat{\boldsymbol{x}}\)</span>の中にもxが現れることになり，<span class="math">\(\boldsymbol{x}^{\mathrm{T}} x\)</span>を小さくすることになる．</p>
+<p>→xの長さ(l2ノルム)を小さくすることになる</p>
+<p>→xのl2ノルムを変えてもソフトマックス関数はスケール不変</p>
+<p>→xをそのl2ノルムで割って正規化しても
+<span class="math">\(p(x_i|\boldsymbol{z}_{i-k}, \cdots, \boldsymbol{z}_{i-1}, \boldsymbol{z}_{i+1}, \cdots, \boldsymbol{z}_{i+k})\)</span>
+の値は変わらない</p>
+<p>→異なる2つのベクトルを使うことでこの問題を解決</p>
+<p>tips:単語の共起頻度を離散的な数ではなく，連続な値(ベクトルの内積)でモデル化しているので「continuous」</p>
+<p>上記では出現順序を無視し，文脈語の平均を使って文脈を表現したが，出現順序を保つベクトルを作成することも可能</p>
+<p>→文脈語のベクトルを連結する</p>
+<h2>SG</h2>
+<p>対象語を使って，文脈に出現している文脈語を予測する</p>
+<p>対象語の「ご飯」を持ちいて，他の単語([私，は，と，味噌汁，を，食べた])の出現を予測</p>
+<p>対象語xがi番目の単語として出現している文脈で他の単語を同時に予測する場合の確率を下式で計算．</p>
+<div class="math">$$
+p(z_{i-k}, \cdots, z_{i-1}, z_{i+1}, \cdots, z{i+k}|x) = p(z_{i-k}|x)\cdots p(z_{i-1}|x)p(z_{i+1}|x)\cdots p(z_{i+k}|x)
+$$</div>
+<p>※対象語xが与えられているとき，文脈語が全て独立</p>
+<p>独立性の仮定により，
+</p>
+<div class="math">$$
+p(z|x) = \frac{\exp(\boldsymbol{x}^{\mathrm{T}} \boldsymbol{z})}{\sum_{z' \in \boldsymbol{\nu} (x)}\exp(\boldsymbol{x}^{\mathrm{T}} \boldsymbol{z'})}
+$$</div>
+<p>(→「わかりやすいパターン認識」など参照のこと)</p>
+<p><span class="math">\(\boldsymbol{\nu} (x)\)</span>は対象語xが出現している文脈中での文脈語の集合．ある特定の文脈でxと共起する文脈語の集合ではなく，コーパス全体におけるxが出現する全ての文脈に関しての文脈語の集合</p>
+<p>CBOWと同様文脈として，対象語xを中心とするk個の単語からなる文脈窓を選ぶことも可能</p>
+<p>→kを固定せずに，それぞれのxの出現においてkとしてある区間内のランダム値を取るなど，文脈窓の幅を動的に決めることも可能</p>
+<p>n個の単語それぞれについて，d次元の対象語ベクトルを学習</p>
+<p>それぞれの単語について何らかの文脈で共起する文脈語が<span class="math">\(\boldsymbol{\nu} (x)\)</span>なので，その単語全てについてd次元の文脈語ベクトルを学習</p>
+<hr>
+<p>CBOWはSGに比べ，文脈語の独立性を近似していないため，より正確</p>
+<p>1対1の共起をモデル化しているSGに比べ，CBOWは1対複数の文脈語をモデル化しているので，複数の文脈語からなる単語列がコーパス中に十分な回数現れなければならない</p>
+<p>→CBOWはより大きなコーパスが必要</p>
+<h2>CBOWとSGのモデル最適化</h2>
+<p>SGのモデルについて，</p>
+<div class="math">$$
+p(z|x) = \frac{\exp(\boldsymbol{x}^{\mathrm{T}} \boldsymbol{z})}{\sum_{z' \in \boldsymbol{\nu} (x)}\exp(\boldsymbol{x}^{\mathrm{T}} \boldsymbol{z'})}
+$$</div>
+<p>xまたはzについて凸関数ではない→局所解が存在</p>
+<p>xのある要素に注目するとxとzの内積はその要素に対して線形な関数となる</p>
+<p>xかzのどちらかを固定した場合，片方の関数について上式は凸関数となる→双線形関数，交互最適化可能</p>
+<p>さらに，上式は\expを含むので対数をとることで対数双線形関数</p>
+<p>xかzを固定すると片方の変数に関してソフトマックス関数→多クラスロジスティック回帰としてみなせる</p>
+<h2>負例サンプリング</h2>
+<p>SGのモデルについて，単語の分散的意味表現を学習するために，
+ある単語と共起する単語(正例)だけでなく，
+共起しない単語(負例)に関する情報も必要</p>
+<p>→共起しない単語集合は膨大．その中から学習のために「良い負例」を選択しなければいけない</p>
+<p>→この負例手法のことを負例サンプリング(Negative Sampling)</p>
+<h3>SGのNegative Sampling</h3>
+<p>ある単語xの分散的意味表現<span class="math">\(\boldsymbol{x}\)</span>を求める問題を考える</p>
+<p>正例として扱える文脈語の集合を<span class="math">\(\boldsymbol{D}_{pos} = \boldsymbol{\nu} (x)\)</span>とし，負例の集合を<span class="math">\(\boldsymbol{D}_{neg} \in \boldsymbol{\nu}\)</span>とする</p>
+<p>それぞれの定義より，<span class="math">\(\boldsymbol{D}_{pos} \cup \boldsymbol{D}_{neg} = \phi\)</span></p>
+<p>この時，SGモデルで定義される共起の予測確率に従い，
+対数尤度を最大化するxの対象語ベクトルは下式で与えられる</p>
+<div class="math">$$
+\hat{\boldsymbol{x}} = argmax_{x} (\sum_{z \in \boldsymbol{D}_{pos}} \log(p(t=1|\boldsymbol{x} ,\boldsymbol{z})p_{pos}(z|x)) + \sum_{z \in \boldsymbol{D}_{neg}} \log(p(t=-1|\boldsymbol{x} ,\boldsymbol{z})p_{neg}(z|x)))
+$$</div>
+<p>右辺第1項は対象語xと共起する文脈語zに関する対数尤度を表す．
+その項の<span class="math">\(t=1\)</span>は正例であることを示す．</p>
+<p><span class="math">\(p_{pos}(z|x)\)</span>はxの正例集合<span class="math">\(\boldsymbol{D}_{pos}\)</span>での出現確率を表しており，
+正例集合はコーパス中に出現している単語集合<span class="math">\(\boldsymbol{\nu} (x)\)</span>なので，
+<span class="math">\(\sum_{z \in \boldsymbol{D}_{pos}} p_{pos}(z|x) = 1\)</span>となる</p>
+<p>右辺第2項について，負例<span class="math">\(\boldsymbol{\nu}\)</span>はランダムにサンプリングしているためサンプリング手法に依存する．</p>
+<p>本来なら負例は正例を除いた<span class="math">\(\boldsymbol{\nu}\)</span>からサンプリングすべきだが，<span class="math">\(\boldsymbol{\nu}\)</span>に比べ，<span class="math">\(\boldsymbol{D}_{pos}\)</span>は極めて小さいため近似的に<span class="math">\(\boldsymbol{D}_{neg}\)</span>を<span class="math">\(\boldsymbol{\nu}\)</span>からサンプリングしている</p>
+<p>→どの対象語xについても同一分布が使える利点</p>
+<p>サンプリング手法は？</p>
+<p>→SGではコーパス中で高出現確率である単語zが単語xの意味表現学習の負例として選ばれるように，単語zのユニグラム分布<span class="math">\(p(z)\)</span>に基づいて負例集合を選択</p>
+<p>負例が(x, z)のペアで決まるのなら，ユニグラム分布ではなく，xとzの同時分布からサンプリングすべきでは？</p>
+<p>→2単語の同時共起確率に比べ，1単語の出現確率がゼロになりにくいという利点．</p>
+<p>→膨大なコーパスから共起を計算するには大きな共起表を作らなければならず，空間計算量という点で好ましくない</p>
+<p>単語の出現はZipfの法則に従うので<span class="math">\(p(z)\)</span>はロングテールの分布となる．</p>
+<p>→<span class="math">\(p(z)\)</span>を3/4乗した値に比例する分布をサンプリング分布として用いている．</p>
+<p>→出現確率<span class="math">\(p(z)\)</span>が小さい文脈語zも比較的高頻度でサンプリングされるようになる</p>
+<p>以上より，</p>
+<div class="math">$$
+argmax_{x} (\sum_{z \in \boldsymbol{D}_{pos}} \log(p(t=1|\boldsymbol{x} ,\boldsymbol{z})) + \sum_{z \in \boldsymbol{D}_{neg}} \log((1 - p(t=1|\boldsymbol{x} ,\boldsymbol{z}))\tilde{p}(z))) = argmax_{x} (\sum_{z \in \boldsymbol{D}_{pos}} \log(\sigma (\boldsymbol{x}^{\mathrm{T}} \boldsymbol{z})) + \sum_{z \in \boldsymbol{D}_{neg}} \log(\sigma (-\boldsymbol{x}^{\mathrm{T}} \boldsymbol{z})\tilde{p}(z)))
+$$</div>
+<p><span class="math">\(\sigma(\theta)\)</span>はロジスティックシグモイド関数</p>
+<p>第2項の負例に関するサンプリング分布<span class="math">\(\tilde{p}(z)\)</span>はxに無関係．
+よって，第2項を期待値の形で書き表すことが可能</p>
+<div class="math">$$
+\sum_{z \in \boldsymbol{D}_{pos}} \log(\sigma (\boldsymbol{x}^{\mathrm{T}} \boldsymbol{z})) + E_{\tilde{p}(z)} [ \log(\sigma (-\boldsymbol{x}^{\mathrm{T}} \boldsymbol{z})) ]
+$$</div>
+<p>1つの正例に対して，k個の負例を用いる．</p>
+<p>負例はランダムに選択している擬似負例のため正例数に比べ，負例数を大きくしなければならない．</p>
+<p>実用的には<span class="math">\(k=20\)</span>．</p>
+<p>word2vecに実装されているCBOWとSGでは，
+非同期パラメータ更新による並列処理を行うことで学習時間の短縮</p>
+<p>→複数のスレッドを用いて，同一学習モデルを更新していく．</p>
+<p>→同じ学習モデルを更新すると互いに更新する値を打ち消しあう可能性，必ずしも正しく学習が行えるわけではない</p>
+<p>より正確にするには</p>
+<p>→オンライン学習の並列化でよく用いられるように反復的パラメータ混合方</p>
+<p>→スレッドごとに独立にモデルを持たせて，独立的に学習させたモデルを足し合わせる</p>
+<p>学習の正確さ トレードオフ 大量のデータから短時間で学習</p>
+<h2>階層型ソフトマックスによる近似計算</h2>
+<p>大規模なコーパスについて，多数の対象語と文脈語に関してベクトルを計算しなければならず，
+高速に計算できることが望まれる．</p>
+<div class="math">$$
+p(z|x) = \frac{\exp(\boldsymbol{x}^{\mathrm{T}} \boldsymbol{z})}{\sum_{z' \in \boldsymbol{\nu} (x)}\exp(\boldsymbol{x}^{\mathrm{T}} \boldsymbol{z'})}
+$$</div>
+<p>右辺分母は全文脈語彙集合にわたって規格化しなければならず，この計算に時間がかかる</p>
+<p>解決策</p>
+<p>→単語の階層構造を事前に事前に用意し，それに従って規格化を行う→階層型ソフトマックス</p>
+<p>→単語の出現を考慮する代わりに，その単語を含むグループを考慮できるので，
+式中の和の計算を行う際に，考慮すべき語彙集合を小さくできる</p>
+<p>ある単語xがある1つのグループにのみ含まれるようにグループ分けされていれば，
+全単語集合ではなく，このグループ内でのみxの確率を規格化しておけば良い</p>
+<p>言語モデル構築の際に，単語そのものの出現頻度の代わりに，単語グループの出現頻度を使うことで出現頻度が少ない単語の出現確率を求める手法から発想を得ている</p>
+<p>単語の階層構造をどのようにして作るか</p>
+<ol>
+<li>階層的クラスタリングで全ての単語を含む階層構造を作成</li>
+<li>すでに構築されている概念構造を使う</li>
+<li> WordNet→単語を語義ごとにグループ化<ul>
+<li>グループ間で上位下位関係が記述されている</li>
+</ul>
+</li>
+</ol>
+<p>階層的クラスタリングとWordNetを使って大規模なコーパスから単語の分散的意味表現を学習する際の問題点</p>
+<ul>
+<li>
+<p>階層的クラスタリングの場合</p>
+</li>
+<li>
+<p>単語と単語間の類似度とグループとグループ間の類似度を計算しなければならないため，計算時間がかかる</p>
+</li>
+<li>
+<p>どのような類似度尺度を使うべきかが明確ではない</p>
+<ul>
+<li>階層的クラスタリングによって作られる階層構造が，類似度尺度によって変わる</li>
+</ul>
+</li>
+<li>
+<p>WordNetの場合</p>
+</li>
+<li>
+<p>WordNetに登録されていない単語をどのように分類するか</p>
+</li>
+</ul>
+<p>word2vecではハフマン木を使うことで単語の階層構造を構築</p>
+<p>→単語の出現頻度を計算し，出現頻度の高い順にソート</p>
+<p>→階層的クラスタリングよりも計算量の点で有利</p>
+<p>→コーパス中の全ての単語がハフマン木のノードで表されているので未知語の問題が起きない</p>
+<p>単語の階層構造を用いて，どのようにして確率<span class="math">\(P(z|x)\)</span>を計算するか</p>
+<p>ハフマン木上で単語zに対する頂点を見つけ，根からその頂点への経路Path(z)を求める</p>
+<p>各ノードでは-1もしくは1という2つの枝があるため，<span class="math">\(p(z|x)\)</span>の予測確率をロジスティック関数を使って，次のように近似できる</p>
+<div class="math">\begin{eqnarray*}
+p(z|x) &amp;=&amp; \frac{\exp(\boldsymbol{x}^{\mathrm{T}} \boldsymbol{z})}{\sum_{z' \in \boldsymbol{\nu} (x)}\exp(\boldsymbol{x}^{\mathrm{T}} \boldsymbol{z'})}\\
+&amp; \approx &amp; \prod_{(l,y) \in Path(z)} p(t=l|\boldsymbol{x},\boldsymbol{y})\\
+&amp;=&amp; \prod_{(l,y) \in Path(z)} \sigma(l\boldsymbol{x}^{\mathrm{T}} \boldsymbol{y})
+\end{eqnarray*}</div>
+<p>yは根から単語zに対する葉への経路上のノードを表し，lは各ノードでの枝の値(1, -1)を表し，
+このlに対応する確率変数がt</p>
+<p>ハフマン木は単語の出現頻度だけを使って構築されているので，
+単語の意味的関係を反映しているとは言えないが元の式を近似するには十分な階層構造である．</p>
+<h2>大域ベクトル予測モデル</h2>
+<p>CBOWとSGはコーパスを一文単位で処理し，単語毎の2つのベクトルを更新している</p>
+<p>→単語の共起を予測する際に，一文に含まれている情報しか使うことができない</p>
+<p>→分散的意味表現ベクトルを学習する際に一文中の共起共起情報ではなく，
+分布的意味表現のように，コーパス全体における2つの単語共起情報を使う手法</p>
+<p>→大域ベクトル予測モデル(global vector prediction，GloVe)</p>
+<p>分布的意味表現のように，コーパス全体における対象語と文脈語のコーパス全体における共起頻度を計算し，
+共起行列<span class="math">\(\boldsymbol{x}\)</span>を作成</p>
+<p><span class="math">\(\boldsymbol{x}\)</span>の各行が対象語・各列が文脈語に対応しているとする</p>
+<p>→i番目の対象語iとj番目の文脈語jが共起する確率回数を<span class="math">\(\boldsymbol{x}\)</span>の(i,j)番目の要素<span class="math">\(\boldsymbol{x}_{ij}\)</span></p>
+<p>次の目的関数を最小化する対象語ベクトル<span class="math">\(\boldsymbol{x}_i\)</span>と文脈語ベクトル<span class="math">\(\boldsymbol{z}_j\)</span>を学習</p>
+<div class="math">$$
+J = \sum_{i,j=1}^{|\boldsymbol{\nu}|}f(X_{ij})(\boldsymbol{x}_i^{\mathrm{T}}\boldsymbol{z}_j + b_i + b_j - \log(X_{ij}))^2
+$$</div>
+<p><span class="math">\(b_i\)</span>と<span class="math">\(b_j\)</span>はスカラーのバイアス項</p>
+<p>→対象語ベクトルと文脈語ベクトルの内積を用いて，この共起頻度の対数を予測</p>
+<p>関数fは次の3つの性質を満たす関数</p>
+<ol>
+<li><span class="math">\(f(0)=0\)</span></li>
+<li>
+<p><span class="math">\(x \to 0\)</span>のとき<span class="math">\(\lim_{x \to 0} f(x)\log^2(x)\)</span>が有限の値を持つ．</p>
+<ul>
+<li>共起頻度が0であるペアに関してもJが無限大に発散してしまうのを防ぐ</li>
+</ul>
+</li>
+<li>
+<p><span class="math">\(f(x)\)</span>は単調増加関数．</p>
+</li>
+<li>
+<p>低共起頻度のペアを過剰評価するのを防ぐ</p>
+</li>
+<li>
+<p><span class="math">\(f(x)\)</span>はある閾値以上の共起頻度に関しては比較的小さな値を持つ</p>
+</li>
+<li>不要語など高頻出する単語との共起を過剰評価するのを防ぐ</li>
+</ol>
+<p>GloVeは<span class="math">\(f\)</span>に下式を採用</p>
+<div class="math">$$
+f(t) = \begin{cases}
+  (t/t_{max})^\alpha &amp; (t &lt; t_{max}) \\
+  1 &amp; (otherwise)
+\end{cases}
+$$</div>
+<p>Jは<span class="math">\(\boldsymbol{x}_i\)</span>あるいは<span class="math">\(\boldsymbol{z}_j\)</span>のどちらか一方を固定させた場合，
+片方に対して線形であり，双線形関数．</p>
+<p>→交互最適化手法</p>
+<hr>
+<ul>
+<li>GloVe → 目的関数が二乗誤差</li>
+<li>CBOW SG → 交差エントロピー誤差</li>
+</ul>
+<p>GloVeがCBOW SGと大きく異なる点→負例を必要としない</p>
+<p>→負例サンプリングを行うための様々な仮定や近似が不要になる</p>
+<p>n個の単語の共起情報を保存するためには{n(n-1)/2 - n}個の変数(自分自身の共起は計算しないので-n)が必要となる</p>
+<p>→空間情報量としては<span class="math">\(O(n^2)\)</span>のオーダーの変数が必要</p>
+<p>→共起行列をどのように計算するかがGloVeを用いて学習するための重要な前処理タスク</p>
+<p>→実際どうするか</p>
+<ol>
+<li>分散処理</li>
+<li>コーパス全体における各単語の出現頻度を求め，頻度が小さいものは共起行列に含まないようにする．</li>
+<li>出現頻度の低いもの→スペルミスの可能性</li>
+<li>出現頻度が低いと共起の可能性も低い→信頼できる統計情報が得られない可能性</li>
+<li>共起行列を構築するために最低2回コーパスを処理しなければならない</li>
+</ol>
+<p>→CBOWとSGは一文単位で学習できるのでオンライン学習が可能</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: ' ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+            <a href="#" class="go-top">Go Top</a>
+<footer class="footer">
+    <p>&copy; lapis_zero09 &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure-single">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+    </div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+
+</body>
+</html>

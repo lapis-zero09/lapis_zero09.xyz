@@ -15,6 +15,8 @@ THEME = './pure-single/'
 
 PLUGIN_PATHS = ['../pelican-plugins']
 PLUGINS = ['render_math']
+macros = ['./latex-macros.tex']
+MATH_JAX = {'color': '', 'align': 'centor', 'macros': macros}
 
 
 # Feed generation is usually not desired when developing
