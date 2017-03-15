@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = 'lapis_zero09'
 SITENAME = '題未定'
-SITEURL = 'https://www.lapis-zero09.xyz'
+SITEURL = 'https://www.lapis-zero09.xyz/indexp.html'
 # SITEURL = 'http://localhost:8000'
 TIMEZONE = 'Asia/Tokyo'
 DEFAULT_LANG = 'ja'
