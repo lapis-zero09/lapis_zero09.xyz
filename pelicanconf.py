@@ -35,7 +35,7 @@ LINKS = (('Pelican', 'http://getpelican.com/'),
 # Social widget
 SOCIAL = (
     ('github', 'https://github.com/lapis-zero09'),
-    ('twitter-square', 'https://twitter.com/lapis_zero09'),
+    ('rss-square', 'http://lapis-zero09.hatenablog.com/'),
     ('gift', 'http://amzn.asia/8plng3k'),
     ('search', 'http://qiita.com/lapis_zero09')
 )
